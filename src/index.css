@@ -3,6 +3,12 @@
   padding: 0;
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
 html {
   box-sizing: border-box;
 }
