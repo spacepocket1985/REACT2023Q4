@@ -5,7 +5,9 @@ import './PeopleList.css';
 class PeopleList extends Component {
   SwapiDevService = new SwapiDevService();
 
-  onRequest = () => this.SwapiDevService.getAllPeople();
+  onRequest = () => {
+    this.SwapiDevService.getAllPeople();
+  };
 
   render() {
     {
