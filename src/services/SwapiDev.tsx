@@ -1,28 +1,12 @@
-interface IPerson {
-  name: string;
-  height: number;
-  mass: number;
-  hair_color: string;
-  skin_color: string;
-  eye_color: string;
-  birth_year: Date;
-  gender: string;
-  homeworld: string;
-  films: string[];
-  species: [];
-  vehicles: string[];
-  starships: string[];
-  created: Date;
-  edited: Date;
-  url: string;
-}
+import { IPerson } from '../interfaces/IPerson';
+import { ISwapiData } from '../interfaces/ISwapiData';
 
-class SwapiDevService {
+export class SwapiDevService {
   _apiBase = 'https://swapi.dev/api/people/';
 
   _baseOffset = 210;
 
-  getResource = async (url: string = this._apiBase) => {
+  getResource = async (url: string = this._apiBase): Promise<ISwapiData> => {
     const res = await fetch(url);
 
     if (!res.ok) {
@@ -33,9 +17,9 @@ class SwapiDevService {
     return data;
   };
 
-  getAllPeople = async () => {
+  getAllPeople = async (): Promise<IPerson[]> => {
     const res = await this.getResource(this._apiBase);
-    console.log(res.results.map(this._transformPerson));
+    console.log(res);
     return res.results.map(this._transformPerson);
   };
 
@@ -44,7 +28,7 @@ class SwapiDevService {
   //     return this._transformCharacter(res.data.results[0]);
   // }
 
-  _transformPerson = (person: IPerson) => {
+  _transformPerson = (person: IPerson): IPerson => {
     return {
       name: person.name,
       height: person.height,
@@ -54,5 +38,3 @@ class SwapiDevService {
     };
   };
 }
-
-export default SwapiDevService;

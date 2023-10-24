@@ -1,0 +1,42 @@
+.persons-wrapper ul {
+  padding: 0;
+  margin: 20px -20px;
+  list-style: none;
+}
+
+.persons-wrapper li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: auto;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc;
+  background-color: #fff;
+  list-style-type: none;
+}
+
+.persons-wrapper li:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.persons-wrapper li:hover {
+  background-color: #dbe4f8;
+}
+
+.persons-wrapper button {
+  background-color: #fff;
+  color: red;
+  border: 1px solid red;
+  padding: 8px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.persons-wrapper button:hover {
+  background-color: #fdd;
+}
+
+.persons-wrapper .highlight {
+  background-color: #ff0;
+}
