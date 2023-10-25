@@ -9,14 +9,25 @@ class PersonsList extends Component<IPersonsListProps> {
   }
 
   render() {
+    const { personsList, nextPage, previousPage, onClickPaginationButton } = this.props;
     return (
       <div className="persons-wrapper">
-        <h2>SWAPI</h2>
+        <h2>[Category people]</h2>
         <ul>
-          {this.props.personsList.map((person, index) => (
+          {personsList.map((person, index) => (
             <Person key={index} personData={person} />
           ))}
         </ul>
+        {personsList && (nextPage || previousPage) ? (
+          <div className="pagination-wrapper">
+            <button disabled={!previousPage} onClick={() => onClickPaginationButton(previousPage)}>
+              Previous page
+            </button>
+            <button disabled={!nextPage} onClick={() => onClickPaginationButton(nextPage)}>
+              Next page
+            </button>
+          </div>
+        ) : null}
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { SwapiDevService } from './services/SwapiDev';
-import { IPerson } from './interfaces/IPerson';
+import { ISwapiData } from './interfaces/ISwapiData';
 import { IAppState } from './interfaces/IAppState';
 import SearchForm from './components/SearchForm/SearchForm';
 import PersonsList from './components/PersonsList/PersonsList';
@@ -10,6 +10,8 @@ import './App.css';
 class App extends Component {
   state: IAppState = {
     personsList: [],
+    nextPage: null,
+    previousPage: null,
     loading: true,
     error: false,
   };
@@ -20,24 +22,36 @@ class App extends Component {
     this.onRequest();
   }
 
-  onRequest = (): void => {
-    this.SwapiDevService.getAllPeople().then(this.onPersonListLoaded);
+  onRequest = (link?: string, personName?: string): void => {
+    this.SwapiDevService.getResource(link, personName).then(this.onPersonListLoaded);
   };
 
-  onPersonListLoaded = (newPersonsList: IPerson[]): void => {
-    this.setState({ personsList: [...this.state.personsList, ...newPersonsList] });
+  onPersonListLoaded = (swapiData: ISwapiData): void => {
+    this.setState({
+      personsList: [...swapiData.results],
+      nextPage: swapiData.next,
+      previousPage: swapiData.previous,
+    });
+  };
+
+  onClickPaginationButton = (url: string | null): void => {
+    url && this.onRequest(url);
   };
 
   render() {
-    const persons = this.state.personsList;
+    const { personsList, nextPage, previousPage } = this.state;
     return (
       <>
         <header>
-          <h1>Header title</h1>
           <SearchForm />
         </header>
         <main>
-          <PersonsList personsList={persons} />
+          <PersonsList
+            personsList={personsList}
+            nextPage={nextPage}
+            previousPage={previousPage}
+            onClickPaginationButton={this.onClickPaginationButton}
+          />
         </main>
       </>
     );
