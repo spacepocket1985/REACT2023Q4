@@ -16,7 +16,9 @@ export class SwapiDevService {
   };
 
   getResource = async (link = this._apiBase, personName?: string): Promise<ISwapiData> => {
-    const url = personName && personName.length > 0 ? `${link}?search/=${personName}` : link;
+    console.log('personName', personName);
+    const url = personName && personName.length > 0 ? `${link}?search=${personName}` : link;
+    console.log('url', url);
 
     const res = await fetch(url);
 

@@ -1,0 +1,8 @@
+.search-form {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-form input {
+  min-height: 2rem;
+}

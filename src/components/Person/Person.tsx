@@ -8,11 +8,11 @@ class Person extends Component<IPersonProps> {
   }
 
   render() {
-    const { name, height, mass } = this.props.personData;
+    const { name, height, mass, gender } = this.props.personData;
 
     return (
       <li>
-        {name} - {height} - {mass}
+        <span>{name}</span> {gender} - {height}cm - {mass}kg
       </li>
     );
   }

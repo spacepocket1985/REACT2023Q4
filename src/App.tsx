@@ -14,6 +14,7 @@ class App extends Component {
     previousPage: null,
     loading: true,
     error: false,
+    query: '',
   };
 
   SwapiDevService = new SwapiDevService();
@@ -22,13 +23,13 @@ class App extends Component {
     this.onRequest();
   }
 
-  onRequest = (link?: string, personName?: string): void => {
-    this.SwapiDevService.getResource(link, personName).then(this.onPersonListLoaded);
+  onRequest = (link?: string): void => {
+    this.SwapiDevService.getResource(link, this.state.query).then(this.onPersonListLoaded);
   };
 
   onPersonListLoaded = (swapiData: ISwapiData): void => {
     this.setState({
-      personsList: [...swapiData.results],
+      personsList: swapiData.results.map((item) => item),
       nextPage: swapiData.next,
       previousPage: swapiData.previous,
     });
@@ -38,12 +39,20 @@ class App extends Component {
     url && this.onRequest(url);
   };
 
+  onSearch = (query: string): void => {
+    this.setState({ query });
+  };
+
+  onSearchSubmit = (): void => {
+    this.onRequest();
+  };
+
   render() {
     const { personsList, nextPage, previousPage } = this.state;
     return (
       <>
         <header>
-          <SearchForm />
+          <SearchForm onSearch={this.onSearch} onSearchSubmit={this.onSearchSubmit} />
         </header>
         <main>
           <PersonsList
