@@ -1,16 +1,16 @@
 import { Component } from 'react';
-import { SwapiDevService } from './services/SwapiDev';
-import { ISwapiData } from './interfaces/ISwapiData';
+import { RickAndMortyAPI } from './services/RickAndMortyAPI';
+import { IRickAndMortyData } from './interfaces/IRickAndMortyData';
 import { IAppState } from './interfaces/IAppState';
 import Spinner from './components/Spinner/Spinner';
 import SearchForm from './components/SearchForm/SearchForm';
-import PersonsList from './components/PersonsList/PersonsList';
+import CharacterList from './components/CharactersList/CharactersList';
 
 import './App.css';
 
 class App extends Component {
   state: IAppState = {
-    personsList: [],
+    charactersList: [],
     nextPage: null,
     previousPage: null,
     loading: true,
@@ -18,7 +18,7 @@ class App extends Component {
     query: '',
   };
 
-  SwapiDevService = new SwapiDevService();
+  RickAndMortyService = new RickAndMortyAPI();
 
   componentDidMount() {
     this.onRequest();
@@ -26,14 +26,14 @@ class App extends Component {
 
   onRequest = (link?: string): void => {
     this.setState({ loading: true });
-    this.SwapiDevService.getResource(link, this.state.query).then(this.onPersonListLoaded);
+    this.RickAndMortyService.getResource(link, this.state.query).then(this.onPersonListLoaded);
   };
 
-  onPersonListLoaded = (swapiData: ISwapiData): void => {
+  onPersonListLoaded = (RickAndMortyData: IRickAndMortyData): void => {
     this.setState({
-      personsList: swapiData.results.map((item) => item),
-      nextPage: swapiData.next,
-      previousPage: swapiData.previous,
+      charactersList: RickAndMortyData.results.map((char) => char),
+      nextPage: RickAndMortyData.info.next,
+      previousPage: RickAndMortyData.info.prev,
       loading: false,
     });
   };
@@ -51,12 +51,12 @@ class App extends Component {
   };
 
   render() {
-    const { personsList, nextPage, previousPage, loading } = this.state;
+    const { charactersList, nextPage, previousPage, loading } = this.state;
 
     const spinner = loading ? <Spinner /> : null;
     const content = !loading ? (
-      <PersonsList
-        personsList={personsList}
+      <CharacterList
+        charactersList={charactersList}
         nextPage={nextPage}
         previousPage={previousPage}
         onClickPaginationButton={this.onClickPaginationButton}

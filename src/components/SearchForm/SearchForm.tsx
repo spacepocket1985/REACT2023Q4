@@ -24,7 +24,7 @@ class SearchForm extends Component<ISearchFormProps, ISearchState> {
   render() {
     return (
       <div className="search-wrapper">
-        <h2>The Star Wars API</h2>
+        <h2>Rick and Morty API</h2>
         <form className="search-form">
           <input
             type="text"

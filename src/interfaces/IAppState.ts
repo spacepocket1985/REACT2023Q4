@@ -1,7 +1,7 @@
-import { IPerson } from './IPerson';
+import { ICharacter } from './ICharacter';
 
 export interface IAppState {
-  personsList: IPerson[];
+  charactersList: ICharacter[];
   nextPage: null | string;
   previousPage: null | string;
   loading: boolean;

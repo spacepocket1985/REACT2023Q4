@@ -1,0 +1,15 @@
+.characters__Wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100vw;
+  background-color: #272b33;
+  margin-bottom: 1rem;
+}
+
+.pagination__Wrapper {
+  display: flex;
+  column-gap: 1rem;
+  justify-content: center;
+}

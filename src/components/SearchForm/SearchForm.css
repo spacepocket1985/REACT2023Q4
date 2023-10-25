@@ -1,8 +1,21 @@
+.search-wrapper {
+  background-color: #fff;
+}
+
+.search-wrapper h2 {
+  font-size: 3rem;
+}
+
 .search-form {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  column-gap: 2rem;
+  padding-bottom: 1rem;
 }
 
 .search-form input {
   min-height: 2rem;
+  border-radius: 8px;
+  border: 0.2rem solid #272b33;
+  padding: 0.6em 1.2em;
 }
