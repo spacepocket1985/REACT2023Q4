@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { SwapiDevService } from './services/SwapiDev';
 import { ISwapiData } from './interfaces/ISwapiData';
 import { IAppState } from './interfaces/IAppState';
+import Spinner from './components/Spinner/Spinner';
 import SearchForm from './components/SearchForm/SearchForm';
 import PersonsList from './components/PersonsList/PersonsList';
 
@@ -24,6 +25,7 @@ class App extends Component {
   }
 
   onRequest = (link?: string): void => {
+    this.setState({ loading: true });
     this.SwapiDevService.getResource(link, this.state.query).then(this.onPersonListLoaded);
   };
 
@@ -32,6 +34,7 @@ class App extends Component {
       personsList: swapiData.results.map((item) => item),
       nextPage: swapiData.next,
       previousPage: swapiData.previous,
+      loading: false,
     });
   };
 
@@ -48,19 +51,26 @@ class App extends Component {
   };
 
   render() {
-    const { personsList, nextPage, previousPage } = this.state;
+    const { personsList, nextPage, previousPage, loading } = this.state;
+
+    const spinner = loading ? <Spinner /> : null;
+    const content = !loading ? (
+      <PersonsList
+        personsList={personsList}
+        nextPage={nextPage}
+        previousPage={previousPage}
+        onClickPaginationButton={this.onClickPaginationButton}
+      />
+    ) : null;
+
     return (
       <>
         <header>
           <SearchForm onSearch={this.onSearch} onSearchSubmit={this.onSearchSubmit} />
         </header>
         <main>
-          <PersonsList
-            personsList={personsList}
-            nextPage={nextPage}
-            previousPage={previousPage}
-            onClickPaginationButton={this.onClickPaginationButton}
-          />
+          {spinner}
+          {content}
         </main>
       </>
     );
