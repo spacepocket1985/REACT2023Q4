@@ -4,7 +4,7 @@ import { RickAndMortyAPI } from './services/RickAndMortyAPI';
 import { IRickAndMortyData } from './interfaces/IRickAndMortyData';
 import { IAppState } from './interfaces/IAppState';
 import { getUserQuery } from './utils/localStorageActions';
-import ErrorBoundary from './components/ErrorBoundary/errorBoundary';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import Spinner from './components/Spinner/Spinner';
 import SearchForm from './components/SearchForm/SearchForm';
