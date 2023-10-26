@@ -86,7 +86,11 @@ class App extends Component<object, IAppState> {
     return (
       <>
         <header>
-          <SearchForm onSearchSubmit={this.onSearchSubmit} buttonStatus={loading} />
+          <SearchForm
+            onSearchSubmit={this.onSearchSubmit}
+            buttonStatus={loading}
+            hasError={error}
+          />
         </header>
         <main>
           {errorMessage}

@@ -31,6 +31,13 @@ class SearchForm extends Component<ISearchFormProps, ISearchState> {
   };
 
   render() {
+    const { buttonStatus, hasError } = this.props;
+    if (hasError) {
+      () => {
+        this.setState({ query: '' });
+      };
+    }
+
     return (
       <div className="search-wrapper">
         <h2>Rick and Morty API</h2>
@@ -42,7 +49,7 @@ class SearchForm extends Component<ISearchFormProps, ISearchState> {
             onChange={this.onUpdateSearch}
           />
           <button
-            disabled={this.props.buttonStatus}
+            disabled={buttonStatus}
             onClick={(e) => {
               this.onSubmit(e);
             }}
