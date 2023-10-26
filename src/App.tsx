@@ -1,12 +1,14 @@
 import { Component } from 'react';
+
 import { RickAndMortyAPI } from './services/RickAndMortyAPI';
 import { IRickAndMortyData } from './interfaces/IRickAndMortyData';
 import { IAppState } from './interfaces/IAppState';
+import { getUserQuery } from './utils/localStorageActions';
+import ErrorBoundary from './components/ErrorBoundary/errorBoundary';
+import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import Spinner from './components/Spinner/Spinner';
 import SearchForm from './components/SearchForm/SearchForm';
 import CharacterList from './components/CharactersList/CharactersList';
-
-import { getUserQuery } from './utils/localStorageActions';
 
 import './App.css';
 
@@ -34,7 +36,9 @@ class App extends Component<object, IAppState> {
 
   onRequest = (link?: string, query?: string): void => {
     this.setState({ loading: true });
-    this.RickAndMortyService.getResource(link, query).then(this.onPersonListLoaded);
+    this.RickAndMortyService.getResource(link, query)
+      .then(this.onPersonListLoaded)
+      .catch(this.onError);
   };
 
   onPersonListLoaded = (RickAndMortyData: IRickAndMortyData): void => {
@@ -43,7 +47,17 @@ class App extends Component<object, IAppState> {
       nextPage: RickAndMortyData.info.next,
       previousPage: RickAndMortyData.info.prev,
       loading: false,
+      error: false,
     });
+  };
+
+  onError = () => {
+    this.setState({
+      loading: false,
+      error: true,
+      query: '',
+    });
+    localStorage.removeItem('userQueryForSearch');
   };
 
   onClickPaginationButton = (url: string | null): void => {
@@ -56,10 +70,11 @@ class App extends Component<object, IAppState> {
   };
 
   render() {
-    const { charactersList, nextPage, previousPage, loading } = this.state;
+    const { charactersList, nextPage, previousPage, loading, error } = this.state;
 
+    const errorMessage = error ? <ErrorMessage /> : null;
     const spinner = loading ? <Spinner /> : null;
-    const content = !loading ? (
+    const content = !(loading || error) ? (
       <CharacterList
         charactersList={charactersList}
         nextPage={nextPage}
@@ -74,8 +89,9 @@ class App extends Component<object, IAppState> {
           <SearchForm onSearchSubmit={this.onSearchSubmit} buttonStatus={loading} />
         </header>
         <main>
+          {errorMessage}
           {spinner}
-          {content}
+          <ErrorBoundary>{content}</ErrorBoundary>
         </main>
       </>
     );

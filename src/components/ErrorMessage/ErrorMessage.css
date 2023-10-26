@@ -1,0 +1,11 @@
+.errorImg {
+  display: block;
+  width: 25rem;
+  height: 19.3rem;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.errorTitle {
+  font-size: 2.5rem;
+}

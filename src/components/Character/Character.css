@@ -1,6 +1,6 @@
 .characterCard__Wrapper {
-  width: 12rem;
-  height: 8rem;
+  width: 24rem;
+  height: 16rem;
   display: flex;
   overflow: hidden;
   background: #3c3e44;
@@ -33,9 +33,15 @@
   color: #ffffff;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  font-size: 1.6rem;
+}
+
+.characterCard__ContentWrapper div {
+  margin-bottom: 0.5rem;
 }
 
 .characterName {
-  font-size: 1.2rem;
+  font-size: 2rem;
   margin-bottom: 0.5rem;
 }

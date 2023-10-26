@@ -12,6 +12,7 @@
 
 html {
   box-sizing: border-box;
+  font-size: 10px;
 }
 
 h1,
@@ -36,6 +37,7 @@ body {
   min-height: 100vh;
   background-color: #fff;
   text-align: center;
+  font-size: 1.4rem;
 }
 
 h1 {
