@@ -12,7 +12,6 @@ class CharactersList extends Component<ICharactersListProps> {
     const { charactersList, nextPage, previousPage, onClickPaginationButton } = this.props;
     return (
       <>
-        {' '}
         <div className="characters__Wrapper">
           {charactersList.map((char) => (
             <Character key={char.id} charData={char} />

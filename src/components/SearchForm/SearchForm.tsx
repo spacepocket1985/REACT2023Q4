@@ -1,24 +1,33 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { ISearchState } from '../../interfaces/ISearchState';
 import { ISearchFormProps } from '../../interfaces/ISearchFormProps';
+import { getUserQuery, setUserQuery } from '../../utils/localStorageActions';
 import './SearchForm.css';
 
 class SearchForm extends Component<ISearchFormProps, ISearchState> {
   constructor(props: ISearchFormProps) {
     super(props);
   }
+
   state: ISearchState = {
     query: '',
   };
 
+  componentDidMount(): void {
+    let query = getUserQuery();
+    if (query === null) query = '';
+    this.setState({ query });
+  }
+
   onUpdateSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const queryString = event.target.value;
-    this.setState({ query: queryString });
-    this.props.onSearch(queryString);
+    const query = event.target.value;
+    this.setState({ query });
   };
 
-  onSubmit = (): void => {
-    this.props.onSearch(this.state.query);
+  onSubmit = (event: React.MouseEvent): void => {
+    event.preventDefault();
+    setUserQuery(this.state.query);
+    this.props.onSearchSubmit(this.state.query);
   };
 
   render() {
@@ -33,9 +42,9 @@ class SearchForm extends Component<ISearchFormProps, ISearchState> {
             onChange={this.onUpdateSearch}
           />
           <button
+            disabled={this.props.buttonStatus}
             onClick={(e) => {
-              e.preventDefault();
-              this.props.onSearchSubmit();
+              this.onSubmit(e);
             }}
           >
             Search results

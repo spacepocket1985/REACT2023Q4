@@ -1,4 +1,4 @@
 export interface ISearchFormProps {
-  onSearch: (query: string) => void;
-  onSearchSubmit: () => void;
+  onSearchSubmit: (query: string) => void;
+  buttonStatus: boolean;
 }

@@ -6,9 +6,12 @@
   background: #3c3e44;
   border-radius: 0.5rem;
   margin: 0.75rem;
-  box-shadow:
-    rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  transition: all 0.3s;
+  border: 0.15rem solid rgba(207, 201, 201, 0.5);
+}
+
+.characterCard__Wrapper:hover {
+  transform: scale(1.1);
 }
 
 .characterCard__ImgWrapper {

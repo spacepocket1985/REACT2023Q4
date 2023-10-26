@@ -6,27 +6,35 @@ import Spinner from './components/Spinner/Spinner';
 import SearchForm from './components/SearchForm/SearchForm';
 import CharacterList from './components/CharactersList/CharactersList';
 
+import { getUserQuery } from './utils/localStorageActions';
+
 import './App.css';
 
-class App extends Component {
-  state: IAppState = {
-    charactersList: [],
-    nextPage: null,
-    previousPage: null,
-    loading: true,
-    error: false,
-    query: '',
-  };
+class App extends Component<object, IAppState> {
+  constructor(props: object) {
+    super(props);
+    this.state = {
+      charactersList: [],
+      nextPage: null,
+      previousPage: null,
+      loading: true,
+      error: false,
+      query: '',
+    };
+  }
 
   RickAndMortyService = new RickAndMortyAPI();
 
   componentDidMount() {
-    this.onRequest();
+    let query = getUserQuery();
+    if (query === null) query = '';
+
+    this.onRequest(this.RickAndMortyService._apiBase, query);
   }
 
-  onRequest = (link?: string): void => {
+  onRequest = (link?: string, query?: string): void => {
     this.setState({ loading: true });
-    this.RickAndMortyService.getResource(link, this.state.query).then(this.onPersonListLoaded);
+    this.RickAndMortyService.getResource(link, query).then(this.onPersonListLoaded);
   };
 
   onPersonListLoaded = (RickAndMortyData: IRickAndMortyData): void => {
@@ -42,12 +50,9 @@ class App extends Component {
     url && this.onRequest(url);
   };
 
-  onSearch = (query: string): void => {
+  onSearchSubmit = (query: string): void => {
     this.setState({ query });
-  };
-
-  onSearchSubmit = (): void => {
-    this.onRequest();
+    this.onRequest(this.RickAndMortyService._apiBase, query);
   };
 
   render() {
@@ -66,7 +71,7 @@ class App extends Component {
     return (
       <>
         <header>
-          <SearchForm onSearch={this.onSearch} onSearchSubmit={this.onSearchSubmit} />
+          <SearchForm onSearchSubmit={this.onSearchSubmit} buttonStatus={loading} />
         </header>
         <main>
           {spinner}
