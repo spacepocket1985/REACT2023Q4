@@ -21,6 +21,7 @@ class App extends Component<object, IAppState> {
       previousPage: null,
       loading: true,
       error: false,
+      errorMsg: null,
       query: '',
     };
   }
@@ -51,11 +52,12 @@ class App extends Component<object, IAppState> {
     });
   };
 
-  onError = () => {
+  onError = (error: Error) => {
     this.setState({
       loading: false,
       error: true,
       query: '',
+      errorMsg: error.message,
     });
     localStorage.removeItem('userQueryForSearch');
   };
@@ -70,9 +72,9 @@ class App extends Component<object, IAppState> {
   };
 
   render() {
-    const { charactersList, nextPage, previousPage, loading, error } = this.state;
+    const { charactersList, nextPage, previousPage, loading, error, errorMsg } = this.state;
 
-    const errorMessage = error ? <ErrorMessage /> : null;
+    const errorMessage = error ? <ErrorMessage errorMsg={errorMsg} /> : null;
     const spinner = loading ? <Spinner /> : null;
     const content = !(loading || error) ? (
       <CharacterList
@@ -84,7 +86,7 @@ class App extends Component<object, IAppState> {
     ) : null;
 
     return (
-      <>
+      <ErrorBoundary>
         <header>
           <SearchForm
             onSearchSubmit={this.onSearchSubmit}
@@ -95,9 +97,9 @@ class App extends Component<object, IAppState> {
         <main>
           {errorMessage}
           {spinner}
-          <ErrorBoundary>{content}</ErrorBoundary>
+          {content}
         </main>
-      </>
+      </ErrorBoundary>
     );
   }
 }

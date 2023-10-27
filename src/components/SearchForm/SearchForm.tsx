@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ISearchState } from '../../interfaces/ISearchState';
 import { ISearchFormProps } from '../../interfaces/ISearchFormProps';
 import { getUserQuery, setUserQuery } from '../../utils/localStorageActions';
+import ErrorComponent from '../ErrorComponent/ErrorComponent';
 import './SearchForm.css';
 
 class SearchForm extends Component<ISearchFormProps, ISearchState> {
@@ -11,6 +12,7 @@ class SearchForm extends Component<ISearchFormProps, ISearchState> {
 
   state: ISearchState = {
     query: '',
+    testError: false,
   };
 
   componentDidMount(): void {
@@ -20,7 +22,7 @@ class SearchForm extends Component<ISearchFormProps, ISearchState> {
   }
 
   onUpdateSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const query = event.target.value;
+    const query = event.target.value.trim();
     this.setState({ query });
   };
 
@@ -30,8 +32,15 @@ class SearchForm extends Component<ISearchFormProps, ISearchState> {
     this.props.onSearchSubmit(this.state.query);
   };
 
+  onError = (event: React.MouseEvent): void => {
+    event.preventDefault();
+    this.setState({ testError: !this.state.testError });
+  };
+
   render() {
     const { buttonStatus, hasError } = this.props;
+    const testErrorBoundary = this.state.testError ? <ErrorComponent /> : null;
+
     if (hasError) {
       () => {
         this.setState({ query: '' });
@@ -39,25 +48,37 @@ class SearchForm extends Component<ISearchFormProps, ISearchState> {
     }
 
     return (
-      <div className="search-wrapper">
-        <h2>Rick and Morty API</h2>
-        <form className="search-form">
-          <input
-            type="text"
-            placeholder="person name for search"
-            value={this.state.query}
-            onChange={this.onUpdateSearch}
-          />
-          <button
-            disabled={buttonStatus}
-            onClick={(e) => {
-              this.onSubmit(e);
-            }}
-          >
-            Search results
-          </button>
-        </form>
-      </div>
+      <>
+        {testErrorBoundary}
+        <div className="search-wrapper">
+          <h2>Rick and Morty API</h2>
+          <form className="search-form">
+            <input
+              type="text"
+              placeholder="name for search"
+              value={this.state.query}
+              onChange={this.onUpdateSearch}
+            />
+            <button
+              disabled={buttonStatus}
+              onClick={(e) => {
+                this.onSubmit(e);
+              }}
+            >
+              Search results
+            </button>
+            <button
+              className="testBtn"
+              disabled={buttonStatus}
+              onClick={(e) => {
+                this.onError(e);
+              }}
+            >
+              Test ErrorBoundary
+            </button>
+          </form>
+        </div>
+      </>
     );
   }
 }

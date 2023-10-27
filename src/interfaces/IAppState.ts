@@ -5,6 +5,7 @@ export interface IAppState {
   nextPage: null | string;
   previousPage: null | string;
   loading: boolean;
-  error: boolean;
   query: string;
+  error: boolean;
+  errorMsg: null | string;
 }

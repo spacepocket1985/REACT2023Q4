@@ -1,6 +1,6 @@
 .characterCard__Wrapper {
-  width: 24rem;
-  height: 16rem;
+  width: 23rem;
+  height: 15rem;
   display: flex;
   overflow: hidden;
   background: #3c3e44;
@@ -44,4 +44,5 @@
 .characterName {
   font-size: 2rem;
   margin-bottom: 0.5rem;
+  font-weight: 600;
 }
