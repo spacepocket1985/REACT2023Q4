@@ -3,6 +3,7 @@ import { ISearchState } from '../../interfaces/ISearchState';
 import { ISearchFormProps } from '../../interfaces/ISearchFormProps';
 import { getUserQuery, setUserQuery } from '../../utils/localStorageActions';
 import ErrorComponent from '../ErrorComponent/ErrorComponent';
+import ricAndMortyImg from '../../assets/rick-and-morty.png';
 import './SearchForm.css';
 
 class SearchForm extends Component<ISearchFormProps, ISearchState> {
@@ -32,6 +33,12 @@ class SearchForm extends Component<ISearchFormProps, ISearchState> {
     this.props.onSearchSubmit(this.state.query);
   };
 
+  onClear = (event: React.MouseEvent): void => {
+    event.preventDefault();
+    setUserQuery('');
+    this.props.onSearchSubmit('', false);
+  };
+
   onError = (event: React.MouseEvent): void => {
     event.preventDefault();
     this.setState({ testError: !this.state.testError });
@@ -50,6 +57,7 @@ class SearchForm extends Component<ISearchFormProps, ISearchState> {
     return (
       <>
         {testErrorBoundary}
+        <img src={ricAndMortyImg} className="ricAndMortyImg" alt="ricAndMortyImg" />
         <div className="search-wrapper">
           <h2>Rick and Morty API</h2>
           <form className="search-form">
@@ -65,8 +73,18 @@ class SearchForm extends Component<ISearchFormProps, ISearchState> {
                 this.onSubmit(e);
               }}
             >
-              Search results
+              Search
             </button>
+            {!hasError ? null : (
+              <button
+                disabled={!hasError}
+                onClick={(e) => {
+                  this.onClear(e);
+                }}
+              >
+                start page
+              </button>
+            )}
             <button
               className="testBtn"
               disabled={buttonStatus}

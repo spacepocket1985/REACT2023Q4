@@ -23,3 +23,9 @@
 .testBtn {
   background-color: #ff4500;
 }
+
+.ricAndMortyImg {
+  width: 25rem;
+  opacity: 0.5;
+  margin: auto;
+}

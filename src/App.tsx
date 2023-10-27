@@ -66,9 +66,11 @@ class App extends Component<object, IAppState> {
     url && this.onRequest(url);
   };
 
-  onSearchSubmit = (query: string): void => {
+  onSearchSubmit = (query: string, error?: boolean): void => {
     this.setState({ query });
     this.onRequest(this.RickAndMortyService._apiBase, query);
+    console.log('er==>', error);
+    if (error) this.setState({ error });
   };
 
   render() {
@@ -87,13 +89,7 @@ class App extends Component<object, IAppState> {
 
     return (
       <ErrorBoundary>
-        <header>
-          <SearchForm
-            onSearchSubmit={this.onSearchSubmit}
-            buttonStatus={loading}
-            hasError={error}
-          />
-        </header>
+        <SearchForm onSearchSubmit={this.onSearchSubmit} buttonStatus={loading} hasError={error} />
         <main>
           {errorMessage}
           {spinner}
