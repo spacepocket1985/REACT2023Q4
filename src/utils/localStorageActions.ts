@@ -1,9 +1,9 @@
+const storageKey = 'userQueryForSearch';
+
 const setUserQuery = (value: string): void => {
-  value !== ''
-    ? localStorage.setItem('userQueryForSearch', value)
-    : localStorage.removeItem('userQueryForSearch');
+  value !== '' ? localStorage.setItem(storageKey, value) : localStorage.removeItem(storageKey);
 };
 
-const getUserQuery = (): string | null => localStorage.getItem('userQueryForSearch');
+const getUserQuery = (): string | null => localStorage.getItem(storageKey);
 
-export { setUserQuery, getUserQuery };
+export { storageKey, setUserQuery, getUserQuery };

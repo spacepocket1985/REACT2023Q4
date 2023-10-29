@@ -34,7 +34,7 @@ class ErrorBoundary extends Component<Props, State> {
               this.setState({ hasError: false });
             }}
           >
-            home page
+            go back
           </button>
         </>
       );

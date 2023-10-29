@@ -6,7 +6,8 @@ export class RickAndMortyAPI {
   _queryBase = '';
 
   getResource = async (link = this._apiBase, query?: string): Promise<IRickAndMortyData> => {
-    const url = query && query.length > 0 && query !== '' ? `${link}?name=${query}` : link;
+    const url =
+      query && query.length > 0 && query !== this._queryBase ? `${link}?name=${query}` : link;
 
     const res = await fetch(url);
 

@@ -68,7 +68,6 @@ class App extends Component<object, IAppState> {
   onSearchSubmit = (query: string, error?: boolean): void => {
     this.setState({ query });
     this.onRequest(this.RickAndMortyService._apiBase, query);
-    console.log('er==>', error);
     if (error) this.setState({ error });
   };
 
