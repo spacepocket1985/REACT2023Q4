@@ -3,6 +3,8 @@ import { IRickAndMortyData } from '../interfaces/IRickAndMortyData';
 export class RickAndMortyAPI {
   _apiBase = 'https://rickandmortyapi.com/api/character';
 
+  _queryBase = '';
+
   getResource = async (link = this._apiBase, query?: string): Promise<IRickAndMortyData> => {
     const url = query && query.length > 0 && query !== '' ? `${link}?name=${query}` : link;
 

@@ -33,12 +33,6 @@ class SearchForm extends Component<ISearchFormProps, ISearchState> {
     this.props.onSearchSubmit(this.state.query);
   };
 
-  onClear = (event: React.MouseEvent): void => {
-    event.preventDefault();
-    setUserQuery('');
-    this.props.onSearchSubmit('', false);
-  };
-
   onError = (event: React.MouseEvent): void => {
     event.preventDefault();
     this.setState({ testError: !this.state.testError });
@@ -75,16 +69,6 @@ class SearchForm extends Component<ISearchFormProps, ISearchState> {
             >
               Search
             </button>
-            {!hasError ? null : (
-              <button
-                disabled={!hasError}
-                onClick={(e) => {
-                  this.onClear(e);
-                }}
-              >
-                start page
-              </button>
-            )}
             <button
               className="testBtn"
               disabled={buttonStatus}

@@ -22,7 +22,7 @@ class App extends Component<object, IAppState> {
       loading: true,
       error: false,
       errorMsg: null,
-      query: '',
+      query: this.RickAndMortyService._queryBase,
     };
   }
 
@@ -30,7 +30,7 @@ class App extends Component<object, IAppState> {
 
   componentDidMount() {
     let query = getUserQuery();
-    if (query === null) query = '';
+    if (query === null) query = this.RickAndMortyService._queryBase;
 
     this.onRequest(this.RickAndMortyService._apiBase, query);
   }
@@ -56,10 +56,9 @@ class App extends Component<object, IAppState> {
     this.setState({
       loading: false,
       error: true,
-      query: '',
+      query: this.RickAndMortyService._queryBase,
       errorMsg: error.message,
     });
-    localStorage.removeItem('userQueryForSearch');
   };
 
   onClickPaginationButton = (url: string | null): void => {
