@@ -1,4 +1,4 @@
-.search-wrapper {
+.search-form__wrapper {
   background-color: #fff;
 }
 
@@ -16,11 +16,11 @@
   padding: 0.6em 1.2em;
 }
 
-.testBtn {
+.test-button {
   background-color: #ff4500;
 }
 
-.ricAndMortyImg {
+.rick-morty__img {
   width: 25rem;
   opacity: 0.5;
   margin: auto;

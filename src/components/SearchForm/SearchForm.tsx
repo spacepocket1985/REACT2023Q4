@@ -37,8 +37,8 @@ const SearchForm = (props: ISearchFormProps) => {
   return (
     <>
       {testErrorBoundary}
-      <img src={ricAndMortyImg} className="ricAndMortyImg" alt="ricAndMortyImg" />
-      <div className="search-wrapper">
+      <img src={ricAndMortyImg} className="rick-morty__img" alt="ricAndMortyImg" />
+      <div className="search-from__wrapper">
         <h2>Rick and Morty API</h2>
         <form className="search-form">
           <input
@@ -56,7 +56,7 @@ const SearchForm = (props: ISearchFormProps) => {
             Search
           </button>
           <button
-            className="testBtn"
+            className="test-button"
             disabled={buttonStatus}
             onClick={(e) => {
               onError(e);

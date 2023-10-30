@@ -2,7 +2,7 @@ import './CharacterInfo.css';
 
 const CharacterInfo = () => {
   return (
-    <div className="characterInfo__Wrapper">
+    <div className="character-info__wrapper">
       <h2>Character Info</h2>
       <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti fugit dolorem animi

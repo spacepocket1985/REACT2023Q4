@@ -5,14 +5,14 @@ const Character = (props: ICharacterProps) => {
   const { name, status, gender, image } = props.charData;
 
   return (
-    <div className="characterCard__Wrapper">
-      <div className="characterCard__ImgWrapper">
+    <div className="character-card__wrapper">
+      <div className="card-img__wrapper">
         <img src={image} alt={name} />
       </div>
-      <div className="characterCard__ContentWrapper">
-        <div className="characterName">{name}</div>
-        <div className="characterGender">{gender}</div>
-        <div className="characterStatus">{status}</div>
+      <div className="card-content__wrapper">
+        <div className="character-name">{name}</div>
+        <div>{gender}</div>
+        <div>{status}</div>
       </div>
     </div>
   );

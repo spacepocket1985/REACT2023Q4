@@ -6,13 +6,13 @@ const CharactersList = (props: ICharactersListProps) => {
   const { charactersList, nextPage, previousPage, onClickPaginationButton } = props;
   return (
     <>
-      <div className="characters__Wrapper">
+      <div className="characters__wrapper">
         {charactersList.map((char) => (
           <Character key={char.id} charData={char} />
         ))}
       </div>
       {charactersList && (nextPage || previousPage) ? (
-        <div className="pagination__Wrapper">
+        <div className="pagination__wrapper">
           <button disabled={!previousPage} onClick={() => onClickPaginationButton(previousPage)}>
             Previous page
           </button>
