@@ -1,8 +1,8 @@
-import { Component } from 'react';
+import { useState, useEffect } from 'react';
 
+import { IAppState } from './interfaces/IAppState';
 import { RickAndMortyAPI } from './services/RickAndMortyAPI';
 import { IRickAndMortyData } from './interfaces/IRickAndMortyData';
-import { IAppState } from './interfaces/IAppState';
 import { getUserQuery } from './utils/localStorageActions';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import ErrorMessage from './components/ErrorMessage/ErrorMessage';
@@ -12,38 +12,35 @@ import CharacterList from './components/CharactersList/CharactersList';
 
 import './App.css';
 
-class App extends Component<object, IAppState> {
-  constructor(props: object) {
-    super(props);
-    this.state = {
-      charactersList: [],
-      nextPage: null,
-      previousPage: null,
-      loading: true,
-      error: false,
-      errorMsg: null,
-      query: this.RickAndMortyService._queryBase,
-    };
-  }
+const App = () => {
+  const RickAndMortyService = new RickAndMortyAPI();
 
-  RickAndMortyService = new RickAndMortyAPI();
+  const [appData, setAppData] = useState<IAppState>({
+    charactersList: [],
+    nextPage: null,
+    previousPage: null,
+    error: false,
+    errorMsg: '',
+    loading: false,
+    query: RickAndMortyService._queryBase,
+  });
 
-  componentDidMount() {
+  useEffect(() => {
     let query = getUserQuery();
-    if (query === null) query = this.RickAndMortyService._queryBase;
+    if (query === null) query = RickAndMortyService._queryBase;
 
-    this.onRequest(this.RickAndMortyService._apiBase, query);
-  }
+    onRequest(RickAndMortyService._apiBase, query);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  onRequest = (link?: string, query?: string): void => {
-    this.setState({ loading: true });
-    this.RickAndMortyService.getResource(link, query)
-      .then(this.onPersonListLoaded)
-      .catch(this.onError);
+  const onRequest = (link?: string, query?: string): void => {
+    setAppData({ ...appData, loading: true });
+    RickAndMortyService.getResource(link, query).then(onPersonListLoaded).catch(onError);
   };
 
-  onPersonListLoaded = (RickAndMortyData: IRickAndMortyData): void => {
-    this.setState({
+  const onPersonListLoaded = (RickAndMortyData: IRickAndMortyData): void => {
+    setAppData({
+      ...appData,
       charactersList: RickAndMortyData.results.map((char) => char),
       nextPage: RickAndMortyData.info.next,
       previousPage: RickAndMortyData.info.prev,
@@ -52,50 +49,50 @@ class App extends Component<object, IAppState> {
     });
   };
 
-  onError = (error: Error) => {
-    this.setState({
+  const onError = (error: Error) => {
+    setAppData({
+      ...appData,
       loading: false,
       error: true,
-      query: this.RickAndMortyService._queryBase,
+      query: RickAndMortyService._queryBase,
       errorMsg: error.message,
     });
   };
 
-  onClickPaginationButton = (url: string | null): void => {
-    url && this.onRequest(url);
+  const onClickPaginationButton = (url: string | null): void => {
+    url && onRequest(url);
   };
 
-  onSearchSubmit = (query: string, error?: boolean): void => {
-    this.setState({ query });
-    this.onRequest(this.RickAndMortyService._apiBase, query);
-    if (error) this.setState({ error });
+  const onSearchSubmit = (query: string, error?: boolean): void => {
+    setAppData({ ...appData, query });
+
+    onRequest(RickAndMortyService._apiBase, query);
+    if (error) setAppData({ ...appData, error });
   };
 
-  render() {
-    const { charactersList, nextPage, previousPage, loading, error, errorMsg } = this.state;
+  const { charactersList, nextPage, previousPage, loading, error, errorMsg } = appData;
 
-    const errorMessage = error ? <ErrorMessage errorMsg={errorMsg} /> : null;
-    const spinner = loading ? <Spinner /> : null;
-    const content = !(loading || error) ? (
-      <CharacterList
-        charactersList={charactersList}
-        nextPage={nextPage}
-        previousPage={previousPage}
-        onClickPaginationButton={this.onClickPaginationButton}
-      />
-    ) : null;
+  const errorMessage = error ? <ErrorMessage errorMsg={errorMsg} /> : null;
+  const spinner = loading ? <Spinner /> : null;
+  const content = !(loading || error) ? (
+    <CharacterList
+      charactersList={charactersList}
+      nextPage={nextPage}
+      previousPage={previousPage}
+      onClickPaginationButton={onClickPaginationButton}
+    />
+  ) : null;
 
-    return (
-      <ErrorBoundary>
-        <SearchForm onSearchSubmit={this.onSearchSubmit} buttonStatus={loading} hasError={error} />
-        <main>
-          {errorMessage}
-          {spinner}
-          {content}
-        </main>
-      </ErrorBoundary>
-    );
-  }
-}
+  return (
+    <ErrorBoundary>
+      <SearchForm onSearchSubmit={onSearchSubmit} buttonStatus={loading} hasError={error} />
+      <main>
+        {errorMessage}
+        {spinner}
+        {content}
+      </main>
+    </ErrorBoundary>
+  );
+};
 
 export default App;
