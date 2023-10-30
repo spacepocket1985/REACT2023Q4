@@ -8,4 +8,5 @@ export interface IAppState {
   query: string;
   error: boolean;
   errorMsg: null | string;
+  showCharInfo: boolean;
 }

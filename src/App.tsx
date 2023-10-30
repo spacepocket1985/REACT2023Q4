@@ -9,6 +9,7 @@ import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import Spinner from './components/Spinner/Spinner';
 import SearchForm from './components/SearchForm/SearchForm';
 import CharacterList from './components/CharactersList/CharactersList';
+import CharacterInfo from './components/CharacterInfo/CharacterInfo';
 
 import './App.css';
 
@@ -23,6 +24,7 @@ const App = () => {
     errorMsg: '',
     loading: false,
     query: RickAndMortyService._queryBase,
+    showCharInfo: false,
   });
 
   useEffect(() => {
@@ -70,8 +72,10 @@ const App = () => {
     if (error) setAppData({ ...appData, error });
   };
 
-  const { charactersList, nextPage, previousPage, loading, error, errorMsg } = appData;
+  const { charactersList, nextPage, previousPage, loading, error, errorMsg, showCharInfo } =
+    appData;
 
+  const showInfo = showCharInfo ? 'test' : 'notest';
   const errorMessage = error ? <ErrorMessage errorMsg={errorMsg} /> : null;
   const spinner = loading ? <Spinner /> : null;
   const content = !(loading || error) ? (
@@ -85,12 +89,13 @@ const App = () => {
 
   return (
     <ErrorBoundary>
-      <SearchForm onSearchSubmit={onSearchSubmit} buttonStatus={loading} hasError={error} />
-      <main>
+      <main className={showInfo}>
+        <SearchForm onSearchSubmit={onSearchSubmit} buttonStatus={loading} hasError={error} />
         {errorMessage}
         {spinner}
         {content}
       </main>
+      <CharacterInfo />
     </ErrorBoundary>
   );
 };

@@ -2,10 +2,6 @@
   background-color: #fff;
 }
 
-.search-wrapper h2 {
-  font-size: 3rem;
-}
-
 .search-form {
   display: flex;
   justify-content: center;
