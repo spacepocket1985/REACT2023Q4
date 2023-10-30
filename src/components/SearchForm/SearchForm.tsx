@@ -1,88 +1,73 @@
-import React, { Component } from 'react';
-import { ISearchState } from '../../interfaces/ISearchState';
+import { useState, useEffect } from 'react';
 import { ISearchFormProps } from '../../interfaces/ISearchFormProps';
 import { getUserQuery, setUserQuery } from '../../utils/localStorageActions';
 import ErrorComponent from '../ErrorComponent/ErrorComponent';
 import ricAndMortyImg from '../../assets/rick-and-morty.png';
 import './SearchForm.css';
 
-class SearchForm extends Component<ISearchFormProps, ISearchState> {
-  constructor(props: ISearchFormProps) {
-    super(props);
-  }
+const SearchForm = (props: ISearchFormProps) => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [testError, setTestError] = useState(false);
 
-  state: ISearchState = {
-    query: '',
-    testError: false,
-  };
-
-  componentDidMount(): void {
+  useEffect(() => {
     let query = getUserQuery();
     if (query === null) query = '';
-    this.setState({ query });
-  }
+    setSearchQuery(query);
+  }, []);
 
-  onUpdateSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const onUpdateSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const query = event.target.value.trim();
-    this.setState({ query });
+    setSearchQuery(query);
   };
 
-  onSubmit = (event: React.MouseEvent): void => {
+  const onSubmit = (event: React.MouseEvent): void => {
     event.preventDefault();
-    setUserQuery(this.state.query);
-    this.props.onSearchSubmit(this.state.query);
+    setUserQuery(searchQuery);
+    props.onSearchSubmit(searchQuery);
   };
 
-  onError = (event: React.MouseEvent): void => {
+  const onError = (event: React.MouseEvent): void => {
     event.preventDefault();
-    this.setState({ testError: !this.state.testError });
+    setTestError(!testError);
   };
 
-  render() {
-    const { buttonStatus, hasError } = this.props;
-    const testErrorBoundary = this.state.testError ? <ErrorComponent /> : null;
+  const { buttonStatus } = props;
+  const testErrorBoundary = testError ? <ErrorComponent /> : null;
 
-    if (hasError) {
-      () => {
-        this.setState({ query: '' });
-      };
-    }
-
-    return (
-      <>
-        {testErrorBoundary}
-        <img src={ricAndMortyImg} className="ricAndMortyImg" alt="ricAndMortyImg" />
-        <div className="search-wrapper">
-          <h2>Rick and Morty API</h2>
-          <form className="search-form">
-            <input
-              type="text"
-              placeholder="name for search"
-              value={this.state.query}
-              onChange={this.onUpdateSearch}
-            />
-            <button
-              disabled={buttonStatus}
-              onClick={(e) => {
-                this.onSubmit(e);
-              }}
-            >
-              Search
-            </button>
-            <button
-              className="testBtn"
-              disabled={buttonStatus}
-              onClick={(e) => {
-                this.onError(e);
-              }}
-            >
-              Test ErrorBoundary
-            </button>
-          </form>
-        </div>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      {testErrorBoundary}
+      <img src={ricAndMortyImg} className="ricAndMortyImg" alt="ricAndMortyImg" />
+      <div className="search-wrapper">
+        <h2>Rick and Morty API</h2>
+        <form className="search-form">
+          <input
+            type="text"
+            placeholder="name for search"
+            value={searchQuery}
+            onChange={onUpdateSearch}
+          />
+          <button
+            disabled={buttonStatus}
+            onClick={(e) => {
+              onSubmit(e);
+            }}
+          >
+            Search
+          </button>
+          <button
+            className="testBtn"
+            disabled={buttonStatus}
+            onClick={(e) => {
+              onError(e);
+            }}
+          >
+            Test ErrorBoundary
+          </button>
+        </form>
+      </div>
+    </>
+  );
+};
 
 export default SearchForm;
