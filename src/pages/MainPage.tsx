@@ -21,7 +21,6 @@ const MainPage = () => {
     errorMsg: '',
     loading: false,
     query: RickAndMortyService._queryBase,
-    showCharInfo: false,
   });
 
   const [selectedChar, setChar] = useState<null | number>(null);
@@ -75,10 +74,9 @@ const MainPage = () => {
     setChar(id);
   };
 
-  const { charactersList, nextPage, previousPage, loading, error, errorMsg, showCharInfo } =
-    appData;
+  const { charactersList, nextPage, previousPage, loading, error, errorMsg } = appData;
 
-  const showInfo = showCharInfo ? 'test' : 'notest';
+  const isCharSelected = selectedChar ? 'with-info' : 'without-info';
   const errorMessage = error ? <ErrorMessage errorMsg={errorMsg} /> : null;
   const spinner = loading ? <Spinner /> : null;
   const content = !(loading || error) ? (
@@ -93,7 +91,7 @@ const MainPage = () => {
 
   return (
     <>
-      <main className={showInfo}>
+      <main className={isCharSelected}>
         <SearchForm onSearchSubmit={onSearchSubmit} buttonStatus={loading} hasError={error} />
         {errorMessage}
         {spinner}

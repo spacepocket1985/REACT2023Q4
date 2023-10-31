@@ -1,17 +1,103 @@
+import { useEffect, useState } from 'react';
+import Spinner from '../Spinner/Spinner';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import { RickAndMortyAPI } from '../../services/RickAndMortyAPI';
 import { ICharacterInfoProps } from '../../interfaces/ICharacterInfoProps';
+import { ICharacter } from '../../interfaces/ICharacter';
 import './CharacterInfo.css';
 
 const CharacterInfo = (props: ICharacterInfoProps) => {
-  console.log(props.charId);
+  const wrapperClass = props.charId ? 'character-wrapper__active' : 'character-wrapper__unactive';
+
+  const [character, setCharacter] = useState<null | ICharacter>(null);
+  const [loading, setLoading] = useState(false);
+  const [errorData, setError] = useState({
+    error: false,
+    errorMsg: '',
+  });
+
+  const RickAndMortyService = new RickAndMortyAPI();
+
+  useEffect(() => {
+    showCharacter();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.charId]);
+
+  const showCharacter = () => {
+    const { charId } = props;
+    if (!charId) {
+      return;
+    }
+    setLoading(true);
+
+    RickAndMortyService.getCharacter(charId).then(onCharLoaded).catch(onError);
+  };
+
+  const onCharLoaded = (character: ICharacter) => {
+    setLoading(false);
+    setCharacter(character);
+  };
+
+  const onError = (error: Error) => {
+    setError({
+      error: true,
+      errorMsg: error.message,
+    });
+    setLoading(false);
+  };
+
+  const errorMessage = errorData.error ? <ErrorMessage errorMsg={errorData.errorMsg} /> : null;
+  const spinner = loading ? <Spinner /> : null;
+  const content = !(loading || errorData.error || !character) ? (
+    <View character={character} />
+  ) : null;
+
   return (
-    <div className="character-info__wrapper">
-      <h2>Character Info</h2>
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti fugit dolorem animi
-        numquam deserunt incidunt natus, ipsum pariatur doloremque et at? Beatae a velit impedit
-        doloribus nihil rem quibusdam eaque.
-      </p>
+    <div className={wrapperClass}>
+      {errorMessage}
+      {spinner}
+      {content}
     </div>
+  );
+};
+
+interface ICharacterProps {
+  character: ICharacter;
+}
+
+const View = (props: ICharacterProps) => {
+  const { name, status, gender, location, image, species, created } = props.character;
+  return (
+    <>
+      <div className="character-title">
+        <h2>Character info</h2>
+        <button>X</button>
+      </div>
+      <div className="character-img">
+        <img src={image} alt={name} />
+      </div>
+      <div className="character-content__wrapper">
+        <h3 className="character-name">{name}</h3>
+        <div className="character-content__detail">
+          <div>
+            {' '}
+            <span className="detail-title">Gender</span> - {gender}
+          </div>
+          <div>
+            <span className="detail-title">Status</span> - {status}
+          </div>
+          <div>
+            <span className="detail-title">Location</span> - {location.name}
+          </div>
+          <div>
+            <span className="detail-title">Species</span> - {species}
+          </div>
+          <div>
+            <span className="detail-title">Created</span> - {created.substring(0, 10)}
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 

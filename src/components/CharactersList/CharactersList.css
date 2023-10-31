@@ -14,7 +14,7 @@
 }
 
 .character-card__wrapper {
-  width: 23rem;
+  width: 20rem;
   height: 15rem;
   display: flex;
   overflow: hidden;
@@ -56,7 +56,7 @@
   margin-bottom: 0.5rem;
 }
 
-.character-name {
+.card-content__name {
   font-size: 2rem;
   margin-bottom: 0.5rem;
   font-weight: 600;

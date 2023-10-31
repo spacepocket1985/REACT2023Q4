@@ -7,7 +7,7 @@ const CharactersList = (props: ICharactersListProps) => {
 
   const renderCharacters = (characters: ICharacter[]) =>
     characters.map((char) => {
-      const { name, status, gender, image, id } = char;
+      const { name, image, id } = char;
       return (
         <div
           className="character-card__wrapper"
@@ -20,9 +20,7 @@ const CharactersList = (props: ICharactersListProps) => {
             <img src={image} alt={name} />
           </div>
           <div className="card-content__wrapper">
-            <div className="character-name">{name}</div>
-            <div>{gender}</div>
-            <div>{status}</div>
+            <div className="card-content__name">{name}</div>
           </div>
         </div>
       );

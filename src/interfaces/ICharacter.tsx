@@ -15,6 +15,6 @@ export interface ICharacter {
   episode: string[];
   gender: string;
   species: string;
-  created: Date;
+  created: string;
   url: string;
 }

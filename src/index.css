@@ -6,9 +6,13 @@
 #root {
   margin: auto;
   background-color: #fff;
+  display: flex;
+  column-gap: 1rem;
+  align-items: flex-start;
+  justify-content: center;
 }
 
-.test {
+.with-info {
   flex: 0 0 70%;
 }
 
