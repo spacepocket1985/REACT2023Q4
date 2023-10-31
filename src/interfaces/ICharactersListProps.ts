@@ -5,4 +5,5 @@ export interface ICharactersListProps {
   nextPage: null | string;
   previousPage: null | string;
   onClickPaginationButton: (url: string | null) => void;
+  onCharSelected: (id: number) => void;
 }

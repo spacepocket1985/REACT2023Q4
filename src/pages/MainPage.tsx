@@ -4,7 +4,6 @@ import { IAppState } from '../interfaces/IAppState';
 import { RickAndMortyAPI } from '../services/RickAndMortyAPI';
 import { IRickAndMortyData } from '../interfaces/IRickAndMortyData';
 import { getUserQuery } from '../utils/localStorageActions';
-import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
 import Spinner from '../components/Spinner/Spinner';
 import SearchForm from '../components/SearchForm/SearchForm';
@@ -24,6 +23,8 @@ const MainPage = () => {
     query: RickAndMortyService._queryBase,
     showCharInfo: false,
   });
+
+  const [selectedChar, setChar] = useState<null | number>(null);
 
   useEffect(() => {
     let query = getUserQuery();
@@ -70,6 +71,10 @@ const MainPage = () => {
     if (error) setAppData({ ...appData, error });
   };
 
+  const onCharSelected = (id: number) => {
+    setChar(id);
+  };
+
   const { charactersList, nextPage, previousPage, loading, error, errorMsg, showCharInfo } =
     appData;
 
@@ -82,19 +87,20 @@ const MainPage = () => {
       nextPage={nextPage}
       previousPage={previousPage}
       onClickPaginationButton={onClickPaginationButton}
+      onCharSelected={onCharSelected}
     />
   ) : null;
 
   return (
-    <ErrorBoundary>
+    <>
       <main className={showInfo}>
         <SearchForm onSearchSubmit={onSearchSubmit} buttonStatus={loading} hasError={error} />
         {errorMessage}
         {spinner}
         {content}
       </main>
-      <CharacterInfo />
-    </ErrorBoundary>
+      <CharacterInfo charId={selectedChar} />
+    </>
   );
 };
 

@@ -1,6 +1,8 @@
+import { ICharacterInfoProps } from '../../interfaces/ICharacterInfoProps';
 import './CharacterInfo.css';
 
-const CharacterInfo = () => {
+const CharacterInfo = (props: ICharacterInfoProps) => {
+  console.log(props.charId);
   return (
     <div className="character-info__wrapper">
       <h2>Character Info</h2>
