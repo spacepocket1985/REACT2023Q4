@@ -7,8 +7,6 @@ import { ICharacter } from '../../interfaces/ICharacter';
 import './CharacterInfo.css';
 
 const CharacterInfo = (props: ICharacterInfoProps) => {
-  const wrapperClass = props.charId ? 'character-wrapper__active' : 'character-wrapper__unactive';
-
   const [character, setCharacter] = useState<null | ICharacter>(null);
   const [loading, setLoading] = useState(false);
   const [errorData, setError] = useState({
@@ -17,6 +15,8 @@ const CharacterInfo = (props: ICharacterInfoProps) => {
   });
 
   const RickAndMortyService = new RickAndMortyAPI();
+
+  const wrapperClass = props.charId ? 'character-wrapper__active' : 'character-wrapper__unactive';
 
   useEffect(() => {
     showCharacter();
@@ -30,10 +30,10 @@ const CharacterInfo = (props: ICharacterInfoProps) => {
     }
     setLoading(true);
 
-    RickAndMortyService.getCharacter(charId).then(onCharLoaded).catch(onError);
+    RickAndMortyService.getCharacter(charId).then(onCharacterLoaded).catch(onError);
   };
 
-  const onCharLoaded = (character: ICharacter) => {
+  const onCharacterLoaded = (character: ICharacter) => {
     setLoading(false);
     setCharacter(character);
   };
@@ -54,6 +54,14 @@ const CharacterInfo = (props: ICharacterInfoProps) => {
 
   return (
     <div className={wrapperClass}>
+      <button
+        className="character-title__button"
+        onClick={() => {
+          props.onCloseCharInfo();
+        }}
+      >
+        X
+      </button>
       {errorMessage}
       {spinner}
       {content}
@@ -71,7 +79,6 @@ const View = (props: ICharacterProps) => {
     <>
       <div className="character-title">
         <h2>Character info</h2>
-        <button>X</button>
       </div>
       <div className="character-img">
         <img src={image} alt={name} />

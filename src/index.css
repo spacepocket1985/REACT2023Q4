@@ -12,9 +12,9 @@
   justify-content: center;
 }
 
-.with-info {
+/* .with-info {
   flex: 0 0 70%;
-}
+} */
 
 html {
   box-sizing: border-box;
