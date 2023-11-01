@@ -82,7 +82,6 @@ const MainPage = () => {
 
   const { charactersList, nextPage, previousPage, loading, error, errorMsg } = appData;
 
-  // const isCharSelected = selectedChar ? 'with-info' : 'without-info';
   const errorMessage = error ? <ErrorMessage errorMsg={errorMsg} /> : null;
   const spinner = loading ? <Spinner /> : null;
   const content = !(loading || error) ? (

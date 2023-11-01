@@ -1,5 +1,6 @@
 import { Component, ReactNode } from 'react';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import './ErrorBoundary.css';
 
 interface Props {
   children?: ReactNode;
@@ -26,7 +27,7 @@ class ErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.hasError) {
       return (
-        <>
+        <div className="boundary-wrapper">
           <ErrorMessage errorMsg={this.state.error.toString()} />
           <h2>ErrorBoundary is working</h2>
           <button
@@ -36,7 +37,7 @@ class ErrorBoundary extends Component<Props, State> {
           >
             go back
           </button>
-        </>
+        </div>
       );
     }
 
