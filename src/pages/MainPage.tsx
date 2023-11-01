@@ -33,8 +33,6 @@ const MainPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {});
-
   const onRequest = (link?: string, query?: string): void => {
     setAppData({ ...appData, loading: true });
     RickAndMortyService.getResource(link, query).then(onPersonListLoaded).catch(onError);
@@ -83,6 +81,7 @@ const MainPage = () => {
 
   const { charactersList, nextPage, previousPage, loading, error, errorMsg } = appData;
 
+  const isCharSelected = selectedChar ? 'with-info' : 'without-info';
   const errorMessage = error ? <ErrorMessage errorMsg={errorMsg} /> : null;
   const spinner = loading ? <Spinner /> : null;
   const content = !(loading || error) ? (
@@ -97,7 +96,7 @@ const MainPage = () => {
 
   return (
     <>
-      <main>
+      <main className={isCharSelected}>
         <SearchForm onSearchSubmit={onSearchSubmit} buttonStatus={loading} hasError={error} />
         {errorMessage}
         {spinner}

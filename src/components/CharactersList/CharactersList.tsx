@@ -28,7 +28,6 @@ const CharactersList = (props: ICharactersListProps) => {
 
   return (
     <>
-      <div className="characters__wrapper">{renderCharacters(charactersList)}</div>
       {charactersList && (nextPage || previousPage) ? (
         <div className="pagination__wrapper">
           <button disabled={!previousPage} onClick={() => onClickPaginationButton(previousPage)}>
@@ -39,6 +38,7 @@ const CharactersList = (props: ICharactersListProps) => {
           </button>
         </div>
       ) : null}
+      <div className="characters__wrapper">{renderCharacters(charactersList)}</div>
     </>
   );
 };

@@ -18,6 +18,7 @@
 
 .test-button {
   background-color: #ff4500;
+  display: none;
 }
 
 .rick-morty__img {
