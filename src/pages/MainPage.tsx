@@ -63,7 +63,6 @@ const MainPage = () => {
 
   const onClickPaginationButton = (url: string | null): void => {
     url && onRequest(url);
-    onCloseCharInfo();
   };
 
   const onSearchSubmit = (query: string, error?: boolean): void => {
@@ -82,8 +81,16 @@ const MainPage = () => {
 
   const onQuantitySelection = (charactersOnPage: number) => {
     setAppData({ ...appData, charactersOnPage });
-    onCloseCharInfo();
   };
+
+  // const check = (event: React.MouseEvent) => {
+  //   if (event.target instanceof HTMLElement) {
+  //     const el = event.target;
+  //     if (!el.closest('.character-card__wrapper') && selectedChar) {
+  //       setChar(null);
+  //     }
+  //   }
+  // };
 
   const { charactersList, nextPage, previousPage, loading, error, errorMsg } = appData;
 
@@ -107,7 +114,12 @@ const MainPage = () => {
 
   return (
     <>
-      <main className={isCharSelected}>
+      <main
+        className={isCharSelected}
+        onClick={() => {
+          selectedChar ? onCloseCharInfo() : '';
+        }}
+      >
         <SearchForm onSearchSubmit={onSearchSubmit} buttonStatus={loading} hasError={error} />
         {errorMessage}
         {spinner}

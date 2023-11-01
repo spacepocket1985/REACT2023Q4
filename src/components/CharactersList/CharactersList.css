@@ -17,6 +17,7 @@
   margin: 0.75rem;
   transition: all 0.3s;
   border: 0.3rem solid #ffffff;
+  cursor: pointer;
 }
 
 .character-card__wrapper:hover {

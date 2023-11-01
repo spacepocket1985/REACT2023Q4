@@ -17,7 +17,7 @@ const CharactersList = (props: ICharactersListProps) => {
           }}
         >
           <div className="card-img__wrapper">
-            <img src={image} alt={name} />
+            <img className="card-img" src={image} alt={name} />
           </div>
           <div className="card-content__wrapper">
             <div className="card-content__name">{name}</div>
