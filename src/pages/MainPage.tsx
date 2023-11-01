@@ -7,6 +7,7 @@ import { getUserQuery } from '../utils/localStorageActions';
 import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
 import Spinner from '../components/Spinner/Spinner';
 import SearchForm from '../components/SearchForm/SearchForm';
+import Pagination from '../components/Pagination/Pagination';
 import CharacterList from '../components/CharactersList/CharactersList';
 import CharacterInfo from '../components/CharacterInfo/CharacterInfo';
 
@@ -21,6 +22,7 @@ const MainPage = () => {
     errorMsg: '',
     loading: false,
     query: RickAndMortyService._queryBase,
+    charactersOnPage: 20,
   });
 
   const [selectedChar, setChar] = useState<null | number>(null);
@@ -31,17 +33,17 @@ const MainPage = () => {
 
     onRequest(RickAndMortyService._apiBase, query);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [appData.charactersOnPage, appData.query]);
 
   const onRequest = (link?: string, query?: string): void => {
-    setAppData({ ...appData, loading: true });
+    setAppData({ ...appData, loading: true, error: false });
     RickAndMortyService.getResource(link, query).then(onPersonListLoaded).catch(onError);
   };
 
   const onPersonListLoaded = (RickAndMortyData: IRickAndMortyData): void => {
     setAppData({
       ...appData,
-      charactersList: RickAndMortyData.results.map((char) => char),
+      charactersList: RickAndMortyData.results.slice(0, appData.charactersOnPage),
       nextPage: RickAndMortyData.info.next,
       previousPage: RickAndMortyData.info.prev,
       loading: false,
@@ -65,9 +67,8 @@ const MainPage = () => {
   };
 
   const onSearchSubmit = (query: string, error?: boolean): void => {
-    setAppData({ ...appData, query });
-
-    onRequest(RickAndMortyService._apiBase, query);
+    setAppData({ ...appData, query, error: false });
+    onCloseCharInfo();
     if (error) setAppData({ ...appData, error });
   };
 
@@ -79,19 +80,29 @@ const MainPage = () => {
     setChar(null);
   };
 
+  const onQuantitySelection = (charactersOnPage: number) => {
+    setAppData({ ...appData, charactersOnPage });
+    onCloseCharInfo();
+  };
+
   const { charactersList, nextPage, previousPage, loading, error, errorMsg } = appData;
 
   const isCharSelected = selectedChar ? 'with-info' : 'without-info';
   const errorMessage = error ? <ErrorMessage errorMsg={errorMsg} /> : null;
   const spinner = loading ? <Spinner /> : null;
   const content = !(loading || error) ? (
-    <CharacterList
-      charactersList={charactersList}
-      nextPage={nextPage}
-      previousPage={previousPage}
-      onClickPaginationButton={onClickPaginationButton}
-      onCharSelected={onCharSelected}
-    />
+    <>
+      {charactersList && (nextPage || previousPage) ? (
+        <Pagination
+          nextPage={nextPage}
+          previousPage={previousPage}
+          onClickPaginationButton={onClickPaginationButton}
+          onQuantitySelection={onQuantitySelection}
+          defoultQuantity={appData.charactersOnPage}
+        />
+      ) : null}
+      <CharacterList charactersList={charactersList} onCharSelected={onCharSelected} />
+    </>
   ) : null;
 
   return (

@@ -3,7 +3,7 @@ import { ICharactersListProps } from '../../interfaces/ICharactersListProps';
 import './CharactersList.css';
 
 const CharactersList = (props: ICharactersListProps) => {
-  const { charactersList, nextPage, previousPage, onClickPaginationButton, onCharSelected } = props;
+  const { charactersList, onCharSelected } = props;
 
   const renderCharacters = (characters: ICharacter[]) =>
     characters.map((char) => {
@@ -26,21 +26,7 @@ const CharactersList = (props: ICharactersListProps) => {
       );
     });
 
-  return (
-    <>
-      {charactersList && (nextPage || previousPage) ? (
-        <div className="pagination__wrapper">
-          <button disabled={!previousPage} onClick={() => onClickPaginationButton(previousPage)}>
-            Previous page
-          </button>
-          <button disabled={!nextPage} onClick={() => onClickPaginationButton(nextPage)}>
-            Next page
-          </button>
-        </div>
-      ) : null}
-      <div className="characters__wrapper">{renderCharacters(charactersList)}</div>
-    </>
-  );
+  return <div className="characters__wrapper">{renderCharacters(charactersList)}</div>;
 };
 
 export default CharactersList;

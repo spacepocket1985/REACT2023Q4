@@ -1,0 +1,21 @@
+.pagination__wrapper {
+  display: flex;
+  column-gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.pages-btns__wrapper {
+  display: flex;
+  column-gap: 1rem;
+  justify-content: center;
+}
+
+.select-limit {
+  font-size: 1.5rem;
+}
+
+.pagination__wrapper label {
+  margin-left: 0.5rem;
+  font-size: 2rem;
+}
