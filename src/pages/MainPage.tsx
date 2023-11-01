@@ -63,6 +63,7 @@ const MainPage = () => {
 
   const onClickPaginationButton = (url: string | null): void => {
     url && onRequest(url);
+    onCloseCharInfo();
   };
 
   const onSearchSubmit = (query: string, error?: boolean): void => {
