@@ -1,4 +1,4 @@
-import { useParams } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import { useEffect, useState } from 'react';
 import Spinner from '../Spinner/Spinner';
@@ -16,9 +16,9 @@ const CharacterInfo = (props: ICharacterInfoProps) => {
     errorMsg: '',
   });
 
-  console.log(props);
+  const { characterId } = props;
 
-  const { characterId } = useParams();
+  const navigate = useNavigate();
 
   const { getCharacter } = RickAndMortyAPI();
 
@@ -62,7 +62,7 @@ const CharacterInfo = (props: ICharacterInfoProps) => {
       <button
         className="character-title__button"
         onClick={() => {
-          console.log('how it close');
+          navigate('/');
         }}
       >
         X

@@ -1,4 +1,3 @@
 export interface ICharacterInfoProps {
-  charId: number | null;
-  onCloseCharInfo: () => void;
+  characterId: number | undefined;
 }

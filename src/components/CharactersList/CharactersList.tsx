@@ -5,19 +5,14 @@ import { ICharactersListProps } from '../../interfaces/ICharactersListProps';
 import './CharactersList.css';
 
 const CharactersList = (props: ICharactersListProps) => {
-  const { charactersList, onCharSelected } = props;
+  const { charactersList } = props;
 
   const renderCharacters = (characters: ICharacter[]) =>
     characters.map((char, index) => {
       const { name, image, id } = char;
       return (
         <Link key={index} to={`/character/${id}`}>
-          <div
-            className="character-card__wrapper"
-            onClick={() => {
-              onCharSelected(id);
-            }}
-          >
+          <div className="character-card__wrapper">
             <div className="card-img__wrapper">
               <img className="card-img" src={image} alt={name} />
             </div>
