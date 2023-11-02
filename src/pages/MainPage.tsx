@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { IAppState } from '../interfaces/IAppState';
 import RickAndMortyAPI from '../services/RickAndMortyAPI';
@@ -27,8 +27,6 @@ const MainPage = () => {
   });
 
   const [selectedChar, setChar] = useState<null | number>(null);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     let query = getUserQuery();
@@ -66,10 +64,8 @@ const MainPage = () => {
 
   const onClickPaginationButton = (url: string | null): void => {
     url && onRequest(url);
-    console.log(url);
-    console.log(navigate(`/pages/${count + 1}`, { replace: true }));
   };
-  const count = 1;
+
   const onSearchSubmit = (query: string, error?: boolean): void => {
     setAppData({ ...appData, query, error: false });
     onCloseCharInfo();
@@ -89,14 +85,14 @@ const MainPage = () => {
     setAppData({ ...appData, charactersOnPage });
   };
 
-  // const check = (event: React.MouseEvent) => {
-  //   if (event.target instanceof HTMLElement) {
-  //     const el = event.target;
-  //     if (!el.closest('.character-card__wrapper') && selectedChar) {
-  //       setChar(null);
-  //     }
-  //   }
-  // };
+  const check = (event: React.MouseEvent) => {
+    if (event.target instanceof HTMLElement) {
+      const el = event.target;
+      if (!el.closest('.character-card__wrapper') && selectedChar) {
+        setChar(null);
+      }
+    }
+  };
 
   const { charactersList, nextPage, previousPage, loading, error, errorMsg } = appData;
 
@@ -123,7 +119,7 @@ const MainPage = () => {
       <main
         className={isCharSelected}
         onClick={() => {
-          selectedChar ? onCloseCharInfo() : '';
+          check;
         }}
       >
         <SearchForm onSearchSubmit={onSearchSubmit} buttonStatus={loading} hasError={error} />

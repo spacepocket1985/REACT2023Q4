@@ -1,3 +1,5 @@
+import { useParams } from 'react-router';
+
 import { useEffect, useState } from 'react';
 import Spinner from '../Spinner/Spinner';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
@@ -14,23 +16,26 @@ const CharacterInfo = (props: ICharacterInfoProps) => {
     errorMsg: '',
   });
 
+  console.log(props);
+
+  const { characterId } = useParams();
+
   const { getCharacter } = RickAndMortyAPI();
 
-  const wrapperClass = props.charId ? 'character-wrapper__active' : 'character-wrapper__unactive';
+  const wrapperClass = characterId ? 'character-wrapper__active' : 'character-wrapper__unactive';
 
   useEffect(() => {
     showCharacter();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.charId]);
+  }, [characterId]);
 
   const showCharacter = () => {
-    const { charId } = props;
-    if (!charId) {
+    if (!characterId) {
       return;
     }
     setLoading(true);
 
-    getCharacter(charId).then(onCharacterLoaded).catch(onError);
+    getCharacter(Number(characterId)).then(onCharacterLoaded).catch(onError);
   };
 
   const onCharacterLoaded = (character: ICharacter) => {
@@ -57,7 +62,7 @@ const CharacterInfo = (props: ICharacterInfoProps) => {
       <button
         className="character-title__button"
         onClick={() => {
-          props.onCloseCharInfo();
+          console.log('how it close');
         }}
       >
         X
@@ -87,7 +92,6 @@ const View = (props: ICharacterProps) => {
         <h3 className="character-name">{name}</h3>
         <div className="character-content__detail">
           <div>
-            {' '}
             <span className="detail-title">Gender</span> - {gender}
           </div>
           <div>
