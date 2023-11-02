@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import { IAppState } from '../interfaces/IAppState';
-import { RickAndMortyAPI } from '../services/RickAndMortyAPI';
+import RickAndMortyAPI from '../services/RickAndMortyAPI';
 import { IRickAndMortyData } from '../interfaces/IRickAndMortyData';
 import { getUserQuery } from '../utils/localStorageActions';
 import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
@@ -12,7 +12,7 @@ import CharacterList from '../components/CharactersList/CharactersList';
 import CharacterInfo from '../components/CharacterInfo/CharacterInfo';
 
 const MainPage = () => {
-  const RickAndMortyService = new RickAndMortyAPI();
+  const { getResource, _apiBase, _queryBase } = RickAndMortyAPI();
 
   const [appData, setAppData] = useState<IAppState>({
     charactersList: [],
@@ -21,7 +21,7 @@ const MainPage = () => {
     error: false,
     errorMsg: '',
     loading: false,
-    query: RickAndMortyService._queryBase,
+    query: _queryBase,
     charactersOnPage: 20,
   });
 
@@ -29,15 +29,15 @@ const MainPage = () => {
 
   useEffect(() => {
     let query = getUserQuery();
-    if (query === null) query = RickAndMortyService._queryBase;
+    if (query === null) query = _queryBase;
 
-    onRequest(RickAndMortyService._apiBase, query);
+    onRequest(_apiBase, query);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appData.charactersOnPage, appData.query]);
 
   const onRequest = (link?: string, query?: string): void => {
     setAppData({ ...appData, loading: true, error: false });
-    RickAndMortyService.getResource(link, query).then(onPersonListLoaded).catch(onError);
+    getResource(link, query).then(onPersonListLoaded).catch(onError);
   };
 
   const onPersonListLoaded = (RickAndMortyData: IRickAndMortyData): void => {
@@ -56,7 +56,7 @@ const MainPage = () => {
       ...appData,
       loading: false,
       error: true,
-      query: RickAndMortyService._queryBase,
+      query: _queryBase,
       errorMsg: error.message,
     });
   };

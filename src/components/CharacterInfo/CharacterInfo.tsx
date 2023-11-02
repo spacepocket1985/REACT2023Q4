@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Spinner from '../Spinner/Spinner';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
-import { RickAndMortyAPI } from '../../services/RickAndMortyAPI';
+import RickAndMortyAPI from '../../services/RickAndMortyAPI';
 import { ICharacterInfoProps } from '../../interfaces/ICharacterInfoProps';
 import { ICharacter } from '../../interfaces/ICharacter';
 import './CharacterInfo.css';
@@ -14,7 +14,7 @@ const CharacterInfo = (props: ICharacterInfoProps) => {
     errorMsg: '',
   });
 
-  const RickAndMortyService = new RickAndMortyAPI();
+  const { getCharacter } = RickAndMortyAPI();
 
   const wrapperClass = props.charId ? 'character-wrapper__active' : 'character-wrapper__unactive';
 
@@ -30,7 +30,7 @@ const CharacterInfo = (props: ICharacterInfoProps) => {
     }
     setLoading(true);
 
-    RickAndMortyService.getCharacter(charId).then(onCharacterLoaded).catch(onError);
+    getCharacter(charId).then(onCharacterLoaded).catch(onError);
   };
 
   const onCharacterLoaded = (character: ICharacter) => {

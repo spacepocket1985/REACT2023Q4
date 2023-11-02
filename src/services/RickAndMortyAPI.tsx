@@ -1,14 +1,13 @@
 import { IRickAndMortyData } from '../interfaces/IRickAndMortyData';
 import { ICharacter } from '../interfaces/ICharacter';
 
-export class RickAndMortyAPI {
-  _apiBase = 'https://rickandmortyapi.com/api/character';
+const RickAndMortyAPI = () => {
+  const _apiBase = 'https://rickandmortyapi.com/api/character';
 
-  _queryBase = '';
+  const _queryBase = '';
 
-  getResource = async (link = this._apiBase, query?: string): Promise<IRickAndMortyData> => {
-    const url =
-      query && query.length > 0 && query !== this._queryBase ? `${link}?name=${query}` : link;
+  const getResource = async (link = _apiBase, query?: string): Promise<IRickAndMortyData> => {
+    const url = query && query.length > 0 && query !== _queryBase ? `${link}?name=${query}` : link;
     const res = await fetch(url);
 
     if (!res.ok) {
@@ -16,8 +15,8 @@ export class RickAndMortyAPI {
     }
     return await res.json();
   };
-  getCharacter = async (id: number): Promise<ICharacter> => {
-    const url = `${this._apiBase}/${id}`;
+  const getCharacter = async (id: number): Promise<ICharacter> => {
+    const url = `${_apiBase}/${id}`;
     const res = await fetch(url);
     if (!res.ok) {
       throw new Error(`Could not fetch ${url}, status: ${res.status}`);
@@ -25,4 +24,8 @@ export class RickAndMortyAPI {
 
     return await res.json();
   };
-}
+
+  return { getCharacter, getResource, _apiBase, _queryBase };
+};
+
+export default RickAndMortyAPI;
