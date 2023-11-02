@@ -13,6 +13,7 @@ const RickAndMortyAPI = () => {
     if (!res.ok) {
       throw new Error(`Could not fetch ${url}, status: ${res.status}`);
     }
+    console.log(await res.json());
     return await res.json();
   };
   const getCharacter = async (id: number): Promise<ICharacter> => {

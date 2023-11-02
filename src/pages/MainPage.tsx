@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import { IAppState } from '../interfaces/IAppState';
 import RickAndMortyAPI from '../services/RickAndMortyAPI';
@@ -26,6 +27,8 @@ const MainPage = () => {
   });
 
   const [selectedChar, setChar] = useState<null | number>(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     let query = getUserQuery();
@@ -63,11 +66,14 @@ const MainPage = () => {
 
   const onClickPaginationButton = (url: string | null): void => {
     url && onRequest(url);
+    console.log(url);
+    console.log(navigate(`/pages/${count + 1}`, { replace: true }));
   };
-
+  const count = 1;
   const onSearchSubmit = (query: string, error?: boolean): void => {
     setAppData({ ...appData, query, error: false });
     onCloseCharInfo();
+
     if (error) setAppData({ ...appData, error });
   };
 
@@ -126,6 +132,7 @@ const MainPage = () => {
         {content}
       </main>
       <CharacterInfo charId={selectedChar} onCloseCharInfo={onCloseCharInfo} />
+      <Outlet />
     </>
   );
 };
