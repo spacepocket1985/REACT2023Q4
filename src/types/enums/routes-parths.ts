@@ -4,6 +4,7 @@ enum ROUTE_PARTH {
   PAGE = '/page/:pageNum',
   SEARCH = '/search/:queryParam',
   PAGE404 = '*',
+  DEFAULT_SEARCH = 'search',
 }
 
 export default ROUTE_PARTH;

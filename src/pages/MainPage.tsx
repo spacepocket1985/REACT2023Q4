@@ -4,9 +4,9 @@ import { Outlet } from 'react-router-dom';
 
 import ROUTE_PARTH from '../types/enums/routes-parths';
 import { IAppState } from '../types/interfaces/IAppState';
-import RickAndMortyAPI from '../services/RickAndMortyAPI';
 import { IRickAndMortyData } from '../types/interfaces/IRickAndMortyData';
 import { getUserQuery } from '../utils/localStorageActions';
+import RickAndMortyAPI from '../services/RickAndMortyAPI';
 import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
 import Spinner from '../components/Spinner/Spinner';
 import SearchForm from '../components/SearchForm/SearchForm';
@@ -16,8 +16,10 @@ import CharacterInfo from '../components/CharacterInfo/CharacterInfo';
 
 const MainPage = () => {
   const { getResource, _apiBase, _queryBase } = RickAndMortyAPI();
+
+  const { characterId, pageNum, queryParam } = useParams();
+
   const navigate = useNavigate();
-  const { characterId, pageNum } = useParams();
 
   const [appData, setAppData] = useState<IAppState>({
     charactersList: [],
@@ -34,14 +36,14 @@ const MainPage = () => {
     let query = getUserQuery();
     if (query === null) query = _queryBase;
 
-    onRequest(_apiBase, query);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [appData.charactersOnPage, appData.query]);
+    let url = _apiBase;
 
-  useEffect(() => {
-    onRequest(`${_apiBase}?page=${pageNum}`);
+    if (pageNum) url = `${_apiBase}?page=${pageNum}`;
+    if (queryParam) url = `${_apiBase}?name=${queryParam}`;
+
+    onRequest(url);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageNum]);
+  }, [appData.charactersOnPage, pageNum, queryParam]);
 
   const onRequest = (link?: string, query?: string): void => {
     setAppData({ ...appData, loading: true, error: false });
@@ -67,12 +69,6 @@ const MainPage = () => {
       query: _queryBase,
       errorMsg: error.message,
     });
-  };
-
-  const onSearchSubmit = (query: string, error?: boolean): void => {
-    setAppData({ ...appData, query, error: false });
-
-    if (error) setAppData({ ...appData, error });
   };
 
   const onQuantitySelection = (charactersOnPage: number) => {
@@ -111,7 +107,7 @@ const MainPage = () => {
   return (
     <>
       <main className={isCharSelected}>
-        <SearchForm onSearchSubmit={onSearchSubmit} buttonStatus={loading} hasError={error} />
+        <SearchForm buttonStatus={loading} hasError={error} />
         {errorMessage}
         {spinner}
         {content}

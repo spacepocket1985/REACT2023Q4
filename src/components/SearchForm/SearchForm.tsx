@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { ISearchFormProps } from '../../types/interfaces/ISearchFormProps';
 import { getUserQuery, setUserQuery } from '../../utils/localStorageActions';
 import ErrorComponent from '../ErrorComponent/ErrorComponent';
@@ -8,6 +10,8 @@ import './SearchForm.css';
 const SearchForm = (props: ISearchFormProps) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [testError, setTestError] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     let query = getUserQuery();
@@ -23,7 +27,7 @@ const SearchForm = (props: ISearchFormProps) => {
   const onSubmit = (event: React.MouseEvent): void => {
     event.preventDefault();
     setUserQuery(searchQuery);
-    props.onSearchSubmit(searchQuery);
+    navigate(`/search/${searchQuery}`);
   };
 
   const onError = (event: React.MouseEvent): void => {
