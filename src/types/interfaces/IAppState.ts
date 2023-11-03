@@ -9,4 +9,5 @@ export interface IAppState {
   error: boolean;
   errorMsg: null | string;
   charactersOnPage: number;
+  currentPage: number;
 }

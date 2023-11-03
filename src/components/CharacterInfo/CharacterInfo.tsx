@@ -27,6 +27,7 @@ const CharacterInfo = (props: ICharacterInfoProps) => {
 
   useEffect(() => {
     showCharacter();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [characterId]);
 
@@ -35,7 +36,7 @@ const CharacterInfo = (props: ICharacterInfoProps) => {
       return;
     }
     setLoading(true);
-
+    console.log('AE-char');
     getCharacter(Number(characterId)).then(onCharacterLoaded).catch(onError);
   };
 

@@ -4,7 +4,7 @@ import { IPaginationProps } from '../../types/interfaces/IPaginationProps';
 import './Pagination.css';
 
 const Pagination = (props: IPaginationProps) => {
-  const { previousPage, nextPage, onQuantitySelection, defoultQuantity } = props;
+  const { previousPage, currentPage, nextPage, onQuantitySelection, defoultQuantity } = props;
 
   const navigate = useNavigate();
 
@@ -22,6 +22,7 @@ const Pagination = (props: IPaginationProps) => {
         >
           Previous page
         </button>
+        <div className="page-informer">{currentPage ? currentPage : 1}</div>
         <button disabled={!nextPage} onClick={() => navigate(`/page/${nextPage?.slice(-1)}`)}>
           Next page
         </button>

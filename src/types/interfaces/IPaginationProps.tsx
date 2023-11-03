@@ -3,4 +3,5 @@ export interface IPaginationProps {
   previousPage: null | string;
   onQuantitySelection: (charactersOnPage: number) => void;
   defoultQuantity: number;
+  currentPage: number;
 }

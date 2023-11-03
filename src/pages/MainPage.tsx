@@ -30,6 +30,7 @@ const MainPage = () => {
     loading: false,
     query: _queryBase,
     charactersOnPage: 20,
+    currentPage: 1,
   });
 
   useEffect(() => {
@@ -37,10 +38,14 @@ const MainPage = () => {
     if (query === null) query = _queryBase;
 
     let url = _apiBase;
+    console.log('--------------------------');
+    console.log('AE-main');
 
     if (pageNum) url = `${_apiBase}?page=${pageNum}`;
     if (queryParam) url = `${_apiBase}?name=${queryParam}`;
-
+    if (characterId) return;
+    console.log(url);
+    console.log('--------------------------');
     onRequest(url);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appData.charactersOnPage, pageNum, queryParam]);
@@ -56,6 +61,7 @@ const MainPage = () => {
       charactersList: RickAndMortyData.results.slice(0, appData.charactersOnPage),
       nextPage: RickAndMortyData.info.next,
       previousPage: RickAndMortyData.info.prev,
+      currentPage: Number(pageNum),
       loading: false,
       error: false,
     });
@@ -85,7 +91,7 @@ const MainPage = () => {
   //   }
   // };
 
-  const { charactersList, nextPage, previousPage, loading, error, errorMsg } = appData;
+  const { charactersList, nextPage, currentPage, previousPage, loading, error, errorMsg } = appData;
 
   const isCharSelected = characterId ? 'with-info' : 'without-info';
   const errorMessage = error ? <ErrorMessage errorMsg={errorMsg} /> : null;
@@ -98,6 +104,7 @@ const MainPage = () => {
           previousPage={previousPage}
           onQuantitySelection={onQuantitySelection}
           defoultQuantity={appData.charactersOnPage}
+          currentPage={currentPage}
         />
       ) : null}
       <CharacterList charactersList={charactersList} />
