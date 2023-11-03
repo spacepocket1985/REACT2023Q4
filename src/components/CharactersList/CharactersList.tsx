@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
-import { ICharacter } from '../../interfaces/ICharacter';
-import { ICharactersListProps } from '../../interfaces/ICharactersListProps';
+import { ICharacter } from '../../types/interfaces/ICharacter';
+import { ICharactersListProps } from '../../types/interfaces/ICharactersListProps';
 import './CharactersList.css';
 
 const CharactersList = (props: ICharactersListProps) => {

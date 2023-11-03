@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import { Outlet } from 'react-router-dom';
 
-import { IAppState } from '../interfaces/IAppState';
+import ROUTE_PARTH from '../types/enums/routes-parths';
+import { IAppState } from '../types/interfaces/IAppState';
 import RickAndMortyAPI from '../services/RickAndMortyAPI';
-import { IRickAndMortyData } from '../interfaces/IRickAndMortyData';
+import { IRickAndMortyData } from '../types/interfaces/IRickAndMortyData';
 import { getUserQuery } from '../utils/localStorageActions';
 import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
 import Spinner from '../components/Spinner/Spinner';
@@ -76,7 +77,7 @@ const MainPage = () => {
 
   const onQuantitySelection = (charactersOnPage: number) => {
     setAppData({ ...appData, charactersOnPage });
-    navigate('/');
+    navigate(ROUTE_PARTH.MAIN);
   };
 
   // const check = (event: React.MouseEvent) => {

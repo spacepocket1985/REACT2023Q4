@@ -1,5 +1,5 @@
-import { IRickAndMortyData } from '../interfaces/IRickAndMortyData';
-import { ICharacter } from '../interfaces/ICharacter';
+import { IRickAndMortyData } from '../types/interfaces/IRickAndMortyData';
+import { ICharacter } from '../types/interfaces/ICharacter';
 
 const RickAndMortyAPI = () => {
   const _apiBase = 'https://rickandmortyapi.com/api/character';

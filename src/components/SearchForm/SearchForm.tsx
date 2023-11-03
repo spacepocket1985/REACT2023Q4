@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ISearchFormProps } from '../../interfaces/ISearchFormProps';
+import { ISearchFormProps } from '../../types/interfaces/ISearchFormProps';
 import { getUserQuery, setUserQuery } from '../../utils/localStorageActions';
 import ErrorComponent from '../ErrorComponent/ErrorComponent';
 import ricAndMortyImg from '../../assets/rick-and-morty.png';

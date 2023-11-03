@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router';
-
 import { useEffect, useState } from 'react';
+
 import Spinner from '../Spinner/Spinner';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import RickAndMortyAPI from '../../services/RickAndMortyAPI';
-import { ICharacterInfoProps } from '../../interfaces/ICharacterInfoProps';
-import { ICharacter } from '../../interfaces/ICharacter';
+import ROUTE_PARTH from '../../types/enums/routes-parths';
+import { ICharacterInfoProps } from '../../types/interfaces/ICharacterInfoProps';
+import { ICharacter } from '../../types/interfaces/ICharacter';
 import './CharacterInfo.css';
 
 const CharacterInfo = (props: ICharacterInfoProps) => {
@@ -62,7 +63,7 @@ const CharacterInfo = (props: ICharacterInfoProps) => {
       <button
         className="character-title__button"
         onClick={() => {
-          navigate('/');
+          navigate(ROUTE_PARTH.MAIN);
         }}
       >
         X

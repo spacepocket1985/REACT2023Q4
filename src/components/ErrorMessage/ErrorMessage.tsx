@@ -1,4 +1,4 @@
-import { IErrorMsgProps } from '../../interfaces/IErrorMsgProps';
+import { IErrorMsgProps } from '../../types/interfaces/IErrorMsgProps';
 import errorImg from './error.gif';
 import './ErrorMessage.css';
 

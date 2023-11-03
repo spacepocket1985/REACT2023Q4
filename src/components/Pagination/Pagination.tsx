@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { IPaginationProps } from '../../interfaces/IPaginationProps';
+import { IPaginationProps } from '../../types/interfaces/IPaginationProps';
 import './Pagination.css';
 
 const Pagination = (props: IPaginationProps) => {
