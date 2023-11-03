@@ -1,10 +1,12 @@
-import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
+import { Link } from 'react-router-dom';
 
 const Page404 = () => {
   return (
     <div className="wrapper-404">
       <h1>404 - Not Found</h1>
-      <ErrorMessage errorMsg={'The requested page not found!'} />
+      <Link className="link-home" to="/">
+        Back to Main page
+      </Link>
     </div>
   );
 };
