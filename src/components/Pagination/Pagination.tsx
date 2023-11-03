@@ -1,9 +1,12 @@
+import { useNavigate } from 'react-router-dom';
+
 import { IPaginationProps } from '../../interfaces/IPaginationProps';
 import './Pagination.css';
 
 const Pagination = (props: IPaginationProps) => {
-  const { previousPage, nextPage, onClickPaginationButton, onQuantitySelection, defoultQuantity } =
-    props;
+  const { previousPage, nextPage, onQuantitySelection, defoultQuantity } = props;
+
+  const navigate = useNavigate();
 
   const onUpdateQuantety = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     const quantety = event.target.value;
@@ -13,10 +16,13 @@ const Pagination = (props: IPaginationProps) => {
   return (
     <div className="pagination__wrapper">
       <div className="pages-btns__wrapper">
-        <button disabled={!previousPage} onClick={() => onClickPaginationButton(previousPage)}>
+        <button
+          disabled={!previousPage}
+          onClick={() => navigate(`/page/${previousPage?.slice(-1)}`)}
+        >
           Previous page
         </button>
-        <button disabled={!nextPage} onClick={() => onClickPaginationButton(nextPage)}>
+        <button disabled={!nextPage} onClick={() => navigate(`/page/${nextPage?.slice(-1)}`)}>
           Next page
         </button>
       </div>

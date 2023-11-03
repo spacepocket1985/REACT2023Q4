@@ -16,7 +16,7 @@ import CharacterInfo from '../components/CharacterInfo/CharacterInfo';
 const MainPage = () => {
   const { getResource, _apiBase, _queryBase } = RickAndMortyAPI();
   const navigate = useNavigate();
-  const { characterId } = useParams();
+  const { characterId, pageNum } = useParams();
 
   const [appData, setAppData] = useState<IAppState>({
     charactersList: [],
@@ -36,6 +36,11 @@ const MainPage = () => {
     onRequest(_apiBase, query);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appData.charactersOnPage, appData.query]);
+
+  useEffect(() => {
+    onRequest(`${_apiBase}?page=${pageNum}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageNum]);
 
   const onRequest = (link?: string, query?: string): void => {
     setAppData({ ...appData, loading: true, error: false });
@@ -63,10 +68,6 @@ const MainPage = () => {
     });
   };
 
-  const onClickPaginationButton = (url: string | null): void => {
-    url && onRequest(url);
-  };
-
   const onSearchSubmit = (query: string, error?: boolean): void => {
     setAppData({ ...appData, query, error: false });
 
@@ -75,17 +76,17 @@ const MainPage = () => {
 
   const onQuantitySelection = (charactersOnPage: number) => {
     setAppData({ ...appData, charactersOnPage });
+    navigate('/');
   };
 
-  const check = (event: React.MouseEvent) => {
-    if (event.target instanceof HTMLElement) {
-      const el = event.target;
-      if (!el.closest('.character-card__wrapper') && characterId) {
-        console.log(!el.closest('.character-card__wrapper') && characterId);
-        navigate('/');
-      }
-    }
-  };
+  // const check = (event: React.MouseEvent) => {
+  //   if (event.target instanceof HTMLElement) {
+  //     const el = event.target;
+  //     if (!el.closest('.character-card__wrapper') && characterId) {
+  //       navigate('/');
+  //     }
+  //   }
+  // };
 
   const { charactersList, nextPage, previousPage, loading, error, errorMsg } = appData;
 
@@ -98,7 +99,6 @@ const MainPage = () => {
         <Pagination
           nextPage={nextPage}
           previousPage={previousPage}
-          onClickPaginationButton={onClickPaginationButton}
           onQuantitySelection={onQuantitySelection}
           defoultQuantity={appData.charactersOnPage}
         />
@@ -109,7 +109,7 @@ const MainPage = () => {
 
   return (
     <>
-      <main className={isCharSelected} onClick={check}>
+      <main className={isCharSelected}>
         <SearchForm onSearchSubmit={onSearchSubmit} buttonStatus={loading} hasError={error} />
         {errorMessage}
         {spinner}

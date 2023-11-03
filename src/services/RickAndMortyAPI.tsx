@@ -9,6 +9,7 @@ const RickAndMortyAPI = () => {
   const getResource = async (link = _apiBase, query?: string): Promise<IRickAndMortyData> => {
     const url = query && query.length > 0 && query !== _queryBase ? `${link}?name=${query}` : link;
     const res = await fetch(url);
+    console.log(url);
 
     if (!res.ok) {
       throw new Error(`Could not fetch ${url}, status: ${res.status}`);
