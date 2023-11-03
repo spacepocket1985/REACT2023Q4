@@ -36,7 +36,7 @@ const CharacterInfo = (props: ICharacterInfoProps) => {
       return;
     }
     setLoading(true);
-    console.log('AE-char');
+    setError({ error: false, errorMsg: '' });
     getCharacter(Number(characterId)).then(onCharacterLoaded).catch(onError);
   };
 

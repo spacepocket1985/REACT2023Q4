@@ -18,12 +18,12 @@ const Pagination = (props: IPaginationProps) => {
       <div className="pages-btns__wrapper">
         <button
           disabled={!previousPage}
-          onClick={() => navigate(`/page/${previousPage?.slice(-1)}`)}
+          onClick={() => navigate(`/page=${previousPage?.slice(-1)}`)}
         >
           Previous page
         </button>
         <div className="page-informer">{currentPage ? currentPage : 1}</div>
-        <button disabled={!nextPage} onClick={() => navigate(`/page/${nextPage?.slice(-1)}`)}>
+        <button disabled={!nextPage} onClick={() => navigate(`/page=${nextPage?.slice(-1)}`)}>
           Next page
         </button>
       </div>

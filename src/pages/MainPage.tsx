@@ -38,14 +38,11 @@ const MainPage = () => {
     if (query === null) query = _queryBase;
 
     let url = _apiBase;
-    console.log('--------------------------');
-    console.log('AE-main');
 
-    if (pageNum) url = `${_apiBase}?page=${pageNum}`;
+    if (pageNum) url = `${_apiBase}?page=${Number(pageNum)}`;
     if (queryParam) url = `${_apiBase}?name=${queryParam}`;
     if (characterId) return;
-    console.log(url);
-    console.log('--------------------------');
+
     onRequest(url);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appData.charactersOnPage, pageNum, queryParam]);
