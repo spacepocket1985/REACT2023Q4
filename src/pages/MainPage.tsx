@@ -79,15 +79,6 @@ const MainPage = () => {
     navigate(ROUTE_PARTH.MAIN);
   };
 
-  // const check = (event: React.MouseEvent) => {
-  //   if (event.target instanceof HTMLElement) {
-  //     const el = event.target;
-  //     if (!el.closest('.character-card__wrapper') && characterId) {
-  //       navigate('/');
-  //     }
-  //   }
-  // };
-
   const { charactersList, nextPage, currentPage, previousPage, loading, error, errorMsg } = appData;
 
   const isCharSelected = characterId ? 'with-info' : 'without-info';
