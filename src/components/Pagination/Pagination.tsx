@@ -30,6 +30,7 @@ const Pagination = (props: IPaginationProps) => {
       <div className="limit-wrapper">
         <form>
           <select
+            id="characters-number"
             className="limit-select"
             name="characters-number"
             onChange={(e) => onUpdateQuantety(e)}

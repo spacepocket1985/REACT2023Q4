@@ -1,6 +1,6 @@
 enum ROUTE_PARTH {
   MAIN = '/',
-  CHARACTER = '/character/:characterId',
+  CHARACTER = '/page=:pageNum/characterId=:characterId',
   PAGE = '/page=:pageNum',
   SEARCH = '/search/:queryParam',
   PAGE404 = '*',

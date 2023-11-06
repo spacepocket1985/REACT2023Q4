@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, HashRouter } from 'react-router-dom';
 
 import MainPage from './pages/MainPage';
 import Page404 from './pages/Page404';
@@ -7,7 +7,7 @@ import ROUTE_PARTH from './types/enums/routes-parths';
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <ErrorBoundary>
         <Routes>
           <Route path={ROUTE_PARTH.MAIN} element={<MainPage />} />
@@ -18,7 +18,7 @@ const App = () => {
           <Route path={ROUTE_PARTH.PAGE404} element={<Page404 />} />
         </Routes>
       </ErrorBoundary>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
