@@ -26,7 +26,7 @@ const MainPage = () => {
     error: false,
     errorMsg: '',
     loading: false,
-    query: _queryBase,
+    query: getUserQuery() || '',
     charactersOnPage: 20,
     currentPage: 1,
   });

@@ -1,32 +1,24 @@
-import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 
 import AppContext from '../../context/AppContext';
-import { getUserQuery, setUserQuery } from '../../utils/localStorageActions';
+import { setUserQuery } from '../../utils/localStorageActions';
 import ricAndMortyImg from '../../assets/rick-and-morty.png';
 import './SearchForm.css';
 
 const SearchForm = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const { appData } = useContext(AppContext);
+  const { appData, setAppData } = useContext(AppContext);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    let query = getUserQuery();
-    if (query === null) query = '';
-    setSearchQuery(query);
-  }, []);
 
   const onUpdateSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const query = event.target.value.trim();
-    setSearchQuery(query);
+    setAppData({ ...appData, query });
   };
 
   const onSubmit = (event: React.MouseEvent): void => {
     event.preventDefault();
-    setUserQuery(searchQuery);
-    navigate(`/search/${searchQuery}`);
+    setUserQuery(appData.query);
+    navigate(`/search/${appData.query}`);
   };
 
   return (
@@ -38,7 +30,7 @@ const SearchForm = () => {
           <input
             type="text"
             placeholder="name for search"
-            value={searchQuery}
+            value={appData.query}
             onChange={onUpdateSearch}
           />
           <button
