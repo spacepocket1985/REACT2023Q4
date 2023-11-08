@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router';
+import { useParams } from 'react-router';
 import { Outlet } from 'react-router-dom';
 
-import ROUTE_PARTH from '../types/enums/routes-parths';
 import { IAppState } from '../types/interfaces/IAppState';
 import { IRickAndMortyData } from '../types/interfaces/IRickAndMortyData';
 import { getUserQuery } from '../utils/localStorageActions';
+import AppContext from '../context/AppContext';
 import RickAndMortyAPI from '../services/RickAndMortyAPI';
 import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
 import Spinner from '../components/Spinner/Spinner';
@@ -18,8 +18,6 @@ const MainPage = () => {
   const { getResource, _apiBase, _queryBase } = RickAndMortyAPI();
 
   const { characterId, pageNum, queryParam } = useParams();
-
-  const navigate = useNavigate();
 
   const [appData, setAppData] = useState<IAppState>({
     charactersList: [],
@@ -74,42 +72,29 @@ const MainPage = () => {
     });
   };
 
-  const onQuantitySelection = (charactersOnPage: number) => {
-    setAppData({ ...appData, charactersOnPage });
-    navigate(ROUTE_PARTH.MAIN);
-  };
-
-  const { charactersList, nextPage, currentPage, previousPage, loading, error, errorMsg } = appData;
+  const { charactersList, nextPage, previousPage, loading, error, errorMsg } = appData;
 
   const isCharSelected = characterId ? 'with-info' : 'without-info';
   const errorMessage = error ? <ErrorMessage errorMsg={errorMsg} /> : null;
   const spinner = loading ? <Spinner /> : null;
   const content = !(loading || error) ? (
     <>
-      {charactersList && (nextPage || previousPage) ? (
-        <Pagination
-          nextPage={nextPage}
-          previousPage={previousPage}
-          onQuantitySelection={onQuantitySelection}
-          defoultQuantity={appData.charactersOnPage}
-          currentPage={currentPage}
-        />
-      ) : null}
-      <CharacterList charactersList={charactersList} />
+      {charactersList && (nextPage || previousPage) ? <Pagination /> : null}
+      <CharacterList />
     </>
   ) : null;
 
   return (
-    <>
+    <AppContext.Provider value={{ appData: appData, setAppData: setAppData }}>
       <main className={isCharSelected}>
-        <SearchForm buttonStatus={loading} hasError={error} />
+        <SearchForm />
         {errorMessage}
         {spinner}
         {content}
       </main>
-      <CharacterInfo characterId={Number(characterId)} />
+      <CharacterInfo />
       <Outlet />
-    </>
+    </AppContext.Provider>
   );
 };
 

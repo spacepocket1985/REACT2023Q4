@@ -1,3 +1,4 @@
+import { useParams } from 'react-router';
 import { useNavigate } from 'react-router';
 
 import { useEffect, useState } from 'react';
@@ -6,11 +7,10 @@ import Spinner from '../Spinner/Spinner';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import RickAndMortyAPI from '../../services/RickAndMortyAPI';
 import ROUTE_PARTH from '../../types/enums/routes-parths';
-import { ICharacterInfoProps } from '../../types/interfaces/ICharacterInfoProps';
 import { ICharacter } from '../../types/interfaces/ICharacter';
 import './CharacterInfo.css';
 
-const CharacterInfo = (props: ICharacterInfoProps) => {
+const CharacterInfo = () => {
   const [character, setCharacter] = useState<null | ICharacter>(null);
   const [loading, setLoading] = useState(false);
   const [errorData, setError] = useState({
@@ -18,7 +18,7 @@ const CharacterInfo = (props: ICharacterInfoProps) => {
     errorMsg: '',
   });
 
-  const { characterId } = props;
+  const { characterId } = useParams();
 
   const navigate = useNavigate();
 

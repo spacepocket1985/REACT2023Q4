@@ -1,16 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
 
-import { ISearchFormProps } from '../../types/interfaces/ISearchFormProps';
+import AppContext from '../../context/AppContext';
 import { getUserQuery, setUserQuery } from '../../utils/localStorageActions';
-import ErrorComponent from '../ErrorComponent/ErrorComponent';
 import ricAndMortyImg from '../../assets/rick-and-morty.png';
 import './SearchForm.css';
 
-const SearchForm = (props: ISearchFormProps) => {
+const SearchForm = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [testError, setTestError] = useState(false);
-
+  const { appData } = useContext(AppContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,17 +29,8 @@ const SearchForm = (props: ISearchFormProps) => {
     navigate(`/search/${searchQuery}`);
   };
 
-  const onError = (event: React.MouseEvent): void => {
-    event.preventDefault();
-    setTestError(!testError);
-  };
-
-  const { buttonStatus } = props;
-  const testErrorBoundary = testError ? <ErrorComponent /> : null;
-
   return (
     <>
-      {testErrorBoundary}
       <img src={ricAndMortyImg} className="rick-morty__img" alt="ricAndMortyImg" />
       <div className="search-form__wrapper">
         <h2>Rick and Morty API</h2>
@@ -52,21 +42,12 @@ const SearchForm = (props: ISearchFormProps) => {
             onChange={onUpdateSearch}
           />
           <button
-            disabled={buttonStatus}
+            disabled={appData.loading}
             onClick={(e) => {
               onSubmit(e);
             }}
           >
             Search
-          </button>
-          <button
-            className="test-button"
-            disabled={buttonStatus}
-            onClick={(e) => {
-              onError(e);
-            }}
-          >
-            Test ErrorBoundary
           </button>
         </form>
       </div>

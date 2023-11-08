@@ -1,12 +1,14 @@
 import { Link, useParams } from 'react-router-dom';
+import { useContext } from 'react';
 
+import AppContext from '../../context/AppContext';
 import { ICharacter } from '../../types/interfaces/ICharacter';
-import { ICharactersListProps } from '../../types/interfaces/ICharactersListProps';
+
 import './CharactersList.css';
 
-const CharactersList = (props: ICharactersListProps) => {
-  const { charactersList } = props;
+const CharactersList = () => {
   const { pageNum } = useParams();
+  const { appData } = useContext(AppContext);
 
   const page = !pageNum ? 1 : pageNum;
 
@@ -27,7 +29,7 @@ const CharactersList = (props: ICharactersListProps) => {
       );
     });
 
-  return <div className="characters__wrapper">{renderCharacters(charactersList)}</div>;
+  return <div className="characters__wrapper">{renderCharacters(appData.charactersList)}</div>;
 };
 
 export default CharactersList;

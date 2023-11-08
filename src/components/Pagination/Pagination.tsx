@@ -1,29 +1,34 @@
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
 
-import { IPaginationProps } from '../../types/interfaces/IPaginationProps';
+import ROUTE_PARTH from '../../types/enums/routes-parths';
+import AppContext from '../../context/AppContext';
 import './Pagination.css';
 
-const Pagination = (props: IPaginationProps) => {
-  const { previousPage, currentPage, nextPage, onQuantitySelection, defoultQuantity } = props;
-
+const Pagination = () => {
   const navigate = useNavigate();
+  const { appData, setAppData } = useContext(AppContext);
 
   const onUpdateQuantety = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     const quantety = event.target.value;
-    onQuantitySelection(Number(quantety));
+    setAppData({ ...appData, charactersOnPage: Number(quantety) });
+    navigate(ROUTE_PARTH.MAIN);
   };
 
   return (
     <div className="pagination__wrapper">
       <div className="pages-btns__wrapper">
         <button
-          disabled={!previousPage}
-          onClick={() => navigate(`/page=${previousPage?.slice(-1)}`)}
+          disabled={!appData.previousPage}
+          onClick={() => navigate(`/page=${appData.previousPage?.slice(-1)}`)}
         >
           Previous page
         </button>
-        <div className="page-informer">{currentPage ? currentPage : 1}</div>
-        <button disabled={!nextPage} onClick={() => navigate(`/page=${nextPage?.slice(-1)}`)}>
+        <div className="page-informer">{appData.currentPage ? appData.currentPage : 1}</div>
+        <button
+          disabled={!appData.nextPage}
+          onClick={() => navigate(`/page=${appData.nextPage?.slice(-1)}`)}
+        >
           Next page
         </button>
       </div>
@@ -34,7 +39,7 @@ const Pagination = (props: IPaginationProps) => {
             className="limit-select"
             name="characters-number"
             onChange={(e) => onUpdateQuantety(e)}
-            defaultValue={defoultQuantity}
+            defaultValue={appData.charactersOnPage}
           >
             <option value="5">5</option>
             <option value="10">10</option>
