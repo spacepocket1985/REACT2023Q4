@@ -1,0 +1,82 @@
+
+
+Blog
+Discord
+Russian
+Free ChatGPT and Search Engine
+
+Написать jest test для компонента  import { Link, useParams } from 'react-router-dom'; import { useContext } from 'react';  import AppContext from '../../context/AppContext'; import { ICharacter } from '../../types/interfaces/ICharacter';  import './CharactersList.css';  const CharactersList = () => {   const { pageNum } = useParams();   const { appData } = useContext(AppContext);    const page = !pageNum ? 1 : pageNum;    const renderCharacters = (characters: ICharacter[]) =>     characters.map((char, index) => {       const { name, image, id } = char;       return (         <Link key={index} to={`/page=${page}/characterId=${id}`}>           <div className="character-card__wrapper">             <div className="card-img__wrapper">               <img className="card-img" src={image} alt={name} />             </div>             <div className="card-content__wrapper">               <div className="card-content__name">{name}</div>             </div>           </div>         </Link>       );     });    return <div className="characters__wrapper">{renderCharacters(appData.charactersList)}</div>; };  export default CharactersList;
+Default
+Ask GPT
+Search & Ask GPT
+Logo ChatGPT
+ChatGPT
+Вот пример Jest теста для данного компонента:
+
+
+import React from 'react';
+import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { appcontext } from '../../context/appcontext';
+import CharactersList from './characterslist';
+
+describe('CharactersList component', () => {
+  const characters = [
+    {
+      name: 'Character 1',
+      image: 'image1.jpg',
+      id: 1
+    },
+    {
+      name: 'Character 2',
+      image: 'image2.jpg',
+      id: 2
+    }
+  ];
+
+  test('renders characters list', () => {
+    const { getByAltText, getByText } = render(
+      <MemoryRouter>
+        <appcontext.Provider value={{ appdata: { characterslist: characters } }}>
+          <CharactersList />
+        </appcontext.Provider>
+      </MemoryRouter>
+    );
+
+    characters.forEach((character) => {
+      expect(getByAltText(character.name)).toBeInTheDocument();
+      expect(getByText(character.name)).toBeInTheDocument();
+    });
+  });
+
+  test('renders correct links', () => {
+    const { container } = render(
+      <MemoryRouter>
+        <appcontext.Provider value={{ appdata: { characterslist: characters } }}>
+          <CharactersList />
+        </appcontext.Provider>
+      </MemoryRouter>
+    );
+
+    characters.forEach((character) => {
+      const link = container.querySelector(`[href="/page=1/characterid=${character.id}"]`);
+      expect(link).toBeInTheDocument();
+    });
+  });
+});
+Copied
+
+
+Пример выше использует библиотеку `@testing-library/react` для рендеринга компонента. Jest предоставляет глобальный объект `test` для создания тестовых случаев. В первом тесте мы проверяем, что компонент отображает список персонажей, включая их изображения и имена. Во втором тесте мы проверяем, что ссылки на персонажей имеют правильные пути. Мы используем обёртку `MemoryRouter` из библиотеки `react-router-dom` для создания виртуального окружения маршрутизации в тесте.
+Search & Ask GPT
+Задать больше вопросов
+ADVERTISEMENT
+
+
+
+
+
+
+
+
+

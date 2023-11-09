@@ -13,6 +13,7 @@ const SearchForm = () => {
   useEffect(() => {
     let query = getUserQuery();
     if (query === null) query = '';
+
     navigate(`/search/${query}`);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -26,6 +27,7 @@ const SearchForm = () => {
   const onSubmit = (event: React.MouseEvent): void => {
     event.preventDefault();
     setUserQuery(appData.query);
+
     navigate(`/search/${appData.query}`);
   };
 

@@ -29,7 +29,15 @@ const CharactersList = () => {
       );
     });
 
-  return <div className="characters__wrapper">{renderCharacters(appData.charactersList)}</div>;
+  return (
+    <div className="characters__wrapper">
+      {appData.charactersList && appData.charactersList?.length > 0 ? (
+        renderCharacters(appData.charactersList)
+      ) : (
+        <h3>No characters</h3>
+      )}
+    </div>
+  );
 };
 
 export default CharactersList;
