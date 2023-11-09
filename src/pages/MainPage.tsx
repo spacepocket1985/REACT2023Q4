@@ -32,9 +32,6 @@ const MainPage = () => {
   });
 
   useEffect(() => {
-    let query = getUserQuery();
-    if (query === null) query = _queryBase;
-
     let url = _apiBase;
 
     if (pageNum) url = `${_apiBase}?page=${Number(pageNum)}`;

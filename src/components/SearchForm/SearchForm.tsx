@@ -1,14 +1,22 @@
 import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import AppContext from '../../context/AppContext';
-import { setUserQuery } from '../../utils/localStorageActions';
+import { setUserQuery, getUserQuery } from '../../utils/localStorageActions';
 import ricAndMortyImg from '../../assets/rick-and-morty.png';
 import './SearchForm.css';
 
 const SearchForm = () => {
   const { appData, setAppData } = useContext(AppContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    let query = getUserQuery();
+    if (query === null) query = '';
+    navigate(`/search/${query}`);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onUpdateSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const query = event.target.value.trim();
