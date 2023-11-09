@@ -21,12 +21,12 @@ const SearchForm = () => {
 
   const onUpdateSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const query = event.target.value.trim();
-    setAppData({ ...appData, query });
+    if (setAppData) setAppData({ ...appData, query });
   };
 
   const onSubmit = (event: React.MouseEvent): void => {
     event.preventDefault();
-    setUserQuery(appData.query);
+    if (appData.query) setUserQuery(appData.query);
 
     navigate(`/search/${appData.query}`);
   };

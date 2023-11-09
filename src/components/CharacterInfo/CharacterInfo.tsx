@@ -101,13 +101,13 @@ const View = (props: ICharacterProps) => {
             <span className="detail-title">Status</span> - {status}
           </div>
           <div>
-            <span className="detail-title">Location</span> - {location.name}
+            <span className="detail-title">Location</span> - {location?.name}
           </div>
           <div>
             <span className="detail-title">Species</span> - {species}
           </div>
           <div>
-            <span className="detail-title">Created</span> - {created.substring(0, 10)}
+            <span className="detail-title">Created</span> - {created?.substring(0, 10)}
           </div>
         </div>
       </div>

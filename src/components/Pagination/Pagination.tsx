@@ -11,7 +11,7 @@ const Pagination = () => {
 
   const onUpdateQuantety = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     const quantety = event.target.value;
-    setAppData({ ...appData, charactersOnPage: Number(quantety) });
+    if (setAppData) setAppData({ ...appData, charactersOnPage: Number(quantety) });
     navigate(ROUTE_PARTH.MAIN);
   };
 
