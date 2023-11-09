@@ -1,3 +1,3 @@
 export interface IErrorMsgProps {
-  errorMsg: null | string;
+  errorMsg: null | string | undefined;
 }

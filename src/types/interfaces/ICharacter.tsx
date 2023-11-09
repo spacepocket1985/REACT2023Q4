@@ -2,19 +2,19 @@ export interface ICharacter {
   id: number;
   name: string;
   status: string;
-  type: string;
-  origin: {
+  type?: string;
+  origin?: {
     name: string;
     url: string;
   };
-  location: {
+  location?: {
     name: string;
     url: string;
   };
   image: string;
-  episode: string[];
+  episode?: string[];
   gender: string;
-  species: string;
-  created: string;
-  url: string;
+  species?: string;
+  created?: string;
+  url?: string;
 }
