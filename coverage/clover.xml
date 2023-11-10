@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1699627148763" clover="3.2.0">
-  <project timestamp="1699627148763" name="All files">
+<coverage generated="1699627365315" clover="3.2.0">
+  <project timestamp="1699627365315" name="All files">
     <metrics statements="66" coveredstatements="66" conditionals="11" coveredconditionals="8" methods="14" coveredmethods="13" elements="91" coveredelements="87" complexity="0" loc="66" ncloc="66" packages="8" files="8" classes="8"/>
     <package name="__tests__.mocs">
       <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
@@ -36,7 +36,7 @@
         <line num="3" count="2" type="stmt"/>
         <line num="4" count="41" type="stmt"/>
         <line num="5" count="41" type="stmt"/>
-        <line num="18" count="2" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
       </file>
     </package>
     <package name="components.CharactersList">

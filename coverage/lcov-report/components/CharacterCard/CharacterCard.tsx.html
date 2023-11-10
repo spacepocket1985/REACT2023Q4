@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Code coverage report for __tests__/mocs/generateCharacters.ts</title>
+    <title>Code coverage report for components/CharacterCard/CharacterCard.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
       <div class="pad1">
         <h1>
           <a href="../../index.html">All files</a> /
-          <a href="index.html">__tests__/mocs</a> generateCharacters.ts
+          <a href="index.html">components/CharacterCard</a> CharacterCard.tsx
         </h1>
         <div class="clearfix">
           <div class="fl pad1y space-right2">
             <span class="strong">100% </span>
             <span class="quiet">Statements</span>
-            <span class="fraction">15/15</span>
+            <span class="fraction">4/4</span>
           </div>
 
           <div class="fl pad1y space-right2">
@@ -37,13 +37,13 @@
           <div class="fl pad1y space-right2">
             <span class="strong">100% </span>
             <span class="quiet">Functions</span>
-            <span class="fraction">2/2</span>
+            <span class="fraction">1/1</span>
           </div>
 
           <div class="fl pad1y space-right2">
             <span class="strong">100% </span>
             <span class="quiet">Lines</span>
-            <span class="fraction">14/14</span>
+            <span class="fraction">4/4</span>
           </div>
         </div>
         <p class="quiet">
@@ -76,46 +76,40 @@
 <a name='L15'></a><a href='#L15'>15</a>
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
-<a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L18'></a><a href='#L18'>18</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">41x</span>
-<span class="cline-any cline-yes">41x</span>
-<span class="cline-any cline-yes">41x</span>
-<span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const namesData = ['Rick', 'Bob', 'Timon', 'Pumba', 'Sandy'];
-const genderData = ['male, female, unknow'];
-const statusData = ['dead', 'alive', 'zombie'];
-const createdData = ['today', '12.12.2000', '11.11.2023'];
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ICharacterCardProps } from '../../types/interfaces/ICharacterCardProps';
 &nbsp;
-export const generateCharacters = (quantity: number) =&gt; {
-  const characters = Array.from({ length: quantity }, (_, index) =&gt; {
-    const id = index + 1;
-    const name = `${namesData[Math.floor(Math.random() * namesData.length)]}-${index}`;
-    const gender = genderData[Math.floor(Math.random() * genderData.length)];
-    const status = statusData[Math.floor(Math.random() * statusData.length)];
-    const created = createdData[Math.floor(Math.random() * createdData.length)];
-    const image = `character-image-${id}`;
-&nbsp;
-    return { id, name, gender, status, created, image };
-  });
-&nbsp;
-  return characters;
+const CharacterCard = (props: ICharacterCardProps) =&gt; {
+  const { name, image } = props;
+  return (
+    &lt;div className="character-card__wrapper"&gt;
+      &lt;div className="card-img__wrapper"&gt;
+        &lt;img className="card-img" src={image} alt={name} /&gt;
+      &lt;/div&gt;
+      &lt;div className="card-content__wrapper"&gt;
+        &lt;div className="card-content__name"&gt;{name}&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
 };
+&nbsp;
+export default CharacterCard;
 &nbsp;</pre></td></tr></table></pre>
 
       <div class="push"></div>
