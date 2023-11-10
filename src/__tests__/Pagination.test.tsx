@@ -75,4 +75,27 @@ describe('Pagination component', () => {
     fireEvent.click(getByText('Next page'));
     expect(appData.currentPage).toBe(Number(informer.textContent));
   });
+
+  test('should update characters per page correctly', () => {
+    const appData = {
+      currentPage: 20,
+    };
+
+    render(
+      <AppContext.Provider value={{ appData: appData }}>
+        <BrowserRouter>
+          <Pagination />
+        </BrowserRouter>
+      </AppContext.Provider>
+    );
+
+    // Select the characters per page select element
+    const selectElement = screen.getByTestId('characters-number');
+
+    // Fire change event to select a different value
+    fireEvent.change(selectElement, { target: { value: '10' } });
+
+    // Assert that the value of the characters per page select has been updated
+    expect(screen.getByTestId('characters-number')).toHaveValue('10');
+  });
 });

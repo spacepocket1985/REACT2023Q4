@@ -40,6 +40,7 @@ const Pagination = () => {
             id="characters-number"
             className="limit-select"
             name="characters-number"
+            data-testid="characters-number"
             onChange={(e) => onUpdateQuantety(e)}
             defaultValue={appData.charactersOnPage}
           >
