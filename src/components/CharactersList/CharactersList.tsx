@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { useContext } from 'react';
 
+import CharacterCard from '../CharacterCard/CharacterCard';
 import AppContext from '../../context/AppContext';
 import { ICharacter } from '../../types/interfaces/ICharacter';
 
@@ -17,14 +18,7 @@ const CharactersList = () => {
       const { name, image, id } = char;
       return (
         <Link key={index} to={`/page=${page}/characterId=${id}`}>
-          <div className="character-card__wrapper">
-            <div className="card-img__wrapper">
-              <img className="card-img" src={image} alt={name} />
-            </div>
-            <div className="card-content__wrapper">
-              <div className="card-content__name">{name}</div>
-            </div>
-          </div>
+          <CharacterCard name={name} image={image} />
         </Link>
       );
     });
