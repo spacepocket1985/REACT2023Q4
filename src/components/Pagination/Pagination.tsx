@@ -24,7 +24,9 @@ const Pagination = () => {
         >
           Previous page
         </button>
-        <div className="page-informer">{appData.currentPage ? appData.currentPage : 1}</div>
+        <div className="page-informer" data-testid="informer">
+          {appData.currentPage ? appData.currentPage : 1}
+        </div>
         <button
           disabled={!appData.nextPage}
           onClick={() => navigate(`/page=${appData.nextPage?.slice(-1)}`)}

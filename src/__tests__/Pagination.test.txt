@@ -1,0 +1,62 @@
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+
+import Pagination from '../components/Pagination/Pagination';
+
+jest.mock('react-router-dom', () => ({
+  useNavigate: jest.fn(),
+}));
+
+jest.mock('../../context/appContext', () => ({
+  useContext: jest.fn(),
+}));
+
+describe('Pagination component', () => {
+  test('onUpdateQuantity is called with the correct value when select option is changed', () => {
+    const navigateMock = jest.fn();
+    const setAppDataMock = jest.fn();
+    useNavigate.mockReturnValue(navigateMock);
+    useContext.mockReturnValue({
+      appData: {
+        previousPage: null,
+        currentPage: 1,
+        nextPage: null,
+        charactersOnPage: 10,
+      },
+      setAppData: setAppDataMock,
+    });
+
+    const { getByLabelText } = render(<Pagination />);
+    const select = getByLabelText('characters on page');
+
+    fireEvent.change(select, { target: { value: '15' } });
+
+    expect(setAppDataMock).toHaveBeenCalledWith({
+      previousPage: null,
+      currentPage: 1,
+      nextPage: null,
+      charactersOnPage: 15,
+    });
+    expect(navigateMock).toHaveBeenCalledWith(routePaths.main);
+  });
+
+  test('previous page button is disabled when appData.previousPage is null', () => {
+    useContext.mockReturnValue({
+      appData: {
+        previousPage: null,
+        currentPage: 1,
+        nextPage: null,
+        charactersOnPage: 10,
+      },
+    });
+
+    const { getByText } = render(<Pagination />);
+    const previousPageButton = getByText('previous page');
+
+    expect(previousPageButton).toBeDisabled();
+  });
+
+
+});
