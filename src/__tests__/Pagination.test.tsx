@@ -97,5 +97,6 @@ describe('Pagination component', () => {
 
     // Assert that the value of the characters per page select has been updated
     expect(screen.getByTestId('characters-number')).toHaveValue('10');
+    expect(screen.getByTestId('characters-number')).not.toHaveValue('20');
   });
 });

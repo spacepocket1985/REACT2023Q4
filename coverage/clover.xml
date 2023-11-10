@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1699618498643" clover="3.2.0">
-  <project timestamp="1699618498643" name="All files">
-    <metrics statements="57" coveredstatements="57" conditionals="11" coveredconditionals="8" methods="12" coveredmethods="11" elements="80" coveredelements="76" complexity="0" loc="57" ncloc="57" packages="6" files="6" classes="6"/>
+<coverage generated="1699620066399" clover="3.2.0">
+  <project timestamp="1699620066399" name="All files">
+    <metrics statements="61" coveredstatements="61" conditionals="11" coveredconditionals="8" methods="13" coveredmethods="12" elements="85" coveredelements="81" complexity="0" loc="61" ncloc="61" packages="7" files="7" classes="7"/>
     <package name="__tests__.mocs">
       <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
       <file name="generateCharacters.ts" path="D:\temp\2023-10\Stage-React\000-Repo\REACT2023Q4\src\__tests__\mocs\generateCharacters.ts">
@@ -79,6 +79,16 @@
         <line num="1" count="2" type="stmt"/>
         <line num="4" count="2" type="stmt"/>
         <line num="19" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="pages">
+      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="Page404.tsx" path="D:\temp\2023-10\Stage-React\000-Repo\REACT2023Q4\src\pages\Page404.tsx">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
       </file>
     </package>
     <package name="types.enums">
