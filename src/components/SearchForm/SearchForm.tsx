@@ -26,7 +26,7 @@ const SearchForm = () => {
 
   const onSubmit = (event: React.MouseEvent): void => {
     event.preventDefault();
-    if (appData.query) setUserQuery(appData.query);
+    appData.query ? setUserQuery(appData.query) : setUserQuery('');
 
     navigate(`/search/${appData.query}`);
   };

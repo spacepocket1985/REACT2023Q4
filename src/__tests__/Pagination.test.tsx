@@ -5,7 +5,7 @@ import Pagination from '../components/Pagination/Pagination';
 import AppContext from '../context/AppContext';
 
 describe('Pagination component', () => {
-  test('check the status of the pagnation buttons, depending on whether there is a next or previous page', () => {
+  test('Check the status of the pagnation buttons, depending on whether there is a next or previous page', () => {
     const appData = {
       previousPage: null,
       currentPage: 1,
@@ -26,7 +26,7 @@ describe('Pagination component', () => {
     expect(screen.getByText('Next page')).not.toBeDisabled();
   });
 
-  test('updates URL query parameter when page changes', () => {
+  test('Check that URL query parameter updates when page changes', () => {
     const appData = {
       previousPage: '/page=1',
       currentPage: 2,

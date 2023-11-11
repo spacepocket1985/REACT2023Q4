@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1699627365315" clover="3.2.0">
-  <project timestamp="1699627365315" name="All files">
-    <metrics statements="66" coveredstatements="66" conditionals="11" coveredconditionals="8" methods="14" coveredmethods="13" elements="91" coveredelements="87" complexity="0" loc="66" ncloc="66" packages="8" files="8" classes="8"/>
+<coverage generated="1699681706104" clover="3.2.0">
+  <project timestamp="1699681706104" name="All files">
+    <metrics statements="67" coveredstatements="67" conditionals="11" coveredconditionals="8" methods="14" coveredmethods="13" elements="92" coveredelements="88" complexity="0" loc="67" ncloc="67" packages="8" files="8" classes="8"/>
     <package name="__tests__.mocs">
       <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
       <file name="generateCharacters.ts" path="D:\temp\2023-10\Stage-React\000-Repo\REACT2023Q4\src\__tests__\mocs\generateCharacters.ts">
@@ -30,13 +30,14 @@
       </file>
     </package>
     <package name="components.CharacterCard">
-      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="CharacterCard.tsx" path="D:\temp\2023-10\Stage-React\000-Repo\REACT2023Q4\src\components\CharacterCard\CharacterCard.tsx">
-        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="3" count="2" type="stmt"/>
-        <line num="4" count="41" type="stmt"/>
-        <line num="5" count="41" type="stmt"/>
-        <line num="17" count="2" type="stmt"/>
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="42" type="stmt"/>
+        <line num="6" count="42" type="stmt"/>
+        <line num="20" count="2" type="stmt"/>
       </file>
     </package>
     <package name="components.CharactersList">
@@ -56,8 +57,8 @@
         <line num="17" count="2" type="stmt"/>
         <line num="18" count="40" type="stmt"/>
         <line num="19" count="40" type="stmt"/>
-        <line num="26" count="3" type="stmt"/>
-        <line num="37" count="1" type="stmt"/>
+        <line num="24" count="3" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
       </file>
     </package>
     <package name="components.Pagination">

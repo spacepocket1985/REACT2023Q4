@@ -1,23 +1,47 @@
-import { render } from '@testing-library/react';
-
+import { BrowserRouter } from 'react-router-dom';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
+
 import CharacterCard from '../components/CharacterCard/CharacterCard';
 import { generateCharacters } from './mocs/generateCharacters';
 
 describe('CharacterCard component', () => {
   const charactersQuantity = 1;
+  const testCharacter = generateCharacters(charactersQuantity);
 
-  test('check that card component renders the relevant card data', () => {
-    const character = generateCharacters(charactersQuantity);
+  const cardProps = {
+    name: testCharacter[0].name,
+    image: testCharacter[0].image,
+    index: testCharacter[0].id,
+    page: 2,
+    id: testCharacter[0].id,
+  };
 
+  test('Ensure that the card component renders the relevant card data', () => {
     const { getByText, getByAltText } = render(
-      <CharacterCard name={character[0].name} image={character[0].image} />
+      <BrowserRouter>
+        <CharacterCard {...cardProps} />
+      </BrowserRouter>
     );
 
-    expect(getByText(character[0].name)).toBeInTheDocument();
+    const cardNameElement = getByText(cardProps.name);
+    const cardImageElement = getByAltText(cardProps.name);
 
-    const image = getByAltText(character[0].name);
+    expect(cardNameElement).toBeInTheDocument();
+    expect(cardImageElement).toHaveAttribute('src', cardProps.image);
+    expect(cardImageElement).toHaveAttribute('alt', cardProps.name);
+  });
 
-    expect(image).toHaveAttribute('src', character[0].image);
+  test('Should navigate to detailed card component when clicked', () => {
+    render(
+      <BrowserRouter>
+        <CharacterCard {...cardProps} />
+      </BrowserRouter>
+    );
+
+    const characterLink = screen.getByRole('link');
+    fireEvent.click(characterLink);
+
+    expect(window.location.pathname).toBe(`/page=${cardProps.page}/characterId=${cardProps.id}`);
   });
 });

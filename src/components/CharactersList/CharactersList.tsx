@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useContext } from 'react';
 
 import CharacterCard from '../CharacterCard/CharacterCard';
@@ -16,11 +16,7 @@ const CharactersList = () => {
   const renderCharacters = (characters: ICharacter[]) =>
     characters.map((char, index) => {
       const { name, image, id } = char;
-      return (
-        <Link key={index} to={`/page=${page}/characterId=${id}`}>
-          <CharacterCard name={name} image={image} />
-        </Link>
-      );
+      return <CharacterCard name={name} image={image} id={id} page={page} key={index} />;
     });
 
   return (
