@@ -15,12 +15,10 @@
   },
   "lint-staged": {
     "*.{jsx,ts,tsx}": "npx eslint",
-    "*.{jsx,ts,tsx,html,css}": "npx prettier --check"
+    "*.{jsx,ts,tsx,html,css}": "npx prettier --fix"
   },
   "husky": {
-    "hooks": {
       "pre-push": "npm run prepush"
-    }
   },
   "dependencies": {
     "@testing-library/jest-dom": "^6.1.4",
