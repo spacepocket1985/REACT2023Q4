@@ -10,11 +10,17 @@
     "preview": "vite preview",
     "format:fix": "prettier --write .",
     "prepare": "husky install",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "prepush": "npm test"
   },
   "lint-staged": {
     "*.{jsx,ts,tsx}": "npx eslint",
     "*.{jsx,ts,tsx,html,css}": "npx prettier --check"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run prepush"
+    }
   },
   "dependencies": {
     "@testing-library/jest-dom": "^6.1.4",
