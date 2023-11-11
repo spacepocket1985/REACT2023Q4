@@ -1,0 +1,90 @@
+
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import AppContext from '../context/AppContext';
+import Pagination from '../components/Pagination/Pagination';
+
+jest.mock('react-router-dom', () => ({
+  useNavigate: jest.fn(),
+}));
+
+
+
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useContext: jest.fn(),
+}));
+
+describe('Pagination component', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should navigate to previous page when previous button is clicked and previous page exists', () => {
+
+const navigate = jest.fn();
+useNavigate.mockReturnValue(navigate);
+
+    const appData = {
+      previousPage: '/page=2',
+      currentPage: 1,
+      nextPage: '/page=2',
+      charactersPerPage: 10,
+    };
+    const setAppData = jest.fn();
+    useContext.mockReturnValue({ appData, setAppData });
+
+    const { getByText } = render(<Pagination />);
+
+    const previousButton = getByText('previous page');
+    fireEvent.click(previousButton);
+
+    expect(navigate).toBeCalledWith('/page=2');
+  });
+
+  it('should navigate to next page when next button is clicked and next page exists', () => {
+    const navigate = jest.fn();
+    useNavigate.mockReturnValue(navigate);
+
+    const appData = {
+      previousPage: '/page=1',
+      currentPage: 1,
+      nextPage: '/page=3',
+      charactersPerPage: 10,
+    };
+    const setAppData = jest.fn();
+    useContext.mockReturnValue({ appData, setAppData });
+
+    const { getByText } = render(<Pagination />);
+
+    const nextButton = getByText('next page');
+    fireEvent.click(nextButton);
+
+    expect(navigate).toBeCalledWith('/page=3');
+  });
+
+  it('should update characters per page when select option is changed', () => {
+    const navigate = jest.fn();
+    useNavigate.mockReturnValue(navigate);
+
+    const appData = {
+      previousPage: '/page=1',
+      currentPage: 1,
+      nextPage: '/page=2',
+      charactersPerPage: 10,
+    };
+    const setAppData = jest.fn();
+    useContext.mockReturnValue({ appData, setAppData });
+
+    const { getByTestId } = render(<Pagination />);
+
+    const selectOption = getByTestId('characters-number');
+    fireEvent.change(selectOption, { target: { value: '20' } });
+
+    expect(setAppData).toBeCalledWith({ ...appData, charactersPerPage: 20 });
+    expect(navigate).toBeCalledWith(routePaths.main);
+  });
+});
+
