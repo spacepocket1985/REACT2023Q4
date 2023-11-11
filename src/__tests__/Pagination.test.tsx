@@ -5,7 +5,7 @@ import Pagination from '../components/Pagination/Pagination';
 import AppContext from '../context/AppContext';
 
 describe('Pagination component', () => {
-  test('Check the status of the pagnation buttons, depending on whether there is a next or previous page', () => {
+  it('Check the status of the pagnation buttons, depending on whether there is a next or previous page', () => {
     const appData = {
       previousPage: null,
       currentPage: 1,
@@ -26,7 +26,7 @@ describe('Pagination component', () => {
     expect(screen.getByText('Next page')).not.toBeDisabled();
   });
 
-  test('Check that URL query parameter updates when page changes', () => {
+  it('Make sure the component updates URL query parameter when page changes', () => {
     const appData = {
       previousPage: '/page=1',
       currentPage: 2,
@@ -55,7 +55,7 @@ describe('Pagination component', () => {
     expect(appData.previousPage).toBe(`/page=${appData.currentPage - 1}`);
   });
 
-  test('check informer', () => {
+  it('Check informer number', () => {
     const appData = {
       previousPage: '/page=3',
       currentPage: 4,
@@ -76,7 +76,7 @@ describe('Pagination component', () => {
     expect(appData.currentPage).toBe(Number(informer.textContent));
   });
 
-  test('should update characters per page correctly', () => {
+  it('Should update characters per page correctly', () => {
     const appData = {
       currentPage: 20,
     };

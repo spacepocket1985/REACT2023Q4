@@ -17,7 +17,7 @@ describe('CharacterCard component', () => {
     id: testCharacter[0].id,
   };
 
-  test('Ensure that the card component renders the relevant card data', () => {
+  it('[Card] - Ensure that the card component renders the relevant card data', () => {
     const { getByText, getByAltText } = render(
       <BrowserRouter>
         <CharacterCard {...cardProps} />
@@ -32,7 +32,7 @@ describe('CharacterCard component', () => {
     expect(cardImageElement).toHaveAttribute('alt', cardProps.name);
   });
 
-  test('Should navigate to detailed card component when clicked', () => {
+  it('[Card] - Should navigate to detailed card component when clicked', () => {
     render(
       <BrowserRouter>
         <CharacterCard {...cardProps} />

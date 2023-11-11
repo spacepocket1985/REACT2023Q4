@@ -39,6 +39,7 @@ const SearchForm = () => {
         <form className="search-form">
           <input
             type="text"
+            data-testid="my-input"
             placeholder="name for search"
             value={appData.query}
             onChange={onUpdateSearch}

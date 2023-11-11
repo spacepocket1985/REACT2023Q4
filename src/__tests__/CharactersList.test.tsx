@@ -8,7 +8,7 @@ import { generateCharacters } from './mocs/generateCharacters';
 describe('CharactersList component', () => {
   const charactersQuantity = 20;
 
-  test('displays a message when no characters are present', () => {
+  it('Check that an appropriate message is displayed if no cards are present', () => {
     const appData = {
       charactersList: [],
     };
@@ -24,7 +24,7 @@ describe('CharactersList component', () => {
     expect(screen.getByText('No characters')).toBeInTheDocument();
   });
 
-  test('renders characters list', () => {
+  it('Check render for characters list', () => {
     const appData = {
       charactersList: generateCharacters(charactersQuantity),
     };
@@ -42,7 +42,7 @@ describe('CharactersList component', () => {
     });
   });
 
-  test('check characters quantity', () => {
+  it('Verify that the component renders the specified number of cards', () => {
     const appData = {
       charactersList: generateCharacters(charactersQuantity),
     };

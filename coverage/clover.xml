@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1699681706104" clover="3.2.0">
-  <project timestamp="1699681706104" name="All files">
+<coverage generated="1699698617693" clover="3.2.0">
+  <project timestamp="1699698617693" name="All files">
     <metrics statements="67" coveredstatements="67" conditionals="11" coveredconditionals="8" methods="14" coveredmethods="13" elements="92" coveredelements="88" complexity="0" loc="67" ncloc="67" packages="8" files="8" classes="8"/>
     <package name="__tests__.mocs">
       <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
@@ -57,8 +57,8 @@
         <line num="17" count="2" type="stmt"/>
         <line num="18" count="40" type="stmt"/>
         <line num="19" count="40" type="stmt"/>
-        <line num="24" count="3" type="stmt"/>
-        <line num="35" count="1" type="stmt"/>
+        <line num="22" count="3" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
       </file>
     </package>
     <package name="components.Pagination">
