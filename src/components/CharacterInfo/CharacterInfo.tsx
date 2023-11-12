@@ -64,6 +64,7 @@ const CharacterInfo = () => {
     <div className={wrapperClass}>
       <button
         className="character-title__button"
+        data-testid="close-info"
         onClick={() => {
           navigate(ROUTE_PARTH.MAIN);
         }}

@@ -17,7 +17,6 @@
     "*.{jsx,ts,tsx}": "npx eslint",
     "*.{jsx,ts,tsx,html,css}": "npx prettier --fix"
   },
-
   "dependencies": {
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/user-event": "^14.5.1",
