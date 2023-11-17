@@ -2,9 +2,10 @@ import { IRickAndMortyData } from '../types/interfaces/IRickAndMortyData';
 import { ICharacter } from '../types/interfaces/ICharacter';
 
 const RickAndMortyAPI = () => {
-  const _apiBase = 'https://rickandmortyapi.com/api/character';
+  const _apiBase = 'https://rickandmortyapi.com/api';
 
-  const _queryBase = '';
+  // const _queryBase = '';
+  const _queryForCharacters = '/character';
 
   const getResource = async (link = _apiBase, query?: string): Promise<IRickAndMortyData> => {
     const url = query && query.length > 0 && query !== _queryBase ? `${link}?name=${query}` : link;
@@ -25,7 +26,7 @@ const RickAndMortyAPI = () => {
     return await res.json();
   };
 
-  return { getCharacter, getResource, _apiBase, _queryBase };
+  return { getCharacter, getResource, _apiBase, _queryForCharacters };
 };
 
 export default RickAndMortyAPI;

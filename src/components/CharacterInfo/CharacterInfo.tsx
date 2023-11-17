@@ -1,64 +1,34 @@
 import { useParams } from 'react-router';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
-import { useEffect, useState } from 'react';
-
+import { useGetCharacterByIdQuery } from '../../store/slices/apiSlice';
+import { setViewMode, clearViewMode } from '../../store/slices/viewModeSlice';
 import Spinner from '../Spinner/Spinner';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
-import RickAndMortyAPI from '../../services/RickAndMortyAPI';
 import ROUTE_PARTH from '../../types/enums/routes-parths';
 import { ICharacter } from '../../types/interfaces/ICharacter';
+
 import './CharacterInfo.css';
 
 const CharacterInfo = () => {
-  const [character, setCharacter] = useState<null | ICharacter>(null);
-  const [loading, setLoading] = useState(false);
-  const [errorData, setError] = useState({
-    error: false,
-    errorMsg: '',
-  });
-
+  const dispatch = useDispatch();
   const { characterId } = useParams();
+
+  const {
+    data: character,
+    isLoading,
+    isError,
+  } = useGetCharacterByIdQuery(Number(characterId) || null);
 
   const navigate = useNavigate();
 
-  const { getCharacter } = RickAndMortyAPI();
-
   const wrapperClass = characterId ? 'character-wrapper__active' : 'character-wrapper__unactive';
+  characterId ? dispatch(setViewMode()) : dispatch(clearViewMode());
 
-  useEffect(() => {
-    showCharacter();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [characterId]);
-
-  const showCharacter = () => {
-    if (!characterId) {
-      return;
-    }
-    setLoading(true);
-    setError({ error: false, errorMsg: '' });
-    getCharacter(Number(characterId)).then(onCharacterLoaded).catch(onError);
-  };
-
-  const onCharacterLoaded = (character: ICharacter) => {
-    setLoading(false);
-    setCharacter(character);
-  };
-
-  const onError = (error: Error) => {
-    setError({
-      error: true,
-      errorMsg: error.message,
-    });
-    setLoading(false);
-  };
-
-  const errorMessage = errorData.error ? <ErrorMessage errorMsg={errorData.errorMsg} /> : null;
-  const spinner = loading ? <Spinner /> : null;
-  const content = !(loading || errorData.error || !character) ? (
-    <View character={character} />
-  ) : null;
+  const errorMessage = isError ? <ErrorMessage errorMsg={'we have error'} /> : null;
+  const spinner = isLoading ? <Spinner /> : null;
+  const content = !(isLoading || isError || !character) ? <View character={character} /> : null;
 
   return (
     <div className={wrapperClass}>
