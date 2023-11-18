@@ -1,7 +1,9 @@
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { useEffect } from 'react';
 import { RootState } from '../../store/store';
+import Pagination from '../Pagination/Pagination';
 import { useGetCharactersQuery } from '../../store/slices/apiSlice';
 import { setLoadingMain } from '../../store/slices/loadingMainSlice';
 import CharacterCard from '../CharacterCard/CharacterCard';
@@ -17,27 +19,26 @@ const CharactersList = () => {
   });
 
   const { pageNum, characterId, queryParam } = useParams();
-  console.log('pageNum = ', pageNum);
-  console.log('characterId = ', characterId);
-  console.log('queryParam = ', queryParam);
-  console.log('-----------------------------------');
+
   const page = !pageNum ? 1 : pageNum;
 
-  const { data, isLoading, isError } = useGetCharactersQuery(
+  const { data, isLoading, isError, isFetching } = useGetCharactersQuery(
     characterId && pageNum
-      ? `/?page=${pageNum}`
+      ? `/?page=${page}`
       : (characterId && queryParam) || (!characterId && queryParam)
       ? `?name=${queryParam}`
-      : `/?page=${pageNum}`
+      : `/?page=${page}`
   );
+
+  useEffect(() => {
+    dispatch(setLoadingMain(isFetching));
+  }, [dispatch, isFetching]);
 
   const renderCharacters = (characters: ICharacter[]) =>
     characters.map((char, index) => {
       const { name, image, id } = char;
       return <CharacterCard name={name} image={image} id={id} page={page} key={index} />;
     });
-
-  isLoading ? dispatch(setLoadingMain(isLoading)) : dispatch(setLoadingMain(false));
 
   if (isLoading) {
     return <Spinner />;
@@ -46,13 +47,16 @@ const CharactersList = () => {
   }
 
   return (
-    <div className="characters__wrapper">
-      {data?.results && data.results?.length > 0 ? (
-        renderCharacters(data.results.slice(0, charsOnPage))
-      ) : (
-        <h3>No characters</h3>
-      )}
-    </div>
+    <>
+      {data ? <Pagination nextPage={data.info.next} prevPage={data.info.prev} /> : null}
+      <div className="characters__wrapper">
+        {data?.results && data.results?.length > 0 ? (
+          renderCharacters(data.results.slice(0, charsOnPage))
+        ) : (
+          <h3>No characters</h3>
+        )}
+      </div>
+    </>
   );
 };
 

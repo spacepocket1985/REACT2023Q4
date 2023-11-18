@@ -1,6 +1,7 @@
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 import { useGetCharacterByIdQuery } from '../../store/slices/apiSlice';
 import { setLoadingDetails } from '../../store/slices/loadingDetailsSlice';
@@ -19,17 +20,20 @@ const CharacterInfo = () => {
     data: character,
     isLoading,
     isError,
-  } = useGetCharacterByIdQuery(Number(characterId) || null);
+    isFetching,
+  } = useGetCharacterByIdQuery(Number(characterId));
+
+  useEffect(() => {
+    dispatch(setLoadingDetails(isFetching));
+  }, [dispatch, isFetching]);
 
   const navigate = useNavigate();
-
+  console.log('isFetching', isFetching);
   const wrapperClass = characterId ? 'character-wrapper__active' : 'character-wrapper__unactive';
 
   const errorMessage = isError ? <ErrorMessage errorMsg={'we have error'} /> : null;
   const spinner = isLoading ? <Spinner /> : null;
   const content = !(isLoading || isError || !character) ? <View character={character} /> : null;
-
-  isLoading ? dispatch(setLoadingDetails(isLoading)) : dispatch(setLoadingDetails(false));
 
   return (
     <div className={wrapperClass}>

@@ -2,7 +2,7 @@ import { useParams } from 'react-router';
 import { Outlet } from 'react-router-dom';
 
 import SearchForm from '../components/SearchForm/SearchForm';
-import Pagination from '../components/Pagination/Pagination';
+// import Pagination from '../components/Pagination/Pagination';
 import CharacterList from '../components/CharactersList/CharactersList';
 import CharacterInfo from '../components/CharacterInfo/CharacterInfo';
 
@@ -15,10 +15,10 @@ const MainPage = () => {
     <>
       <main className={isCharSelected}>
         <SearchForm />
-        <Pagination />
+        {/* <Pagination /> */}
         <CharacterList />
       </main>
-      <CharacterInfo />
+      {characterId ? <CharacterInfo /> : null}
       <Outlet />
     </>
   );

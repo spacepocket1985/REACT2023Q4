@@ -13,7 +13,7 @@ export const apiSlice = createApi({
     getCharacters: builder.query<IRickAndMortyData, string>({
       query: (term) => `${_queryForCharacters}/${term}`,
     }),
-    getCharacterById: builder.query<ICharacter, number | null>({
+    getCharacterById: builder.query<ICharacter, number>({
       query: (id) => `${_queryForCharacters}/${id}`,
     }),
   }),
