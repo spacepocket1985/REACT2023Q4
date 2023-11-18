@@ -1,9 +1,9 @@
 import { useParams } from 'react-router';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 
 import { useGetCharacterByIdQuery } from '../../store/slices/apiSlice';
-import { setViewMode, clearViewMode } from '../../store/slices/viewModeSlice';
+import { setLoadingDetails } from '../../store/slices/loadingDetailsSlice';
 import Spinner from '../Spinner/Spinner';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import ROUTE_PARTH from '../../types/enums/routes-parths';
@@ -24,11 +24,12 @@ const CharacterInfo = () => {
   const navigate = useNavigate();
 
   const wrapperClass = characterId ? 'character-wrapper__active' : 'character-wrapper__unactive';
-  characterId ? dispatch(setViewMode()) : dispatch(clearViewMode());
 
   const errorMessage = isError ? <ErrorMessage errorMsg={'we have error'} /> : null;
   const spinner = isLoading ? <Spinner /> : null;
   const content = !(isLoading || isError || !character) ? <View character={character} /> : null;
+
+  isLoading ? dispatch(setLoadingDetails(isLoading)) : dispatch(setLoadingDetails(false));
 
   return (
     <div className={wrapperClass}>

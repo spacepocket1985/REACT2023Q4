@@ -1,8 +1,9 @@
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { RootState } from '../../store/store';
 import { useGetCharactersQuery } from '../../store/slices/apiSlice';
+import { setLoadingMain } from '../../store/slices/loadingMainSlice';
 import CharacterCard from '../CharacterCard/CharacterCard';
 import Spinner from '../Spinner/Spinner';
 import { ICharacter } from '../../types/interfaces/ICharacter';
@@ -10,6 +11,7 @@ import { ICharacter } from '../../types/interfaces/ICharacter';
 import './CharactersList.css';
 
 const CharactersList = () => {
+  const dispatch = useDispatch();
   const charsOnPage = useSelector((state: RootState) => {
     return state.charactersOnPage.charactersOnPage;
   });
@@ -34,6 +36,8 @@ const CharactersList = () => {
       const { name, image, id } = char;
       return <CharacterCard name={name} image={image} id={id} page={page} key={index} />;
     });
+
+  isLoading ? dispatch(setLoadingMain(isLoading)) : dispatch(setLoadingMain(false));
 
   if (isLoading) {
     return <Spinner />;
