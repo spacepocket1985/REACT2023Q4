@@ -1,0 +1,28 @@
+.search-form__wrapper {
+  background-color: #fff;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  column-gap: 2rem;
+  padding-bottom: 1rem;
+}
+
+.search-form input {
+  min-height: 2rem;
+  border-radius: 8px;
+  border: 0.2rem solid #272b33;
+  padding: 0.6em 1.2em;
+}
+
+.test-button {
+  background-color: #ff4500;
+  display: none;
+}
+
+.rick-morty__img {
+  width: 25rem;
+  opacity: 0.5;
+  margin: auto;
+}
