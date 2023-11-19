@@ -25,25 +25,25 @@
           <div class="fl pad1y space-right2">
             <span class="strong">100% </span>
             <span class="quiet">Statements</span>
-            <span class="fraction">25/25</span>
+            <span class="fraction">27/27</span>
           </div>
 
           <div class="fl pad1y space-right2">
-            <span class="strong">75% </span>
+            <span class="strong">100% </span>
             <span class="quiet">Branches</span>
-            <span class="fraction">3/4</span>
+            <span class="fraction">1/1</span>
           </div>
 
           <div class="fl pad1y space-right2">
             <span class="strong">100% </span>
             <span class="quiet">Functions</span>
-            <span class="fraction">5/5</span>
+            <span class="fraction">6/6</span>
           </div>
 
           <div class="fl pad1y space-right2">
             <span class="strong">100% </span>
             <span class="quiet">Lines</span>
-            <span class="fraction">23/23</span>
+            <span class="fraction">26/26</span>
           </div>
         </div>
         <p class="quiet">
@@ -120,40 +120,50 @@
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -182,16 +192,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useNavigate } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 &nbsp;
-import AppContext from '../../context/AppContext';
-import { setUserQuery, getUserQuery } from '../../utils/localStorageActions';
+import { getUserQuery, setUserQuery } from '../../utils/localStorageActions';
+import { RootState } from '../../store/store';
+import { setSearchValue } from '../../store/slices/searchFormSlice';
 import ricAndMortyImg from '../../assets/rick-and-morty.png';
 import './SearchForm.css';
 &nbsp;
 const SearchForm = () =&gt; {
-  const { appData, setAppData } = useContext(AppContext);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 &nbsp;
   useEffect(() =&gt; {
     let query = getUserQuery();
@@ -202,16 +214,19 @@ const SearchForm = () =&gt; {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 &nbsp;
+  const search = useSelector((state: RootState) =&gt; {
+    return state.searchValue.searchValue;
+  });
+&nbsp;
   const onUpdateSearch = (event: React.ChangeEvent&lt;HTMLInputElement&gt;): void =&gt; {
     const query = event.target.value.trim();
-    if (setAppData) setAppData({ ...appData, query });
+    dispatch(setSearchValue(query));
   };
 &nbsp;
   const onSubmit = (event: React.MouseEvent): void =&gt; {
     event.preventDefault();
-    appData.query ? <span class="branch-0 cbranch-no" title="branch not covered" >setUserQuery(appData.query) </span>: setUserQuery('');
-&nbsp;
-    navigate(`/search/${appData.query}`);
+    setUserQuery(search);
+    navigate(`/search/${search}`);
   };
 &nbsp;
   return (
@@ -224,11 +239,11 @@ const SearchForm = () =&gt; {
             type="text"
             data-testid="my-input"
             placeholder="name for search"
-            value={appData.query}
+            value={search}
             onChange={onUpdateSearch}
           /&gt;
           &lt;button
-            disabled={appData.loading}
+            // disabled={appData.loading}
             onClick={(e) =&gt; {
               onSubmit(e);
             }}
@@ -251,7 +266,7 @@ export default SearchForm;
     <div class="footer quiet pad2 space-top1 center small">
       Code coverage generated by
       <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-      at 2023-11-12T17:16:49.080Z
+      at 2023-11-19T15:59:54.107Z
     </div>
     <script src="../../prettify.js"></script>
     <script>

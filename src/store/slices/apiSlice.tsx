@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import RickAndMortyAPI from '../../services/RickAndMortyAPI';
 import { IRickAndMortyData } from '../../types/interfaces/IRickAndMortyData';
 import { ICharacter } from '../../types/interfaces/ICharacter';
 
-const { _apiBase, _queryForCharacters } = RickAndMortyAPI();
+const _apiBase = 'https://rickandmortyapi.com/api';
+const _queryForCharacters = '/character';
 
 export const apiSlice = createApi({
   reducerPath: 'api',

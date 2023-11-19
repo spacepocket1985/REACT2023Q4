@@ -28,7 +28,7 @@ const CharacterInfo = () => {
   }, [dispatch, isFetching]);
 
   const navigate = useNavigate();
-  console.log('isFetching', isFetching);
+
   const wrapperClass = characterId ? 'character-wrapper__active' : 'character-wrapper__unactive';
 
   const errorMessage = isError ? <ErrorMessage errorMsg={'we have error'} /> : null;

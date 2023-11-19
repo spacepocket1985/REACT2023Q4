@@ -1,7 +1,8 @@
 import { BrowserRouter } from 'react-router-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
-
+import { Provider } from 'react-redux';
+import store from '../store/store';
 import CharacterCard from '../components/CharacterCard/CharacterCard';
 import { generateCharacters } from './mocs/generateCharacters';
 
@@ -20,7 +21,9 @@ describe('CharacterCard component', () => {
   it('Ensure that the card component renders the relevant card data', () => {
     const { getByText, getByAltText } = render(
       <BrowserRouter>
-        <CharacterCard {...cardProps} />
+        <Provider store={store}>
+          <CharacterCard {...cardProps} />
+        </Provider>
       </BrowserRouter>
     );
 
@@ -35,7 +38,9 @@ describe('CharacterCard component', () => {
   it('Should navigate to detailed card component when clicked', () => {
     render(
       <BrowserRouter>
-        <CharacterCard {...cardProps} />
+        <Provider store={store}>
+          <CharacterCard {...cardProps} />
+        </Provider>
       </BrowserRouter>
     );
 

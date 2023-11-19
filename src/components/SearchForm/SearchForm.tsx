@@ -1,15 +1,25 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
+import { getUserQuery, setUserQuery } from '../../utils/localStorageActions';
 import { RootState } from '../../store/store';
 import { setSearchValue } from '../../store/slices/searchFormSlice';
-import { setUserQuery } from '../../utils/localStorageActions';
 import ricAndMortyImg from '../../assets/rick-and-morty.png';
 import './SearchForm.css';
 
 const SearchForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    let query = getUserQuery();
+    if (query === null) query = '';
+
+    navigate(`/search/${query}`);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const search = useSelector((state: RootState) => {
     return state.searchValue.searchValue;

@@ -25,13 +25,13 @@
           <div class="fl pad1y space-right2">
             <span class="strong">100% </span>
             <span class="quiet">Statements</span>
-            <span class="fraction">18/18</span>
+            <span class="fraction">20/20</span>
           </div>
 
           <div class="fl pad1y space-right2">
-            <span class="strong">66.66% </span>
+            <span class="strong">50% </span>
             <span class="quiet">Branches</span>
-            <span class="fraction">2/3</span>
+            <span class="fraction">1/2</span>
           </div>
 
           <div class="fl pad1y space-right2">
@@ -43,7 +43,7 @@
           <div class="fl pad1y space-right2">
             <span class="strong">100% </span>
             <span class="quiet">Lines</span>
-            <span class="fraction">17/17</span>
+            <span class="fraction">20/20</span>
           </div>
         </div>
         <p class="quiet">
@@ -118,16 +118,27 @@
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -138,9 +149,7 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -149,7 +158,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -162,6 +173,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -178,56 +190,62 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 &nbsp;
+import { setCharactersOnPage } from '../../store/slices/charactersOnPageSlice';
 import ROUTE_PARTH from '../../types/enums/routes-parths';
-import AppContext from '../../context/AppContext';
+import { IPaginationProps } from '../../types/interfaces/IPaginationProps';
 import './Pagination.css';
 &nbsp;
-const Pagination = () =&gt; {
+const Pagination = (props: IPaginationProps) =&gt; {
   const navigate = useNavigate();
-  const { appData, setAppData } = useContext(AppContext);
+  const { pageNum } = useParams();
+  const { nextPage, prevPage } = props;
+&nbsp;
+  const dispatch = useDispatch();
 &nbsp;
   const onUpdateQuantety = (event: React.ChangeEvent&lt;HTMLSelectElement&gt;): void =&gt; {
     const quantety = event.target.value;
-    if (setAppData) setAppData({ ...appData, charactersOnPage: Number(quantety) });
+    dispatch(setCharactersOnPage(Number(quantety)));
     navigate(ROUTE_PARTH.MAIN);
   };
 &nbsp;
   return (
     &lt;div className="pagination__wrapper"&gt;
       &lt;div className="pages-btns__wrapper"&gt;
-        &lt;button
-          disabled={!appData.previousPage}
-          onClick={() =&gt; navigate(`/page=${appData.previousPage?.slice(-1)}`)}
-        &gt;
-          Previous page
+        &lt;button disabled={!prevPage} onClick={() =&gt; navigate(`/page=${prevPage?.slice(-1)}`)}&gt;
+          Previous
         &lt;/button&gt;
-        &lt;div className="page-informer" data-testid="informer"&gt;
-          {appData.currentPage ? appData.currentPage : <span class="branch-1 cbranch-no" title="branch not covered" >1}</span>
-        &lt;/div&gt;
+        &lt;button className="page-informer" data-testid="informer"&gt;
+          {pageNum ? <span class="branch-0 cbranch-no" title="branch not covered" >pageNum </span>: 1}
+        &lt;/button&gt;
         &lt;button
-          disabled={!appData.nextPage}
-          onClick={() =&gt; navigate(`/page=${appData.nextPage?.slice(-1)}`)}
+          disabled={!nextPage}
+          onClick={() =&gt; {
+            navigate(`/page=${nextPage?.slice(-1)}`);
+          }}
         &gt;
-          Next page
+          Next
         &lt;/button&gt;
       &lt;/div&gt;
       &lt;div className="limit-wrapper"&gt;
         &lt;form&gt;
-          &lt;select
-            id="characters-number"
-            className="limit-select"
-            name="characters-number"
-            data-testid="characters-number"
-            onChange={(e) =&gt; onUpdateQuantety(e)}
-            defaultValue={appData.charactersOnPage}
-          &gt;
-            &lt;option value="5"&gt;5&lt;/option&gt;
-            &lt;option value="10"&gt;10&lt;/option&gt;
-            &lt;option value="15"&gt;15&lt;/option&gt;
-            &lt;option value="20"&gt;20&lt;/option&gt;
-          &lt;/select&gt;
+          {
+            &lt;select
+              id="characters-number"
+              className="limit-select"
+              name="characters-number"
+              data-testid="characters-number"
+              onChange={(e) =&gt; onUpdateQuantety(e)}
+              defaultValue={20}
+            &gt;
+              &lt;option value="5"&gt;5&lt;/option&gt;
+              &lt;option value="10"&gt;10&lt;/option&gt;
+              &lt;option value="15"&gt;15&lt;/option&gt;
+              &lt;option value="20"&gt;20&lt;/option&gt;
+            &lt;/select&gt;
+          }
           &lt;label htmlFor="characters-number"&gt;characters on page&lt;/label&gt;
         &lt;/form&gt;
       &lt;/div&gt;
@@ -245,7 +263,7 @@ export default Pagination;
     <div class="footer quiet pad2 space-top1 center small">
       Code coverage generated by
       <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-      at 2023-11-12T17:16:49.080Z
+      at 2023-11-19T15:59:54.107Z
     </div>
     <script src="../../prettify.js"></script>
     <script>

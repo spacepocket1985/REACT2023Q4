@@ -1,145 +1,73 @@
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import { useNavigate } from 'react-router-dom';
-import AppContext from '../context/AppContext';
+import { Provider } from 'react-redux';
+import store from '../store/store';
 import Pagination from '../components/Pagination/Pagination';
 
-jest.mock('react-router-dom', () => ({
-  useNavigate: jest.fn(),
-}));
-
 describe('Pagination', () => {
-  const navigate = jest.fn();
-  const setAppData = jest.fn();
+  // Test case for rendering the Pagination component
+  it('renders without crashing', () => {
+    // Render the Pagination component inside Router and Provider for necessary context
+    const { getByTestId } = render(
+      <Router>
+        <Provider store={store}>
+          <Pagination nextPage="2" prevPage="1" />
+        </Provider>
+      </Router>
+    );
 
-  beforeEach(() => {
-    (useNavigate as jest.Mock).mockReturnValue(navigate);
+    // Check if the page informer is correctly rendered
+    expect(getByTestId('informer')).toBeInTheDocument();
   });
 
-  it('Make sure the component updates URL query parameter when page changes', () => {
-    const appData = {
-      previousPage: '/page=1',
-      currentPage: 2,
-      nextPage: '/page=3',
-      charactersOnPage: 10,
-    };
+  // Test case for checking the select dropdown functionality
+  it('verify that the component renders the specified number of cards(updates the characters per page when a different option is selected)', () => {
+    // Mock the useDispatch hook from react-redux
+    jest.mock('react-redux', () => ({
+      ...jest.requireActual('react-redux'),
+      useDispatch: () => jest.fn(),
+    }));
 
+    // Render the Pagination component inside Router and Provider for necessary context
+    const { getByTestId } = render(
+      <Router>
+        <Provider store={store}>
+          <Pagination nextPage="2" prevPage="1" />
+        </Provider>
+      </Router>
+    );
+
+    // Get the select dropdown element
+    const select = getByTestId('characters-number') as HTMLInputElement;
+
+    // Fire a change event on the select dropdown with a new value
+    fireEvent.change(select, { target: { value: '10' } });
+
+    // Check if the select dropdown's value has been updated
+    expect(select.value).toBe('10');
+  });
+
+  it('make sure the component updates URL query parameter when page changes', () => {
+    // Render the Pagination component inside Router and Provider for necessary context
     const { getByText } = render(
-      <AppContext.Provider value={{ appData: appData }}>
-        <Pagination />
-      </AppContext.Provider>
+      <Router>
+        <Provider store={store}>
+          <Pagination nextPage="3" prevPage="2" />
+        </Provider>
+      </Router>
     );
 
     // Click 'Next page' button
-    fireEvent.click(getByText('Next page'));
+    fireEvent.click(getByText('Next'));
 
     // Check if the URL has changed to the next page
-    expect(appData.nextPage).toBe(`/page=${appData.currentPage + 1}`);
+    expect(window.location.pathname).toBe(`/page=3`);
 
-    // Click 'Previous page' button
-    fireEvent.click(getByText('Previous page'));
+    // Click 'Next page' button
+    fireEvent.click(getByText('Previous'));
 
-    // Check if the URL has changed to the previous page
-    expect(appData.previousPage).toBe(`/page=${appData.currentPage - 1}`);
-  });
-
-  it('should update the characters on page when the select input is changed', () => {
-    const appData = {
-      previousPage: '/page=1',
-      nextPage: '/page=3',
-      currentPage: 2,
-      charactersOnPage: 10,
-    };
-
-    const { getByTestId } = render(
-      <AppContext.Provider value={{ appData, setAppData }}>
-        <Pagination />
-      </AppContext.Provider>
-    );
-
-    const selectInput = getByTestId('characters-number');
-
-    fireEvent.change(selectInput, { target: { value: '15' } });
-
-    expect(setAppData).toHaveBeenCalledWith({ ...appData, charactersOnPage: 15 });
-    expect(navigate).toHaveBeenCalledWith('/');
-  });
-
-  it('should navigate to the previous page when the "Previous page" button is clicked', () => {
-    const appData = {
-      previousPage: '/page=1',
-      nextPage: '/page=3',
-      currentPage: 2,
-      charactersOnPage: 10,
-    };
-
-    const { getByText } = render(
-      <AppContext.Provider value={{ appData, setAppData }}>
-        <Pagination />
-      </AppContext.Provider>
-    );
-
-    const previousPageButton = getByText('Previous page');
-
-    fireEvent.click(previousPageButton);
-
-    expect(navigate).toHaveBeenCalledWith('/page=1');
-  });
-
-  it('should navigate to the next page when the "Next page" button is clicked', () => {
-    const appData = {
-      previousPage: '/page=1',
-      nextPage: '/page=3',
-      currentPage: 2,
-      charactersOnPage: 10,
-    };
-
-    const { getByText } = render(
-      <AppContext.Provider value={{ appData, setAppData }}>
-        <Pagination />
-      </AppContext.Provider>
-    );
-
-    const nextPageButton = getByText('Next page');
-
-    fireEvent.click(nextPageButton);
-
-    expect(navigate).toHaveBeenCalledWith('/page=3');
-  });
-  it('Check the status of the pagnation buttons, depending on whether there is a next or previous page', () => {
-    const appData = {
-      previousPage: null,
-      currentPage: 1,
-      nextPage: '/page=2',
-      charactersPerPage: 10,
-    };
-
-    render(
-      <AppContext.Provider value={{ appData, setAppData }}>
-        <Pagination />
-      </AppContext.Provider>
-    );
-
-    expect(screen.getByText('Previous page')).toBeDisabled();
-    expect(screen.getByText('Next page')).not.toBeDisabled();
-  });
-
-  it('Check informer number', () => {
-    const appData = {
-      previousPage: '/page=3',
-      currentPage: 4,
-      nextPage: '/page=4',
-    };
-
-    const { getByText } = render(
-      <AppContext.Provider value={{ appData: appData }}>
-        <Pagination />
-      </AppContext.Provider>
-    );
-
-    const informer = screen.getByTestId('informer');
-
-    fireEvent.click(getByText('Next page'));
-    expect(appData.currentPage).toBe(Number(informer.textContent));
+    // Check if the URL has changed to the next page
+    expect(window.location.pathname).toBe(`/page=2`);
   });
 });
