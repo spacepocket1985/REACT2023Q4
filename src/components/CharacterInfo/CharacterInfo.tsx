@@ -1,5 +1,5 @@
-import { useParams } from 'react-router';
-import { useNavigate } from 'react-router';
+import { useRouter } from 'next/router';
+
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
@@ -7,14 +7,14 @@ import { useGetCharacterByIdQuery } from '../../store/slices/apiSlice';
 import { setLoadingDetails } from '../../store/slices/loadingDetailsSlice';
 import Spinner from '../Spinner/Spinner';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
-import ROUTE_PARTH from '../../types/enums/routes-parths';
 import { ICharacter } from '../../types/interfaces/ICharacter';
 
-import './CharacterInfo.css';
 
 const CharacterInfo = () => {
   const dispatch = useDispatch();
-  const { characterId } = useParams();
+
+  const router = useRouter();
+  const { characterId } = router.query;
 
   const {
     data: character,
@@ -27,7 +27,6 @@ const CharacterInfo = () => {
     dispatch(setLoadingDetails(isFetching));
   }, [dispatch, isFetching]);
 
-  const navigate = useNavigate();
 
   const wrapperClass = characterId ? 'character-wrapper__active' : 'character-wrapper__unactive';
 
@@ -41,7 +40,7 @@ const CharacterInfo = () => {
         className="character-title__button"
         data-testid="close-info"
         onClick={() => {
-          navigate(ROUTE_PARTH.MAIN);
+          router.push('/MainPage');
         }}
       >
         X

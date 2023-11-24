@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { useEffect } from 'react';
@@ -10,17 +10,18 @@ import CharacterCard from '../CharacterCard/CharacterCard';
 import Spinner from '../Spinner/Spinner';
 import { ICharacter } from '../../types/interfaces/ICharacter';
 
-import './CharactersList.css';
-
 const CharactersList = () => {
   const dispatch = useDispatch();
   const charsOnPage = useSelector((state: RootState) => {
     return state.charactersOnPage.charactersOnPage;
   });
 
-  const { pageNum, characterId, queryParam } = useParams();
+  const router = useRouter();
 
-  const page = !pageNum ? 1 : pageNum;
+  // Get the query parameter from the URL
+  const { pageNum, characterId, queryParam } = router.query;
+
+  const page = !pageNum ? 1 : Number(pageNum);
 
   const { data, isLoading, isError, isFetching } = useGetCharactersQuery(
     characterId && pageNum

@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getUserQuery } from '../../utils/localStorageActions';
+// import { getUserQuery } from '../../utils/localStorageActions';
 
-const query = getUserQuery();
-const initialState = { searchValue: query === null ? '' : query };
+// const query = getUserQuery();
+const initialState = { searchValue: '' };
 
 const searchValueSlice = createSlice({
   name: 'searchValue',

@@ -1,4 +1,3 @@
-import './Spinner.css';
 const Spinner = (): JSX.Element => {
   return (
     <div className="spinner">

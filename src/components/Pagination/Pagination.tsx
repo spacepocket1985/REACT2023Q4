@@ -1,15 +1,14 @@
-import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 
 import { setCharactersOnPage } from '../../store/slices/charactersOnPageSlice';
 import ROUTE_PARTH from '../../types/enums/routes-parths';
 import { IPaginationProps } from '../../types/interfaces/IPaginationProps';
-import './Pagination.css';
 
 const Pagination = (props: IPaginationProps) => {
-  const navigate = useNavigate();
-  const { pageNum } = useParams();
+  const router = useRouter();
+  const { pageNum } = router.query;
+
   const { nextPage, prevPage } = props;
 
   const dispatch = useDispatch();
@@ -17,13 +16,13 @@ const Pagination = (props: IPaginationProps) => {
   const onUpdateQuantety = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     const quantety = event.target.value;
     dispatch(setCharactersOnPage(Number(quantety)));
-    navigate(ROUTE_PARTH.MAIN);
+    router.push('/MainPage');
   };
 
   return (
     <div className="pagination__wrapper">
       <div className="pages-btns__wrapper">
-        <button disabled={!prevPage} onClick={() => navigate(`/page=${prevPage?.slice(-1)}`)}>
+        <button disabled={!prevPage} onClick={() => router.push(`MainPage?pageNum=${prevPage?.slice(-1)}`)}>
           Previous
         </button>
         <button className="page-informer" data-testid="informer">
@@ -32,7 +31,7 @@ const Pagination = (props: IPaginationProps) => {
         <button
           disabled={!nextPage}
           onClick={() => {
-            navigate(`/page=${nextPage?.slice(-1)}`);
+            router.push(`/MainPage?pageNum=${nextPage?.slice(-1)}`);
           }}
         >
           Next

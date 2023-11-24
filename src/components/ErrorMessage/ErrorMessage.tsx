@@ -1,6 +1,5 @@
 import { IErrorMsgProps } from '../../types/interfaces/IErrorMsgProps';
-import errorImg from './error.gif';
-import './ErrorMessage.css';
+import errorImg from '../../../public/error.gif';
 
 const ErrorMessage = (props: IErrorMsgProps) => {
   return (

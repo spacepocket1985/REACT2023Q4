@@ -1,25 +1,24 @@
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
-import { getUserQuery, setUserQuery } from '../../utils/localStorageActions';
+// import { getUserQuery, setUserQuery } from '../../utils/localStorageActions';
 import { RootState } from '../../store/store';
 import { setSearchValue } from '../../store/slices/searchFormSlice';
-import ricAndMortyImg from '../../assets/rick-and-morty.png';
-import './SearchForm.css';
+import Image from 'next/image';
 
 const SearchForm = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const router = useRouter();
 
-  useEffect(() => {
-    let query = getUserQuery();
-    if (query === null) query = '';
+  // useEffect(() => {
+  //   let query = getUserQuery();
+  //   if (query === null) query = '';
 
-    navigate(`/search/${query}`);
+  //   navigate(`/search/${query}`);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   const search = useSelector((state: RootState) => {
     return state.searchValue.searchValue;
@@ -32,13 +31,13 @@ const SearchForm = () => {
 
   const onSubmit = (event: React.MouseEvent): void => {
     event.preventDefault();
-    setUserQuery(search);
-    navigate(`/search/${search}`);
+    // setUserQuery(search);
+     router.push({ pathname: '/MainPage/', query: { queryParam: search } });
   };
 
   return (
     <>
-      <img src={ricAndMortyImg} className="rick-morty__img" alt="ricAndMortyImg" />
+      <Image src="/rick-and-morty.png" alt="ricAndMortyImg" width={250} height={198} />
       <div className="search-form__wrapper">
         <h2>Rick and Morty API</h2>
         <form className="search-form">
