@@ -1,14 +1,13 @@
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
-import { useGetCharacterByIdQuery } from '../../store/slices/apiSlice';
-import { setLoadingDetails } from '../../store/slices/loadingDetailsSlice';
-import Spinner from '../Spinner/Spinner';
-import ErrorMessage from '../ErrorMessage/ErrorMessage';
-import { ICharacter } from '../../types/interfaces/ICharacter';
-
+import { useGetCharacterByIdQuery } from "../../store/slices/apiSlice";
+import { setLoadingDetails } from "../../store/slices/loadingDetailsSlice";
+import Spinner from "../Spinner/Spinner";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import { ICharacter } from "../../types/interfaces/ICharacter";
 
 const CharacterInfo = () => {
   const dispatch = useDispatch();
@@ -27,12 +26,17 @@ const CharacterInfo = () => {
     dispatch(setLoadingDetails(isFetching));
   }, [dispatch, isFetching]);
 
+  const wrapperClass = characterId
+    ? "character-wrapper__active"
+    : "character-wrapper__unactive";
 
-  const wrapperClass = characterId ? 'character-wrapper__active' : 'character-wrapper__unactive';
-
-  const errorMessage = isError ? <ErrorMessage errorMsg={'we have error'} /> : null;
+  const errorMessage = isError ? (
+    <ErrorMessage errorMsg={"we have error"} />
+  ) : null;
   const spinner = isLoading ? <Spinner /> : null;
-  const content = !(isLoading || isError || !character) ? <View character={character} /> : null;
+  const content = !(isLoading || isError || !character) ? (
+    <View character={character} />
+  ) : null;
 
   return (
     <div className={wrapperClass}>
@@ -40,7 +44,7 @@ const CharacterInfo = () => {
         className="character-title__button"
         data-testid="close-info"
         onClick={() => {
-          router.push('/MainPage');
+          router.push("/MainPage");
         }}
       >
         X
@@ -57,7 +61,8 @@ interface ICharacterProps {
 }
 
 const View = (props: ICharacterProps) => {
-  const { name, status, gender, location, image, species, created } = props.character;
+  const { name, status, gender, location, image, species, created } =
+    props.character;
   return (
     <>
       <div className="character-title">
@@ -82,7 +87,8 @@ const View = (props: ICharacterProps) => {
             <span className="detail-title">Species</span> - {species}
           </div>
           <div>
-            <span className="detail-title">Created</span> - {created?.substring(0, 10)}
+            <span className="detail-title">Created</span> -{" "}
+            {created?.substring(0, 10)}
           </div>
         </div>
       </div>

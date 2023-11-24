@@ -1,9 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = { isviewMode: false };
 
 const viewModeSlice = createSlice({
-  name: 'viewMode',
+  name: "viewMode",
   initialState,
   reducers: {
     setViewMode: (state) => {

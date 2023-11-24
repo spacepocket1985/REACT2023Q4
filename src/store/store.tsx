@@ -1,9 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { apiSlice } from './slices/apiSlice';
-import searchValueReducer from './slices/searchFormSlice';
-import charactersOnPageReducer from './slices/charactersOnPageSlice';
-import loadingMainReducer from './slices/loadingMainSlice';
-import loadingDetailsReducer from './slices/loadingDetailsSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import { apiSlice } from "./slices/apiSlice";
+import searchValueReducer from "./slices/searchFormSlice";
+import charactersOnPageReducer from "./slices/charactersOnPageSlice";
+import loadingMainReducer from "./slices/loadingMainSlice";
+import loadingDetailsReducer from "./slices/loadingDetailsSlice";
 
 const store = configureStore({
   reducer: {
@@ -13,8 +13,9 @@ const store = configureStore({
     loadingMain: loadingMainReducer,
     loadingDetails: loadingDetailsReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
-  devTools: process.env.NODE_ENV !== 'production',
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(apiSlice.middleware),
+  devTools: process.env.NODE_ENV !== "production",
 });
 
 export default store;

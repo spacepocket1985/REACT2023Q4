@@ -1,6 +1,6 @@
-import { Component, ReactNode } from 'react';
-import ErrorMessage from '../ErrorMessage/ErrorMessage';
-import './ErrorBoundary.css';
+import { Component, ReactNode } from "react";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import "./ErrorBoundary.css";
 
 interface Props {
   children?: ReactNode;
@@ -14,7 +14,7 @@ interface State {
 class ErrorBoundary extends Component<Props, State> {
   state: State = {
     hasError: false,
-    error: '',
+    error: "",
   };
 
   componentDidCatch(error: Error) {

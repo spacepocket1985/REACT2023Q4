@@ -1,12 +1,12 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { IRickAndMortyData } from '../../types/interfaces/IRickAndMortyData';
-import { ICharacter } from '../../types/interfaces/ICharacter';
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { IRickAndMortyData } from "../../types/interfaces/IRickAndMortyData";
+import { ICharacter } from "../../types/interfaces/ICharacter";
 
-const _apiBase = 'https://rickandmortyapi.com/api';
-const _queryForCharacters = '/character';
+const _apiBase = "https://rickandmortyapi.com/api";
+const _queryForCharacters = "/character";
 
 export const apiSlice = createApi({
-  reducerPath: 'api',
+  reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: _apiBase }),
 
   endpoints: (builder) => ({
