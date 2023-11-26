@@ -37,7 +37,7 @@ const SearchForm = () => {
 
   return (
     <>
-      <Image src="/rick-and-morty.png" alt="ricAndMortyImg" width={250} height={198} />
+      <Image src="/rick-and-morty.png" alt="ricAndMortyImg" width={250} height={198} priority={true}/>
       <div className="search-form__wrapper">
         <h2>Rick and Morty API</h2>
         <form className="search-form">
