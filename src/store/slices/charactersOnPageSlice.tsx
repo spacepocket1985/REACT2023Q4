@@ -1,9 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = { charactersOnPage: 20 };
 
 const charactersOnPageSlice = createSlice({
-  name: "charactersOnPage",
+  name: 'charactersOnPage',
   initialState,
   reducers: {
     setCharactersOnPage: (state, action) => {

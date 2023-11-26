@@ -1,13 +1,13 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-import { ICharacterCardProps } from "../../types/interfaces/ICharacterCardProps";
+import { ICharacterCardProps } from '../../types/interfaces/ICharacterCardProps';
 
 const CharacterCard = (props: ICharacterCardProps) => {
   const { name, image, page, id } = props;
   return (
     <Link
       href={{
-        pathname: "/MainPage/",
+        pathname: '/MainPage/',
         query: { pageNum: page, characterId: id },
       }}
     >

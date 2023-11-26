@@ -10,12 +10,10 @@
     "format:fix": "prettier --write .",
     "prepare": "husky install"
   },
-
   "lint-staged": {
     "*.{jsx,ts,tsx}": "npx eslint",
     "*.{jsx,ts,tsx,html,css}": "npx prettier --fix"
   },
-
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",
     "husky": "^8.0.3",

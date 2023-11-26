@@ -1,11 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 // import { getUserQuery } from '../../utils/localStorageActions';
 
 // const query = getUserQuery();
-const initialState = { searchValue: "" };
+const initialState = { searchValue: '' };
 
 const searchValueSlice = createSlice({
-  name: "searchValue",
+  name: 'searchValue',
   initialState,
   reducers: {
     setSearchValue: (state, action) => {

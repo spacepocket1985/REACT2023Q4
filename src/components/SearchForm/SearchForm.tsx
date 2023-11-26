@@ -1,11 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 // import { getUserQuery, setUserQuery } from '../../utils/localStorageActions';
-import { RootState } from "../../store/store";
-import { setSearchValue } from "../../store/slices/searchFormSlice";
-import Image from "next/image";
+import { RootState } from '../../store/store';
+import { setSearchValue } from '../../store/slices/searchFormSlice';
+import Image from 'next/image';
 
 const SearchForm = () => {
   const dispatch = useDispatch();
@@ -32,17 +32,12 @@ const SearchForm = () => {
   const onSubmit = (event: React.MouseEvent): void => {
     event.preventDefault();
     // setUserQuery(search);
-    router.push({ pathname: "/MainPage/", query: { queryParam: search } });
+    router.push({ pathname: '/MainPage/', query: { queryParam: search } });
   };
 
   return (
     <>
-      <Image
-        src="/rick-and-morty.png"
-        alt="ricAndMortyImg"
-        width={250}
-        height={198}
-      />
+      <Image src="/rick-and-morty.png" alt="ricAndMortyImg" width={250} height={198} />
       <div className="search-form__wrapper">
         <h2>Rick and Morty API</h2>
         <form className="search-form">

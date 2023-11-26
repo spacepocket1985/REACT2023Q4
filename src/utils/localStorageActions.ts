@@ -1,4 +1,4 @@
-const storageKey = "userQueryForSearch";
+const storageKey = 'userQueryForSearch';
 
 const setUserQuery = (value: string): void => {
   localStorage.setItem(storageKey, value);

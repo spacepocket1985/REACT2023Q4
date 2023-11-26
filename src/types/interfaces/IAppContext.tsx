@@ -1,4 +1,4 @@
-import { IAppState } from "./IAppState";
+import { IAppState } from './IAppState';
 
 export interface IAppContext {
   appData: IAppState;

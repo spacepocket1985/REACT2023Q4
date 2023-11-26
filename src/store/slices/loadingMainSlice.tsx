@@ -1,9 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = { loadingMain: false };
 
 const loadingMainSlice = createSlice({
-  name: "loadingMain",
+  name: 'loadingMain',
   initialState,
   reducers: {
     setLoadingMain: (state, action) => {

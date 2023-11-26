@@ -1,4 +1,4 @@
-import { ICharacter } from "./ICharacter";
+import { ICharacter } from './ICharacter';
 
 export interface IAppState {
   charactersList?: ICharacter[];
