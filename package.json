@@ -25,6 +25,7 @@
     "*.{jsx,ts,tsx,html,css}": "npx prettier --fix"
   },
   "devDependencies": {
+    "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",
