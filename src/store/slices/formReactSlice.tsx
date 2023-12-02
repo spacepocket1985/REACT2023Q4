@@ -1,18 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
+import IFormData from '../../types/interfaces/IData';
 
-import IForm from '../../types/interfaces/IFrorm';
-const initialState = { charactersOnPage: 20 };
+const initialState: IFormData = {
+  name: '',
+  age: 0,
+  gender: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+  acceptTerms: false,
+  country: '',
+  picture: '',
+};
 
-const charactersOnPageSlice = createSlice({
-  name: 'charactersOnPage',
+const formReactSlice = createSlice({
+  name: 'formReact',
   initialState,
   reducers: {
-    setCharactersOnPage: (state, action) => {
-      state.charactersOnPage = action.payload;
-    },
+    setFormReactData: (state, action) => (state = action.payload),
   },
 });
 
-export const { setCharactersOnPage } = charactersOnPageSlice.actions;
+export const { setFormReactData } = formReactSlice.actions;
 
-export default charactersOnPageSlice.reducer;
+export default formReactSlice.reducer;

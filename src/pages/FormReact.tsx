@@ -1,39 +1,53 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
+
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from 'yup';
+import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 
 import IForm from '../types/interfaces/IFrorm';
+import validationSchema from '../utils/validationSchema';
+import { RootState } from '../store/store';
+import { setData, addData, setPicture } from '../store/slices/appData';
+// import { ChangeEvent } from 'react';
 
 const FormReact = () => {
-  const validationSchema = Yup.object({
-    name: Yup.string()
-      .required('Name is required')
-      .min(2, 'Name must be at least 6 characters')
-      .matches(/^[A-ZА-ЯЁ]/, 'The first letter of the name must be capital'),
-    age: Yup.number()
-      .required('Age is required')
-      .typeError('Should be number')
-      .min(0, 'No negative values'),
-    email: Yup.string().required('Email is required').email('Email is invalid'),
-    gender: Yup.string().required('Choose gender'),
-    password: Yup.string()
-      .required('Password is required')
-      .matches(/[A-ZА-ЯЁ]/, 'Password strength: must have at least one uppercase letter')
-      .matches(/[a-zа-яё]/, 'Password strength: must have at least one lowercase letter')
-      .matches(/[0-9]/, 'Password strength: must have at least one digit')
-      .matches(
-        /[^A-ZА-Яa-zа-я0-9Ёё\s]/,
-        'Password must contain at least one special character (e.g., !@#$%^&*)'
-      ),
-    confirmPassword: Yup.string()
-      .required('Confirm Password is required')
-      .oneOf([Yup.ref('password')], 'Confirm Password does not match'),
-    acceptTerms: Yup.boolean()
-      .required('Accept T&C is required')
-      .oneOf([true], 'Accept T&C is required'),
-    country: Yup.string().required('Country is required'),
-    picture: Yup.string().required('Picture is required'),
+  const navigate = useNavigate();
+
+  const countries = useSelector((state: RootState) => {
+    return state.countries.countries;
   });
+
+  // const uploadImage = async (e: ChangeEvent<HTMLInputElement>) => {
+  //   if (!e.target.files) return;
+  //   const file = e.target.files[0];
+  //   const base64 = await convertBase64(file);
+  //   console.log(base64)
+  // };
+
+  const convertBase64 = (file: File) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+        if (typeof fileReader.result === 'string') dispatch(setPicture(fileReader.result));
+        dispatch(addData());
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
+  const countriesList = countries.map((country, index) => (
+    <option key={index} value={country}>
+      {country}
+    </option>
+  ));
+
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -44,7 +58,12 @@ const FormReact = () => {
     mode: 'onChange',
   });
 
-  const onSubmit: SubmitHandler<IForm> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<IForm> = (data) => {
+    console.log(data);
+    dispatch(setData(data));
+    convertBase64(data.picture[0]);
+    navigate('/');
+  };
 
   return (
     <>
@@ -57,23 +76,28 @@ const FormReact = () => {
           className={`form-control ${errors.name ? 'is-invalid' : ''}`}
         />
         <div className="invalid-feedback">{errors.name?.message}</div>
-        <div className="twoСolumns">
-          <label>Gender</label>
-          <select
-            {...register('gender')}
-            className={`form-control ${errors.name ? 'is-invalid' : ''}`}
-          >
-            <option value="female">female</option>
-            <option value="male">male</option>
-            <option value="other">other</option>
-          </select>
-          <div className="invalid-feedback">{errors.gender?.message}</div>
-          <label>Age</label>
-          <input
-            {...register('age')}
-            className={`form-control ${errors.age ? 'is-invalid' : ''}`}
-          />
-          <div className="invalid-feedback">{errors.age?.message}</div>
+        <div className="two-columns">
+          <div className="column">
+            <label>Gender</label>
+            <select
+              {...register('gender')}
+              className={`form-control ${errors.gender ? 'is-invalid' : ''}`}
+            >
+              <option value=""></option>
+              <option value="female">female</option>
+              <option value="male">male</option>
+              <option value="other">other</option>
+            </select>
+            <div className="invalid-feedback">{errors.gender?.message}</div>
+          </div>
+          <div className="column">
+            <label>Age</label>
+            <input
+              {...register('age')}
+              className={`form-control ${errors.age ? 'is-invalid' : ''}`}
+            />
+            <div className="invalid-feedback">{errors.age?.message}</div>
+          </div>
         </div>
         <label>Email</label>
         <input
@@ -95,15 +119,36 @@ const FormReact = () => {
           className={`form-control ${errors.confirmPassword ? 'is-invalid' : ''}`}
         />
         <div className="invalid-feedback">{errors.confirmPassword?.message}</div>
-        <div className="twoСolumns">
+
+        <label>Country</label>
+        <select
+          {...register('country')}
+          className={`form-control ${errors.country ? 'is-invalid' : ''}`}
+        >
+          {' '}
+          {countriesList}
+        </select>
+        <div className="invalid-feedback">{errors.country?.message}</div>
+        <div className="img-wrapper">
+          <label>Picture</label>
+          <input
+            type="file"
+            {...register('picture')}
+            className={`form-control ${errors.picture ? 'is-invalid' : ''}`}
+          />
+          <div className="invalid-feedback">{errors.picture?.message}</div>
+        </div>
+
+        <div className="two-columns">
           <label className="form-check-label">I have read and agree to terms and conditions</label>
           <input
             type="checkbox"
             {...register('acceptTerms')}
             className={`form-check-input ${errors.acceptTerms ? 'is-invalid' : ''}`}
           />
-          <div className="invalid-feedback">{errors.acceptTerms?.message}</div>
         </div>
+        <div className="invalid-feedback">{errors.acceptTerms?.message}</div>
+
         <input type="submit" />
       </form>
     </>

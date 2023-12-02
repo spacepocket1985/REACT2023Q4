@@ -1,4 +1,4 @@
-interface IForm {
+interface IFormData {
   name: string;
   age: number;
   gender: string;
@@ -7,7 +7,7 @@ interface IForm {
   confirmPassword: string;
   acceptTerms: boolean;
   country: string;
-  picture: FileList;
+  picture: string | FileList;
 }
 
-export default IForm;
+export default IFormData;

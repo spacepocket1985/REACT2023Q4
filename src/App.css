@@ -14,35 +14,35 @@
 }
 
 .courseLink {
-  font-size: 25px;
+  font-size: 2.5rem;
   text-decoration: none;
 }
 
 a {
   color: #eada90e9;
-  font-size: 25px;
+  font-size: 2.5rem;
   text-decoration: none;
 }
 
 nav {
   background-color: #1c1c1d;
-  padding: 5px;
+  padding: 0.5rem;
 }
 
 nav a {
-  margin: 15px;
+  margin: 1.5rem;
 }
 
 h1 {
-  font-size: 90px;
-  margin-top: 20px;
+  font-size: 9rem;
+  margin-top: 2rem;
 }
 
 button {
-  padding: 15px;
-  font-size: 30px;
-  border-radius: 5px;
+  padding: 1.5rem;
+  font-size: 3rem;
+  border-radius: 0.5rem;
   border: 0;
-  margin: 20px;
+  margin: 2rem;
   cursor: pointer;
 }
