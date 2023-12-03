@@ -14,13 +14,12 @@ const FormSimple = () => {
 
   const [formErrors, setErrors] = useState<Record<string, string>>({});
 
-  const formRef = useRef<HTMLFormElement>(null);
-  const nameInputRef = useRef<HTMLInputElement>(null);
-  const ageInputRef = useRef<HTMLInputElement>(null);
-  const emailInputRef = useRef<HTMLInputElement>(null);
-  const passwordInputRef = useRef<HTMLInputElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const ageRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
-  const imageRef = useRef<HTMLInputElement>(null);
+  const pictureRef = useRef<HTMLInputElement>(null);
   const tcRef = useRef<HTMLInputElement>(null);
   const genderRef = useRef<HTMLSelectElement>(null);
   const countriesRef = useRef<HTMLSelectElement>(null);
@@ -58,17 +57,17 @@ const FormSimple = () => {
     e.preventDefault();
 
     const formData = {
-      name: nameInputRef.current?.value,
-      age: ageInputRef.current?.value,
-      email: emailInputRef.current?.value,
-      password: passwordInputRef.current?.value,
+      name: nameRef.current?.value,
+      age: ageRef.current?.value,
+      email: emailRef.current?.value,
+      password: passwordRef.current?.value,
       confirmPassword: confirmPasswordRef.current?.value,
       gender: genderRef.current?.value,
       acceptTerms: tcRef.current?.checked,
-      picture: imageRef.current?.files,
+      picture: pictureRef.current?.files,
       country: countriesRef.current?.value,
     };
-
+    
     try {
       validationSchema.validateSync(formData), { abortEarly: false };
       if (
@@ -96,9 +95,9 @@ const FormSimple = () => {
   return (
     <>
       <h1>Simple-Form</h1>
-      <form onSubmit={handleSubmit} ref={formRef}>
+      <form onSubmit={handleSubmit}>
         <label>Name</label>
-        <input type="text" name="name" ref={nameInputRef} />
+        <input type="text" name="name" ref={nameRef} />
         <div className="invalid-feedback">{formErrors.name}</div>
         <div className="two-columns">
           <div className="column">
@@ -113,15 +112,15 @@ const FormSimple = () => {
           <div className="invalid-feedback">{formErrors.gender}</div>
           <div className="column">
             <label>Age</label>
-            <input name="age" ref={ageInputRef} />
+            <input name="age" ref={ageRef} />
           </div>
         </div>
         <div className="invalid-feedback">{formErrors.age}</div>
         <label>Email</label>
-        <input name="email" ref={emailInputRef} />
+        <input name="email" ref={emailRef} />
         <div className="invalid-feedback">{formErrors.email}</div>
         <label>Password</label>
-        <input type="password" name="password" ref={passwordInputRef} />
+        <input type="password" name="password" ref={passwordRef} />
         <div className="invalid-feedback">{formErrors.password}</div>
         <label>Confirm Password</label>
         <input type="password" name="confirmPassword" ref={confirmPasswordRef} />
@@ -134,7 +133,7 @@ const FormSimple = () => {
         <div className="invalid-feedback">{formErrors.country}</div>
         <div className="img-wrapper">
           <label>Picture</label>
-          <input type="file" name="picture" ref={imageRef} />
+          <input type="file" name="picture" ref={pictureRef} />
         </div>
         <div className="invalid-feedback">{formErrors.picture}</div>
 
