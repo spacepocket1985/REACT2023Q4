@@ -22,7 +22,7 @@ const datatSlice = createSlice({
   initialState,
   reducers: {
     addData(state) {
-      state.dataFromForms.push(state.dataFromLastSubmit);
+      state.dataFromForms.unshift(state.dataFromLastSubmit);
     },
     setData: (state, action) => void (state.dataFromLastSubmit = action.payload),
     setPicture: (state, action) => void (state.dataFromLastSubmit.picture = action.payload),

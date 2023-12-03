@@ -14,7 +14,7 @@ const Home = () => {
       return (
         <div className="wrapper-data" key={index}>
           <img src={String(picture)} alt="picture" />
-          <h2 className="form-title">{`Form № -  ${index + 1}`}</h2>
+          <h2 className="form-title">{'Form data'}</h2>
           <div className="form-pic"></div>
           <div className="data-line">
             <div className="line-title">Name</div>
@@ -50,7 +50,11 @@ const Home = () => {
   return (
     <>
       <div className="wrapper-home">
-        {dataFromForms.length > 0 ? renderData(dataFromForms) : <h1>no data</h1>}
+        {dataFromForms.length > 0 ? (
+          renderData(dataFromForms)
+        ) : (
+          <h2>There are no completed forms yet</h2>
+        )}
       </div>
     </>
   );

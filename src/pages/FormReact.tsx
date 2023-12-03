@@ -8,7 +8,6 @@ import IForm from '../types/interfaces/IFrorm';
 import validationSchema from '../utils/validationSchema';
 import { RootState } from '../store/store';
 import { setData, addData, setPicture } from '../store/slices/appData';
-// import { ChangeEvent } from 'react';
 
 const FormReact = () => {
   const navigate = useNavigate();
@@ -16,13 +15,6 @@ const FormReact = () => {
   const countries = useSelector((state: RootState) => {
     return state.countries.countries;
   });
-
-  // const uploadImage = async (e: ChangeEvent<HTMLInputElement>) => {
-  //   if (!e.target.files) return;
-  //   const file = e.target.files[0];
-  //   const base64 = await convertBase64(file);
-  //   console.log(base64)
-  // };
 
   const convertBase64 = (file: File) => {
     return new Promise((resolve, reject) => {
@@ -52,7 +44,7 @@ const FormReact = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<IForm>({
     resolver: yupResolver(validationSchema),
     mode: 'onChange',
@@ -149,7 +141,7 @@ const FormReact = () => {
         </div>
         <div className="invalid-feedback">{errors.acceptTerms?.message}</div>
 
-        <input type="submit" />
+        <input type="submit" disabled={!isValid} />
       </form>
     </>
   );

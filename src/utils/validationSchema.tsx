@@ -27,7 +27,13 @@ const validationSchema = Yup.object({
   country: Yup.string().required('Country is required'),
   picture: Yup.mixed<FileList>()
     .required('You need to provide a file')
-    .test('fileSize', 'The file is too large', (files) => {
+    .test('fileSize', 'You need to provide a file', (files) => {
+      if (files?.length > 1) {
+        return false;
+      }
+      return files.length === 1;
+    })
+    .test('fileSize', 'The file is too large (picture size < 1Mb)', (files) => {
       if (files?.length !== 1) {
         return false;
       }
@@ -37,7 +43,7 @@ const validationSchema = Yup.object({
       if (files?.length !== 1) {
         return false;
       }
-      return files && (files[0].type === 'image/jpg' || files[0].type === 'image/png');
+      return files && (files[0].type === 'image/jpeg' || files[0].type === 'image/png');
     }),
 });
 
