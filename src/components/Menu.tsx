@@ -10,11 +10,11 @@ const Menu = () => {
       >
         Home
       </NavLink>
-      <NavLink className={({ isActive }) => (isActive ? 'activeLink' : 'link')} to="form-react">
-        Form-React
-      </NavLink>
       <NavLink className={({ isActive }) => (isActive ? 'activeLink' : 'link')} to="form-simple">
         Form-Simple
+      </NavLink>
+      <NavLink className={({ isActive }) => (isActive ? 'activeLink' : 'link')} to="form-react">
+        Form-React
       </NavLink>
     </nav>
   );

@@ -7,7 +7,7 @@ const validationSchema = Yup.object({
     .matches(/^[A-ZА-ЯЁ]/, 'The first letter of the name must be capital'),
   age: Yup.number()
     .required('Age is required')
-    .typeError('Should be number')
+    .typeError('Age should be number')
     .min(0, 'No negative values'),
   email: Yup.string().required('Email is required').email('Email is invalid'),
   gender: Yup.string().required('Choose gender'),

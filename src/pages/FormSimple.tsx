@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ValidationError } from 'yup';
 
 import { useState, useRef, FormEvent } from 'react';
-import {} from 'react';
 import validationSchema from '../utils/validationSchema';
 import { RootState } from '../store/store';
 import { setData, addData, setPicture } from '../store/slices/appData';
@@ -53,7 +52,7 @@ const FormSimple = () => {
 
   const dispatch = useDispatch();
 
-  const handleSubmit = (e: FormEvent) => {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
     const formData = {
@@ -67,31 +66,33 @@ const FormSimple = () => {
       picture: pictureRef.current?.files,
       country: countriesRef.current?.value,
     };
-    
-    try {
-      validationSchema.validateSync(formData), { abortEarly: false };
-      if (
-        formData.name &&
-        formData.age &&
-        formData.email &&
-        formData.password &&
-        formData.confirmPassword &&
-        formData.gender &&
-        formData.acceptTerms &&
-        formData.picture &&
-        formData.country
-      ) {
-        dispatch(setData(formData));
-        convertBase64(formData.picture[0]);
-        navigate('/');
-      }
-    } catch (err) {
-      if (err instanceof ValidationError) {
-        setErrors({ [String(err.path)]: err.message });
-      }
-    }
-  };
 
+    const isFormValid = await validationSchema.isValid(formData);
+
+    if (isFormValid) {
+      dispatch(setData(formData));
+
+      if (formData.picture instanceof FileList) {
+        convertBase64(formData.picture[0]);
+      }
+      navigate('/');
+    }
+
+    if (!isFormValid) {
+      await validationSchema.validate(formData, { abortEarly: false }).catch((err) => {
+        if (err instanceof ValidationError) {
+          const errors: Record<string, string> = {};
+          err.inner.forEach((item) => {
+            if (item.path) {
+              errors[item.path] = item.message;
+              console.log(errors);
+              setErrors(errors);
+            }
+          });
+        }
+      });
+    }
+  }
   return (
     <>
       <h1>Simple-Form</h1>
