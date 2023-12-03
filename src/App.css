@@ -1,0 +1,48 @@
+.App {
+  text-align: center;
+}
+
+/* Used by default with NavLink */
+.active {
+  color: lightyellow;
+  text-decoration: none;
+}
+
+.activeLink {
+  color: #e1ba0be9;
+  text-decoration: none;
+}
+
+.courseLink {
+  font-size: 2.5rem;
+  text-decoration: none;
+}
+
+a {
+  color: #eada90e9;
+  font-size: 2.5rem;
+  text-decoration: none;
+}
+
+nav {
+  background-color: #1c1c1d;
+  padding: 0.5rem;
+}
+
+nav a {
+  margin: 1.5rem;
+}
+
+h1 {
+  font-size: 9rem;
+  margin-top: 2rem;
+}
+
+button {
+  padding: 1.5rem;
+  font-size: 3rem;
+  border-radius: 0.5rem;
+  border: 0;
+  margin: 2rem;
+  cursor: pointer;
+}
